@@ -24,16 +24,16 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `content` text,
-  `rid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `replyId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
   `comment_time` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`cid`),
-  KEY `rid` (`rid`),
-  KEY `uid` (`uid`),
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `reply` (`rid`) ON DELETE CASCADE,
-  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
+  PRIMARY KEY (`commentId`),
+  KEY `replyId` (`replyId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`replyId`) REFERENCES `reply` (`replyId`) ON DELETE CASCADE,
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -45,9 +45,9 @@ CREATE TABLE `comment` (
 -- ----------------------------
 DROP TABLE IF EXISTS `image`;
 CREATE TABLE `image` (
-  `iid` int(11) NOT NULL AUTO_INCREMENT,
+  `infoId` int(11) NOT NULL AUTO_INCREMENT,
   `image_url` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`iid`)
+  PRIMARY KEY (`infoId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1314 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -613,12 +613,12 @@ INSERT INTO `image` VALUES ('1313', 'http://static.yidianzixun.com/beauty/imgs/i
 -- ----------------------------
 DROP TABLE IF EXISTS `info`;
 CREATE TABLE `info` (
-  `iid` int(11) NOT NULL AUTO_INCREMENT,
+  `infoId` int(11) NOT NULL AUTO_INCREMENT,
   `request_url` varchar(300) DEFAULT NULL,
   `context_path` varchar(30) DEFAULT NULL,
   `remote_addr` varchar(30) DEFAULT NULL,
   `access_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`iid`)
+  PRIMARY KEY (`infoId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -639,15 +639,15 @@ INSERT INTO `info` VALUES ('9', 'http://localhost:8080/df/toIndex.do', '/df', '0
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
-  `mid` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `other_id` int(11) NOT NULL,
+  `messageId` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `otherId` int(11) NOT NULL,
   `other_username` varchar(20) NOT NULL,
-  `post_id` int(11) NOT NULL,
+  `postId` int(11) NOT NULL,
   `operation` varchar(20) NOT NULL,
   `displayed_content` varchar(100) NOT NULL,
   `msg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`mid`),
+  PRIMARY KEY (`messageId`),
   KEY `uid` (`uid`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -661,7 +661,7 @@ CREATE TABLE `message` (
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
-  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `postId` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(30) NOT NULL,
   `content` text,
   `publish_time` varchar(30) NOT NULL,
@@ -670,12 +670,12 @@ CREATE TABLE `post` (
   `like_count` int(11) DEFAULT '0',
   `scan_count` int(11) DEFAULT '0',
   `uid` int(11) NOT NULL,
-  `tid` int(11) NOT NULL,
-  PRIMARY KEY (`pid`),
+  `topicId` int(11) NOT NULL,
+  PRIMARY KEY (`postId`),
   KEY `uid` (`uid`),
-  KEY `tid` (`tid`),
+  KEY `topicId` (`topicId`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`),
-  CONSTRAINT `post_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `topic` (`tid`)
+  CONSTRAINT `post_ibfk_2` FOREIGN KEY (`topicId`) REFERENCES `topic` (`topicId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -708,15 +708,15 @@ INSERT INTO `post` VALUES ('21', 'a天气', '<p><img src=\"http://od6v5lenq.bkt.
 -- ----------------------------
 DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
-  `rid` int(11) NOT NULL AUTO_INCREMENT,
+  `replyId` int(11) NOT NULL AUTO_INCREMENT,
   `content` text,
-  `pid` int(11) NOT NULL,
+  `postId` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `reply_time` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`rid`),
-  KEY `pid` (`pid`),
+  PRIMARY KEY (`replyId`),
+  KEY `postId` (`postId`),
   KEY `uid` (`uid`),
-  CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `post` (`pid`) ON DELETE CASCADE,
+  CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE,
   CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -729,11 +729,11 @@ CREATE TABLE `reply` (
 -- ----------------------------
 DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
-  `tid` int(11) NOT NULL AUTO_INCREMENT,
+  `topicId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `content` varchar(50) DEFAULT '',
   `image` varchar(100) DEFAULT '',
-  PRIMARY KEY (`tid`)
+  PRIMARY KEY (`topicId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

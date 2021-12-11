@@ -20,7 +20,6 @@ public class MessageService {
     @Autowired
     private MessageMapper messageMapper;
 
-    //获得消息列表
     public Map<String, List<Message>> listMessageByUid(Integer sessionUid) {
         List<Message> messageList = messageMapper.listMessageByUid(sessionUid);
         Map<String, List<Message>> map = new HashMap<>();

@@ -13,13 +13,12 @@
 <%@ include file="header.jsp" %>
 
 
-	<!-- 中间主体板块 -->
 	<div class="main w clearfix">
 		<c:forEach items="${imageList}" var="image">
 			<img src="${image}">
 		</c:forEach>
 
-	</div><!-- 主体结束 -->
+	</div>
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>

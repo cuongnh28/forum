@@ -2,10 +2,6 @@ package com.fc.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -29,8 +25,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
             }
         }
 
-        Integer uid =  (Integer)request.getSession().getAttribute("uid");
-        if(uid == null){
+        Integer userId =  (Integer)request.getSession().getAttribute("userId");
+        if(userId == null){
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
             return false;
         }else{

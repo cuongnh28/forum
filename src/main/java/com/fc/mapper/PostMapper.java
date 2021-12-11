@@ -1,7 +1,6 @@
 package com.fc.mapper;
 
 import com.fc.model.Post;
-import com.fc.model.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,24 +9,28 @@ import java.util.List;
 public interface PostMapper {
 
 
-    List<Post> listPostByUid(int uid);
+    List<Post> listPostByUserId(int userId);
 
     int insertPost(Post post);
 
-    List<Post> listPostByTime(@Param("offset") int offset, @Param("limit") int limit);
+    List<Post> listPostByNewestTime(@Param("offset") int offset, @Param("limit") int limit);
+
+    List<Post> listPostByLatestTime(@Param("offset") int offset, @Param("limit") int limit);
+
+    List<Post> listPostByHottest(@Param("offset") int offset, @Param("limit") int limit);
 
     int selectPostCount();
 
-    Post getPostByPid(int pid);
+    Post getPostByPostId(int postId);
 
-    void updateReplyCount(int pid);
+    void updateReplyCount(int postId);
 
-    void updateScanCount(int pid);
+    void updateScanCount(int postId);
 
-    void updateReplyTime(int pid);
+    void updateReplyTime(int postId);
 
-    int getUidByPid(int pid);
+    int getUserIdByPostId(int postId);
 
-    String getTitleByPid(int pid);
+    String getTitleByPostId(int postId);
 
 }

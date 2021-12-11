@@ -6,30 +6,30 @@
 
 <div class="header clearfix">
     <div class="w">
-        <h1 class="logo"><a href="toIndex.do">DF</a></h1>
+        <h1 class="logo"><a href="toIndex.do">Home</a></h1>
         <ul class="left-nav">
-            <li class="current-nav"><a href="toIndex.do">首页</a></li>
-            <li><a href="listTopic.do">话题</a></li>
-            <li><a href="listImage.do">文章</a></li>
-            <li><a href="toMessage.do">消息</a></li>
+            <li class="current-nav"><a href="toIndex.do">Home</a></li>
+            <li><a href="listTopic.do">Topics</a></li>
+            <li><a href="listImage.do">Images</a></li>
+            <li><a href="toMessage.do">Infomations</a></li>
         </ul>
 
         <ul class="right-nav">
             <c:choose>
-                <c:when test="${sessionScope.uid != null}">
+                <c:when test="${sessionScope.userId != null}">
                     <li class="login2 relative">
                         <a href="toMyProfile.do" id="profile"><img src="${sessionScope.headUrl}"></a>
                         <ul id="down-menu">
-                            <li><a href="toMyProfile.do">个人主页</a></li>
-                            <li><a href="logout.do">退出登录</a></li>
+                            <li><a href="toMyProfile.do">My Profile</a></li>
+                            <li><a href="logout.do">Log out</a></li>
                         </ul>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li class="login">
-                        <a href="toLogin.do">登录</a>
-                        <a href="toLogin.do">/</a>
-                        <a href="toLogin.do#register">注册</a>
+                        <a href="toLogin.do">Login</a>
+<%--                        <a href="toLogin.do">/</a>--%>
+                        <a href="toLogin.do#register">Register</a>
                     </li>
                 </c:otherwise>
             </c:choose>

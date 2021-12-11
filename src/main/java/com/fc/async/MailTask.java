@@ -26,7 +26,6 @@ public class MailTask implements Runnable {
         javaMailSender.send(new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
-                System.out.println("开始发邮件...");
                 MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");
                 mimeMessageHelper.setFrom(MyConstant.MAIL_FROM);
                 mimeMessageHelper.setTo(email);

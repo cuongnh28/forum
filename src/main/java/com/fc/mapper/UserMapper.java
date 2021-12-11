@@ -3,7 +3,6 @@ package com.fc.mapper;
 import com.fc.model.Info;
 import com.fc.model.User;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,16 +15,15 @@ public interface UserMapper {
 
     int selectActived(User user);
 
-    User selectUserByUid(int uid);
+    User selectUserByUserId(int userId);
 
-    //这里有点特殊
-    Integer selectUidByEmailAndPassword(User user);
+    Integer selectUserIdByEmailAndPassword(User user);
 
-    User selectEditInfo(int uid);
+    User selectEditInfo(int userId);
 
     void updateUser(User user);
 
-    void updatePostCount(Integer uid);
+    void updatePostCount(Integer userId);
 
     void updateActived(String activateCode);
 
@@ -35,17 +33,17 @@ public interface UserMapper {
 
     List<User> listUserByHot();
 
-    void updateHeadUrl(@Param("uid") int uid, @Param("headUrl") String headUrl);
+    void updateHeadUrl(@Param("userId") int userId, @Param("headUrl") String headUrl);
 
-    String selectHeadUrl(int uid);
+    String selectHeadUrl(int userId);
 
-    void updateScanCount(int uid);
+    void updateScanCount(int userId);
 
-    User selectUsernameByUid(int uid);
+    User selectUsernameByUserId(int userId);
 
-    String selectPasswordByUid(int uid);
+    String selectPasswordByUserId(int userId);
 
-    void updatePassword(@Param("newPassword") String newPassword,@Param("uid") int uid);
+    void updatePassword(@Param("newPassword") String newPassword,@Param("userId") int userId);
 
     String selectVerifyCode(String email);
 

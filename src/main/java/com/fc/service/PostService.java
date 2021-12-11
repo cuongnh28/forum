@@ -40,34 +40,27 @@ public class PostService {
     @Autowired
     private TaskExecutor taskExecutor;
 
-    //根据uid，获得帖子列表
-    public List<Post> getPostList(int uid) {
-        return postMapper.listPostByUid(uid);
+    public List<Post> getPostList(int userId) {
+        return postMapper.listPostByUserId(userId);
     }
 
     public int publishPost(Post post) {
 
-        //构造帖子
         post.setPublishTime(MyUtil.formatDate(new Date()));
         post.setReplyTime(MyUtil.formatDate(new Date()));
         post.setReplyCount(0);
         post.setLikeCount(0);
         post.setScanCount(0);
-        //插入一条帖子记录
         postMapper.insertPost(post);
-        System.out.println(post.getPid());
-        //更新用户发帖量
-        userMapper.updatePostCount(post.getUser().getUid());
+        System.out.println(post.getPostId());
+        userMapper.updatePostCount(post.getUser().getUserId());
 
-        return post.getPid();
+        return post.getPostId();
     }
 
-    //按时间列出帖子
-    public PageBean<Post> listPostByTime(int curPage) {
-        //每页记录数，从哪开始
+    public PageBean<Post> listPostByNewestTime(int curPage) {
         int limit = 8;
-        int offset = (curPage-1) * limit;
-        //获得总记录数，总页数
+        int offset = (curPage - 1) * limit;
         int allCount = postMapper.selectPostCount();
         int allPage = 0;
         if (allCount <= limit) {
@@ -77,62 +70,134 @@ public class PostService {
         } else {
             allPage = allCount / limit + 1;
         }
-        //分页得到数据列表
-        List<Post> postList = postMapper.listPostByTime(offset,limit);
+        List<Post> postList = postMapper.listPostByNewestTime(offset, limit);
         Jedis jedis = jedisPool.getResource();
-        for(Post post : postList){
-            post.setLikeCount((int)(long)jedis.scard(post.getPid()+":like"));
+        for (Post post : postList) {
+            post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
         }
 
-        //构造PageBean
-        PageBean<Post> pageBean = new PageBean<>(allPage,curPage);
+        PageBean<Post> pageBean = new PageBean<>(allPage, curPage);
         pageBean.setList(postList);
 
-        if(jedis!=null){
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
         return pageBean;
     }
 
-    public Post getPostByPid(int pid) {
-        //更新浏览数
-        postMapper.updateScanCount(pid);
-        Post post =postMapper.getPostByPid(pid);
-        //设置点赞数
+    public PageBean<Post> listPostByLatestTime(int curPage) {
+        int limit = 8;
+        int offset = (curPage - 1) * limit;
+        int allCount = postMapper.selectPostCount();
+        int allPage = 0;
+        if (allCount <= limit) {
+            allPage = 1;
+        } else if (allCount / limit == 0) {
+            allPage = allCount / limit;
+        } else {
+            allPage = allCount / limit + 1;
+        }
+        List<Post> postList = postMapper.listPostByLatestTime(offset, limit);
         Jedis jedis = jedisPool.getResource();
-        long likeCount = jedis.scard(pid+":like");
-        post.setLikeCount((int)likeCount);
+        for (Post post : postList) {
+            post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+        }
 
-        if(jedis!=null){
+        PageBean<Post> pageBean = new PageBean<>(allPage, curPage);
+        pageBean.setList(postList);
+
+        if (jedis != null) {
+            jedisPool.returnResource(jedis);
+        }
+        return pageBean;
+    }
+
+    public PageBean<Post> listPostByHottest(int curPage) {
+        int limit = 8;
+        int offset = (curPage - 1) * limit;
+        int allCount = postMapper.selectPostCount();
+        int allPage = 0;
+        if (allCount <= limit) {
+            allPage = 1;
+        } else if (allCount / limit == 0) {
+            allPage = allCount / limit;
+        } else {
+            allPage = allCount / limit + 1;
+        }
+        List<Post> postList = postMapper.listPostByHottest(offset, limit);
+        Jedis jedis = jedisPool.getResource();
+        for (Post post : postList) {
+            post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+        }
+
+        PageBean<Post> pageBean = new PageBean<>(allPage, curPage);
+        pageBean.setList(postList);
+
+        if (jedis != null) {
+            jedisPool.returnResource(jedis);
+        }
+        return pageBean;
+    }
+
+    public PageBean<Post> listPostByTopic(int topicId) {
+        int limit = 8;
+        int offset = (topicId - 1) * limit;
+        int allCount = postMapper.selectPostCount();
+        int allPage = 0;
+        if (allCount <= limit) {
+            allPage = 1;
+        } else if (allCount / limit == 0) {
+            allPage = allCount / limit;
+        } else {
+            allPage = allCount / limit + 1;
+        }
+        List<Post> postList = postMapper.listPostByHottest(offset, limit);
+        Jedis jedis = jedisPool.getResource();
+        for (Post post : postList) {
+            post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+        }
+
+        PageBean<Post> pageBean = new PageBean<>(allPage, topicId);
+        pageBean.setList(postList);
+
+        if (jedis != null) {
+            jedisPool.returnResource(jedis);
+        }
+        return pageBean;
+    }
+
+    public Post getPostBypostId(int postId) {
+        postMapper.updateScanCount(postId);
+        Post post = postMapper.getPostByPostId(postId);
+        Jedis jedis = jedisPool.getResource();
+        long likeCount = jedis.scard(postId + ":like");
+        post.setLikeCount((int) likeCount);
+
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
         return post;
     }
 
-    //点赞
-    public String clickLike(int pid, int sessionUid) {
+    public String clickLike(int postId, int sessionUid) {
         Jedis jedis = jedisPool.getResource();
-        //pid被sessionUid点赞
-        jedis.sadd(pid+":like", String.valueOf(sessionUid));
-        //增加用户获赞数
-        jedis.hincrBy("vote",sessionUid+"",1);
+        jedis.sadd(postId + ":like", String.valueOf(sessionUid));
+        jedis.hincrBy("vote", sessionUid + "", 1);
 
-        //插入一条点赞消息
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,0,sessionUid, MyConstant.OPERATION_CLICK_LIKE));
-        String result = String.valueOf(jedis.scard(pid+":like"));
+        taskExecutor.execute(new MessageTask(messageMapper, userMapper, postMapper, replyMapper, postId, 0, sessionUid, MyConstant.OPERATION_CLICK_LIKE));
+        String result = String.valueOf(jedis.scard(postId + ":like"));
 
-        if(jedis!=null){
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
         return result;
     }
 
-    //某用户是否赞过某帖子
-    public boolean getLikeStatus(int pid, int sessionUid) {
+    public boolean getLikeStatus(int postId, int sessionUid) {
         Jedis jedis = jedisPool.getResource();
-        boolean result = jedis.sismember(pid+":like", String.valueOf(sessionUid));
+        boolean result = jedis.sismember(postId + ":like", String.valueOf(sessionUid));
 
-        if(jedis!=null){
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
         return result;

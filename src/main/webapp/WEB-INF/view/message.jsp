@@ -13,20 +13,19 @@
 <%@ include file="header.jsp" %>
 
 
-	<!-- 中间主体板块 -->
 	<div class="main w clearfix" style="margin-bottom: 360px">
-		<div class="message-header"><span></span>&nbsp;消息列表</div>
+		<div class="message-header"><span></span>&nbsp;Header</div>
         <c:forEach items="${map}" var="item">
             <div class="m-wrap">
                 <div class="m-date">${item.key}</div>
                 <ul class="m-list">
                     <c:forEach items="${item.value}" var="m">
-                        <li><a href="toProfile.do?uid=${m.otherId}"><span>${m.otherUsername}</span></a>${m.operation}<a href="toPost.do?pid=${m.postId}"><span>${m.displayedContent}</span></a></li>
+                        <li><a href="toProfile.do?userId=${m.otherId}"><span>${m.otherUsername}</span></a>${m.operation}<a href="toPost.do?postId=${m.postId}"><span>${m.displayedContent}</span></a></li>
                     </c:forEach>
                 </ul>
             </div>
         </c:forEach>
-	</div><!-- 主体结束 -->
+	</div>
 
 
 <%@ include file="footer.jsp" %>

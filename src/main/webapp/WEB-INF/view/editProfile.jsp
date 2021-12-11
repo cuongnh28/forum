@@ -13,62 +13,61 @@
 <%@ include file="header.jsp" %>
 
 
-	<!-- 中间主体板块 -->
 	<div class="main w clearfix">
-		<div class="edit-header"><span></span>&nbsp;编辑信息</div>
+		<div class="edit-header"><span></span>&nbsp;Update Profile</div>
 		<form action="editProfile.do" method="post">
 			<div class="edit-title">
-                <input type="hidden" name="uid" value="${user.uid}">
-				用户名：<input type="text" name="username" value="${user.username}">
+                <input type="hidden" name="userId" value="${user.userId}">
+				Username：<input type="text" name="username" value="${user.username}">
 			</div>
 			<div class="edit-title">
-				签&nbsp;&nbsp;&nbsp;名：<input type="text" name="description" value="${user.description}">
+				Description：<input type="text" name="description" value="${user.description}">
 			</div>
 			<div class="edit-title">
-				位&nbsp;&nbsp;&nbsp;置：<input type="text" name="position" value="${user.description}">
+				Position：<input type="text" name="position" value="${user.position}">
 			</div>
 			<div class="edit-title">
-				学&nbsp;&nbsp;&nbsp;校：<input type="text" name="school" value="${user.school}">
+				School：<input type="text" name="school" value="${user.school}">
 			</div>
 			<div class="edit-title">
-				工&nbsp;&nbsp;&nbsp;作：<input type="text" name="job" value="${user.job}">
+				Job：<input type="text" name="job" value="${user.job}">
 			</div>
 			<div class="relative">
-				<button class="edit-submit">确认编辑</button>
+				<button class="edit-submit">Submit</button>
 			</div>
 		</form>
 
         <div style="margin-top: 60px;"></div>
-		<div class="edit-header"><span></span>&nbsp;修改密码</div>
+		<div class="edit-header"><span></span>&nbsp;Change Password</div>
 		<form action="updatePassword.do" method="post">
 			<div class="edit-title">
                 <div class="text-danger">${passwordError}</div>
-				原密码：<input type="password" name="password">
+				Current Password：<input type="password" name="password">
 			</div>
 			<div class="edit-title">
-				新密码：<input type="password" name="newpassword">
+				New Password：<input type="password" name="newpassword">
 			</div>
 			<div class="edit-title">
-				确&nbsp;&nbsp;&nbsp;认：<input type="password" name="repassword">
+				Confirm New Password：<input type="password" name="repassword">
 			</div>
 			<div class="relative">
-				<button class="edit-submit">确认修改</button>
+				<button class="edit-submit">Submit</button>
 			</div>
 		</form>
 
         <div style="margin-top: 60px;"></div>
-        <div class="edit-header"><span></span>&nbsp;更换头像</div>
+        <div class="edit-header"><span></span>&nbsp;Change Avatar</div>
         <form action="updateHeadUrl.do" method="post" enctype="multipart/form-data">
             <div class="edit-title">
 				<span class="text-danger">${error3}</span>
                 <input type="file" name="myFileName">
             </div>
             <div class="relative">
-                <button class="edit-submit">确认更新</button>
+                <button class="edit-submit">Change</button>
             </div>
         </form>
 
-	</div><!-- 主体结束 -->
+	</div>
 
 
 <%@ include file="footer.jsp" %>
