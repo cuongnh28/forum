@@ -89,7 +89,7 @@
         select count(*) from post
     </select>
 
-    <select id="getPostBypostId" resultMap="post2Map">
+    <select id="getPostByPostId" resultMap="post2Map">
         select u.userId,u.username,u.head_url,p.postId,p.title,p.content,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
         join user u on p.userId = u.userId
         where p.postId=#{postId}

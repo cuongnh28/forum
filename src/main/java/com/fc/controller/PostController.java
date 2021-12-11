@@ -67,8 +67,8 @@ public class PostController {
     }
 
     @RequestMapping("/listPostByHottest.do")
-    public String listPostByHottest(int topicId, Model model){
-        PageBean<Post> pageBean = postService.listPostByHottest(topicId);
+    public String listPostByHottest(int curPage, Model model){
+        PageBean<Post> pageBean = postService.listPostByHottest(curPage);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         model.addAttribute("pageBean",pageBean);
@@ -91,7 +91,7 @@ public class PostController {
     @RequestMapping("/toPost.do")
     public String toPost(int postId,Model model,HttpSession session){
         Integer sessionUid = (Integer) session.getAttribute("userId");
-        Post post = postService.getPostBypostId(postId);
+        Post post = postService.getPostByPostId(postId);
         List<Reply> replyList = replyService.listReply(postId);
 
 

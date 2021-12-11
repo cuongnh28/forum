@@ -86,13 +86,13 @@
                             </c:choose>
                             <c:choose>
                                 <c:when test="${pageBean.curPage!=pageBean.allPage }">
-                                    <li><a href="listPostByTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                    <li><a href="listPostByNewestTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li><span>&raquo;</span></li>
                                 </c:otherwise>
                             </c:choose>
-                            <li><a href="listPostByTime.do?curPage=${pageBean.allPage}">All page</a></li>
+                            <li><a href="listPostByNewestTime.do?curPage=${pageBean.allPage}">All page</a></li>
                         </ul>
                     </nav>
 

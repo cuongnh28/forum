@@ -3,7 +3,7 @@
 <mapper namespace="com.fc.mapper.TopicMapper">
 
     <select id="listTopic" resultType="com.fc.model.Topic">
-        select tid,name,content,image from topic
+        select topicId,name,content,image from topic
     </select>
 
     <select id="listImage" resultType="string">

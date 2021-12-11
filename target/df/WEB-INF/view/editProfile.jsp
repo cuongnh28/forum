@@ -17,7 +17,7 @@
 		<div class="edit-header"><span></span>&nbsp;Update Profile</div>
 		<form action="editProfile.do" method="post">
 			<div class="edit-title">
-                <input type="hidden" name="uid" value="${user.uid}">
+                <input type="hidden" name="userId" value="${user.userId}">
 				Username：<input type="text" name="username" value="${user.username}">
 			</div>
 			<div class="edit-title">

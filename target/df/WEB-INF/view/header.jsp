@@ -16,7 +16,7 @@
 
         <ul class="right-nav">
             <c:choose>
-                <c:when test="${sessionScope.uid != null}">
+                <c:when test="${sessionScope.userId != null}">
                     <li class="login2 relative">
                         <a href="toMyProfile.do" id="profile"><img src="${sessionScope.headUrl}"></a>
                         <ul id="down-menu">

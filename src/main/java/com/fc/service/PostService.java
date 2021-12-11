@@ -166,7 +166,7 @@ public class PostService {
         return pageBean;
     }
 
-    public Post getPostBypostId(int postId) {
+    public Post getPostByPostId(int postId) {
         postMapper.updateScanCount(postId);
         Post post = postMapper.getPostByPostId(postId);
         Jedis jedis = jedisPool.getResource();

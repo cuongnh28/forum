@@ -34,7 +34,7 @@
 					<c:forEach items="${postList}" var="post">
                         <li>
                             <span class="glyphicon glyphicon-file"></span>&nbsp;
-                            <a href="toPost.do?pid=${post.pid}">${post.title}</a>
+                            <a href="toPost.do?postId=${post.postId}">${post.title}</a>
                             <span class="user-post-time"> ${post.publishTime}</span>
                         </li>
                     </c:forEach>
@@ -44,15 +44,15 @@
 
 		<div class="m-right">
 			<div class="user-follow">
-				<div class="user-follow">Follows: <span class="user-count">${user.followCount}</span> members</div>
-				<div class="user-follower">Followers: <span class="user-count">${user.followerCount}</span> members</div>
+				<div class="user-follow">Follows: <span class="user-count">${user.followCount}</span></div>
+				<div class="user-follower">Followers: <span class="user-count">${user.followerCount}</span></div>
 			</div>
 			<div class="user-attr">
-				<span class="user-like-count">Like counts：${user.likeCount}</span>&nbsp; <br/><br/>
+				<span class="user-like-count">Like counts：${user.likeCount}</span>&nbsp; <br/>
 				<span class="user-post-count">Post counts：${user.postCount}</span>
 
 			</div>
-			<div class="user-scan-count">Scan count${user.scanCount}</div>
+			<div class="user-scan-count">Scan count: ${user.scanCount}</div>
 		</div>
 
 	</div>

@@ -30,13 +30,13 @@
 						<c:forEach items="${pageBean.list}" var="post">
                             <li class="clearfix">
                                 <div class="post-image">
-                                    <a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a>
+                                    <a href="toProfile.do?userId=${post.user.userId}"><img src="${post.user.headUrl}"></a>
                                 </div>
                                 <div class="post-content">
-                                    <div class="post-title"><a href="toPost.do?pid=${post.pid}">${post.title}</a></div>
+                                    <div class="post-title"><a href="toPost.do?postId=${post.postId}">${post.title}</a></div>
                                     <div class="post-other">
                                         <div class="post-other-left">
-                                            <span class="post-username"><a href="toProfile.do?uid=${post.user.uid}">${post.user.username}</a></span>
+                                            <span class="post-username"><a href="toProfile.do?userId=${post.user.userId}">${post.user.username}</a></span>
                                             <span class="post-time">&nbsp;${post.publishTime}</span>
                                             <span class="post-reply-time">${post.replyTime}</span>
                                         </div>
@@ -86,13 +86,13 @@
                             </c:choose>
                             <c:choose>
                                 <c:when test="${pageBean.curPage!=pageBean.allPage }">
-                                    <li><a href="listPostByTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                    <li><a href="listPostByNewestTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li><span>&raquo;</span></li>
                                 </c:otherwise>
                             </c:choose>
-                            <li><a href="listPostByTime.do?curPage=${pageBean.allPage}">All page</a></li>
+                            <li><a href="listPostByNewestTime.do?curPage=${pageBean.allPage}">All page</a></li>
                         </ul>
                     </nav>
 
@@ -106,8 +106,8 @@
 				<ul class="hot-user-list">
 					<c:forEach items="${hotUserList}" var="user">
 						<li class="clearfix">
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl}"></a>
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+							<a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img src="${user.headUrl}"></a>
+							<a href="toProfile.do?userId=${user.userId}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
 				</ul>
@@ -118,8 +118,8 @@
 				<ul class="hot-user-list">
 					<c:forEach items="${userList}" var="user">
 						<li class="clearfix">
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl}"></a>
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+							<a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img src="${user.headUrl}"></a>
+							<a href="toProfile.do?userId=${user.userId}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
 				</ul>

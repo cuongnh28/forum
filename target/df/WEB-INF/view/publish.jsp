@@ -16,8 +16,8 @@
 
 	<div class="main w clearfix">
 		<form action="publishPost.do" method="post">
-            <input type="hidden" name="topic.tid" value="1" id="tid">
-            <input type="hidden" name="user.uid" value="${sessionScope.uid}">
+            <input type="hidden" name="topic.topicId" value="1" id="topicId">
+            <input type="hidden" name="user.userId" value="${sessionScope.userId}">
 
 			<div class="pub-header"><span></span>&nbsp;Text here (Not translate)</div>
 			<div class="pub-title">
@@ -27,7 +27,7 @@
 				<span>Topic：</span>
 				<div class="topic-list">
 					<c:forEach items="${topicList}" var="topic">
-                        <a class="topics" href="#" title="${topic.tid}">${topic.name}</a>
+                        <a class="topics" href="#" title="${topic.topicId}">${topic.name}</a>
                     </c:forEach>
 				</div>
 			</div>
@@ -75,13 +75,13 @@
         editor.create();
 
         var topics = $(".topics");
-        var tid = $("#tid");
+        var topicId = $("#topicId");
         topics.click(function(){
             for(var i=0;i<topics.length;i++){
                 $(topics[i]).css("background-color","#fff");
             }
             $(this).css("background-color","#1abc9c");
-            tid.val(this.title);
+            topicId.val(this.title);
         });
 
     });
