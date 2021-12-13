@@ -9,6 +9,12 @@
         <result column="head_url" property="headUrl"></result>
     </resultMap>
 
+    <resultMap type="com.fc.model.Topic" id="topicMap">
+        <id column="topicId" property="topicId"></id>
+        <result column="name" property="name"></result>
+        <result column="content" property="content"></result>
+    </resultMap>
+
     <resultMap type="com.fc.model.Post" id="postMap">
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
@@ -17,7 +23,8 @@
         <result column="reply_count" property="replyCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
-        <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
+        <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
     </resultMap>
 
     <resultMap type="com.fc.model.Post" id="postLatestMap">
@@ -28,7 +35,8 @@
         <result column="reply_count" property="replyCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
-        <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
+        <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
     </resultMap>
 
     <resultMap type="com.fc.model.Post" id="postHottestMap">
@@ -39,7 +47,21 @@
         <result column="reply_count" property="replyCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
-        <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
+        <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
+    </resultMap>
+
+    <resultMap type="com.fc.model.Post" id="postTopicMap">
+        <id column="postId" property="postId"/>
+        <result column="title" property="title"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="reply_count" property="replyCount"/>
+        <result column="like_count" property="likeCount"/>
+        <result column="scan_count" property="scanCount"/>
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
+        <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
+
     </resultMap>
 
     <resultMap type="com.fc.model.Post" id="post2Map">
@@ -51,12 +73,15 @@
         <result column="reply_count" property="replyCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
-        <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
+        <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
     </resultMap>
 
 
     <select id="listPostByUserId" resultType="com.fc.model.Post">
-        select userId,postId,title,publish_time from post where userId=#{userId}
+        select userId, topicId, postId, title, publish_time
+        from post
+        where userId = #{userId}
     </select>
 
     <insert id="insertPost">
@@ -68,52 +93,131 @@
     </insert>
 
     <select id="listPostByNewestTime" resultMap="postMap">
-        select u.userId,u.username,u.head_url,p.postId,p.title,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-        join user u on p.userId = u.userId
-        order by p.reply_time desc limit #{offset},#{limit}
+        select u.userId,
+               u.username,
+               u.head_url,
+               p.postId,
+               p.topicId,
+               p.title,
+               p.publish_time,
+               p.reply_time,
+               p.reply_count,
+               p.like_count,
+               p.scan_count
+        from post p
+                 join user u on p.userId = u.userId
+        order by p.reply_time desc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostByLatestTime" resultMap="postLatestMap">
-        select u.userId,u.username,u.head_url,p.postId,p.title,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-                                                                                                                                      join user u on p.userId = u.userId
-        order by p.reply_time asc limit #{offset},#{limit}
+        select u.userId,
+               u.username,
+               u.head_url,
+               p.postId,
+               p.topicId,
+               p.title,
+               p.publish_time,
+               p.reply_time,
+               p.reply_count,
+               p.like_count,
+               p.scan_count
+        from post p
+                 join user u on p.userId = u.userId
+        order by p.reply_time asc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostByHottest" resultMap="postHottestMap">
-        select u.userId,u.username,u.head_url,p.postId,p.title,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-                                                                                                                                      join user u on p.userId = u.userId
-        order by p.scan_count desc limit #{offset},#{limit}
+        select u.userId,
+               u.username,
+               u.head_url,
+               p.postId,
+               p.topicId,
+               p.title,
+               p.publish_time,
+               p.reply_time,
+               p.reply_count,
+               p.like_count,
+               p.scan_count
+        from post p
+                 join user u on p.userId = u.userId
+        order by p.scan_count desc limit #{offset}, #{limit}
+    </select>
+
+    <select id="listPostByTopic" resultMap="postTopicMap">
+        select u.userId,
+               u.username,
+               u.head_url,
+               p.postId,
+               p.topicId,
+               p.title,
+               p.publish_time,
+               p.reply_time,
+               p.reply_count,
+               p.like_count,
+               p.scan_count
+        from post p
+                 join user u on p.userId = u.userId
+        where p.topicId = #{topicId}
+        order by p.reply_time desc limit #{offset}, #{limit}
+    </select>
+
+    <select id="listPostByTopicId" resultType="com.fc.model.Post">
+        select userId, topicId, postId, title, publish_time
+        from post
+        where topicId = #{topicId} and postId != #{postId}
     </select>
 
     <select id="selectPostCount" resultType="int">
-        select count(*) from post
+        select count(*)
+        from post
     </select>
 
     <select id="getPostByPostId" resultMap="post2Map">
-        select u.userId,u.username,u.head_url,p.postId,p.title,p.content,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-        join user u on p.userId = u.userId
-        where p.postId=#{postId}
+        select u.userId,
+               u.username,
+               u.head_url,
+               p.postId,
+               p.topicId,
+               p.title,
+               p.content,
+               p.publish_time,
+               p.reply_time,
+               p.reply_count,
+               p.like_count,
+               p.scan_count
+        from post p
+                 join user u on p.userId = u.userId
+        where p.postId = #{postId}
     </select>
 
     <update id="updateReplyCount">
-        update post set reply_count = reply_count + 1 where postId = #{postId}
+        update post
+        set reply_count = reply_count + 1
+        where postId = #{postId}
     </update>
 
     <update id="updateScanCount">
-        update post set scan_count = scan_count + 1 where postId = #{postId}
+        update post
+        set scan_count = scan_count + 1
+        where postId = #{postId}
     </update>
 
     <update id="updateReplyTime">
-        update post set reply_time = date_format(now(),'%Y-%c-%d %H:%i:%s')
-        where postId=#{postId}
+        update post
+        set reply_time = date_format(now(), '%Y-%c-%d %H:%i:%s')
+        where postId = #{postId}
     </update>
 
     <select id="getUserIdByPostId" resultType="int">
-        select userId from post where postId=#{postId}
+        select userId
+        from post
+        where postId = #{postId}
     </select>
 
     <select id="getTitleByPostId" resultType="String">
-        select title from post where postId=#{postId}
+        select title
+        from post
+        where postId = #{postId}
     </select>
 </mapper>
 

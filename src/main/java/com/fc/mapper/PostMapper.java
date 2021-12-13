@@ -19,6 +19,10 @@ public interface PostMapper {
 
     List<Post> listPostByHottest(@Param("offset") int offset, @Param("limit") int limit);
 
+    List<Post> listPostByTopic(@Param("topicId") int topicId, @Param("offset") int offset, @Param("limit") int limit);
+
+    List<Post> listPostByTopicId(@Param("topicId") int topicId, @Param("postId") int postId);
+
     int selectPostCount();
 
     Post getPostByPostId(int postId);

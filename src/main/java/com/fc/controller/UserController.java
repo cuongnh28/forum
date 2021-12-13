@@ -36,7 +36,7 @@ public class UserController {
     public String toMyProfile(HttpSession session,Model model) {
         int sessionUid = (int) session.getAttribute("userId");
         User user = userService.getProfile(sessionUid, sessionUid);
-        List<Post> postList =  postService.getPostList(sessionUid);
+        List<Post> postList =  postService.getPostListByUserId(sessionUid);
         model.addAttribute("user",user);
         model.addAttribute("postList",postList);
         return "myProfile";
@@ -50,7 +50,7 @@ public class UserController {
         }
         boolean following = userService.getFollowStatus(sessionUid,userId);
         User user = userService.getProfile(sessionUid, userId);
-        List<Post> postList =  postService.getPostList(userId);
+        List<Post> postList =  postService.getPostListByUserId(userId);
         model.addAttribute("following",following);
         model.addAttribute("user",user);
         model.addAttribute("postList",postList);

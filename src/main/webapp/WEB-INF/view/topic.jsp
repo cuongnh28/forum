@@ -36,8 +36,8 @@
                             <div class="topic-odd relative">
                                 <a href="#" class="topic-image"><img src="${topic.image}"></a>
                                 <div class="topic-content">
-                                    <a href="#" class="topic-name">${topic.name}</a>
-                                    <a href="#" class="topic-desc">${topic.content}</a>
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId }" class="topic-name">${topic.name}</a>
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId }" class="topic-desc">${topic.content}</a>
                                 </div>
                             </div>
                         </c:when>
@@ -45,8 +45,8 @@
                             <div class="topic-even relative">
                                 <a href="#" class="topic-image"><img src="${topic.image}"></a>
                                 <div class="topic-content">
-                                    <a href="#" class="topic-name">${topic.name}</a>
-                                    <a href="#" class="topic-desc">${topic.content}</a>
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId }" class="topic-name">${topic.name}</a>
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId }" class="topic-desc">${topic.content}</a>
                                 </div>
                             </div>
                         </c:otherwise>

@@ -45,6 +45,7 @@
                         <value>/listPostByNewestTime.do</value>
                         <value>/listPostByLatestTime.do</value>
                         <value>/listPostByHottest.do</value>
+                        <value>/listPostByTopic.do</value>
                         <value>/forgetPassword.do</value>
                         <value>/afterForgetPassword.do</value>
                         <value>/verify.do</value>

@@ -40,7 +40,7 @@ public class PostService {
     @Autowired
     private TaskExecutor taskExecutor;
 
-    public List<Post> getPostList(int userId) {
+    public List<Post> getPostListByUserId(int userId) {
         return postMapper.listPostByUserId(userId);
     }
 
@@ -141,7 +141,8 @@ public class PostService {
 
     public PageBean<Post> listPostByTopic(int topicId) {
         int limit = 8;
-        int offset = (topicId - 1) * limit;
+//        int offset = (topicId - 1) * limit;
+        int offset = 0;
         int allCount = postMapper.selectPostCount();
         int allPage = 0;
         if (allCount <= limit) {
@@ -151,7 +152,7 @@ public class PostService {
         } else {
             allPage = allCount / limit + 1;
         }
-        List<Post> postList = postMapper.listPostByHottest(offset, limit);
+        List<Post> postList = postMapper.listPostByTopic(topicId, offset, limit);
         Jedis jedis = jedisPool.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
@@ -164,6 +165,11 @@ public class PostService {
             jedisPool.returnResource(jedis);
         }
         return pageBean;
+    }
+
+    public List<Post> listPostByTopicId(int topicId, int postId) {
+        List<Post> postList = postMapper.listPostByTopicId(topicId, postId);
+        return postList;
     }
 
     public Post getPostByPostId(int postId) {
