@@ -103,6 +103,9 @@
             </div>
         </div>
 
+
+
+
         <div id="reply-area" class="post-reply-textarea">
             <div style="width: 650px;margin: 10px 20px">
                 <form action="reply.do" method="post" enctype="multipart/form-data">

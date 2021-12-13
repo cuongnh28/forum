@@ -7,6 +7,7 @@ import com.fc.mapper.ReplyMapper;
 import com.fc.mapper.UserMapper;
 import com.fc.model.PageBean;
 import com.fc.model.Post;
+import com.fc.repository.*;
 import com.fc.util.MyConstant;
 import com.fc.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ import java.util.List;
 
 @Service
 public class PostService {
+
+//    @Autowired
+//    private PostRepository postRepository;
 
     @Autowired
     private PostMapper postMapper;
@@ -184,6 +188,11 @@ public class PostService {
         }
         return post;
     }
+
+//    public List<Post> searchByTitle(String q) {
+//        List<Post> postList = postMapper.listPostByTopicId();
+//        return postList;
+//    }
 
     public String clickLike(int postId, int sessionUid) {
         Jedis jedis = jedisPool.getResource();

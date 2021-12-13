@@ -36,7 +36,7 @@
 
 
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-search"></span></a>
+<%--                    <a href="search.do}"><span class="">glyphicon glyphicon-search</span></a>--%>
                 </li>
                 <li><input type="text"></li>
         </ul>

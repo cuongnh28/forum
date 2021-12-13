@@ -106,6 +106,22 @@ public class PostController {
         return "post";
     }
 
+//    @RequestMapping("/search.do")
+//    public String toPost(String q, Model model, HttpSession session) {
+//        Integer sessionUid = (Integer) session.getAttribute("userId");
+//        List<Post> listPostsSameTopic = postService.seachByTitle(q);
+//
+//        boolean liked = false;
+//        if (sessionUid != null) {
+//            liked = postService.getLikeStatus(postId, sessionUid);
+//        }
+//        model.addAttribute("post", post);
+//        model.addAttribute("replyList", replyList);
+//        model.addAttribute("liked", liked);
+//        model.addAttribute("suggestedTopics", listPostsSameTopic);
+//        return "post";
+//    }
+
     @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8")
     public @ResponseBody
     String ajaxClickLike(int postId, HttpSession session) {
