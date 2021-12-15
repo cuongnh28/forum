@@ -121,9 +121,10 @@
 
 <div class="mask"></div>
 <div class="upon-mask">
-    <form>
-        <input type="text" name="" placeholder="Write here">
-        <button>Confirm</button>
+    <form action="addTopic.do">
+        <input type="text" name="name" placeholder="Topic">
+        <input type="text" name="content" placeholder="Content">
+        <button type="submit">Confirm</button>
     </form>
     <span id="close-mask">×</span>
 </div>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -29,6 +30,16 @@ public class TopicController {
         model.addAttribute("imageList", imageList);
         return "image";
     }
+
+    @RequestMapping("/addTopic.do")
+    public String addTopic(String name, String content, Model model, HttpSession session) {
+        int sessionUid = (int) session.getAttribute("userId");
+        topicService.addTopic(name, content, sessionUid);
+        List<Topic> topicList = topicService.listTopic();
+        model.addAttribute("topicList", topicList);
+        return "topic";
+    }
+
 }
 
 

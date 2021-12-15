@@ -41,6 +41,8 @@ public class IndexController {
         pageBean = postService.listPostByNewestTime(1);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
+        String sortBy = "newestTime";
+        model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
         model.addAttribute("userList", userList);
         model.addAttribute("hotUserList", hotUserList);

@@ -56,7 +56,6 @@ public class ReplyService {
         replyMapper.insertComment(comment);
         postMapper.updateReplyTime(postId);
         taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,postId,replyId,sessionUid, MyConstant.OPERATION_COMMENT));
-
     }
 
     public List<Reply> listReply(int postId) {

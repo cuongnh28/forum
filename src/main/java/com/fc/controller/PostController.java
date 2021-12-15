@@ -56,9 +56,11 @@ public class PostController {
         PageBean<Post> pageBean = postService.listPostByNewestTime(curPage);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
+        String sortBy = "newestTime";
         model.addAttribute("pageBean", pageBean);
         model.addAttribute("userList", userList);
         model.addAttribute("hotUserList", hotUserList);
+        model.addAttribute("sortBy", sortBy);
         return "index";
     }
 
@@ -67,6 +69,8 @@ public class PostController {
         PageBean<Post> pageBean = postService.listPostByLatestTime(curPage);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
+        String sortBy = "latestTime";
+        model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
         model.addAttribute("userList", userList);
         model.addAttribute("hotUserList", hotUserList);
@@ -78,6 +82,8 @@ public class PostController {
         PageBean<Post> pageBean = postService.listPostByHottest(curPage);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
+        String sortBy = "hottest";
+        model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
         model.addAttribute("userList", userList);
         model.addAttribute("hotUserList", hotUserList);
@@ -89,6 +95,8 @@ public class PostController {
         PageBean<Post> pageBean = postService.listPostByTopic(topicId);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
+        String sortBy = "topic";
+        model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
         model.addAttribute("userList", userList);
         model.addAttribute("hotUserList", hotUserList);

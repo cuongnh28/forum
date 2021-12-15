@@ -30,6 +30,15 @@ public class MessageTask implements Runnable {
         this.operation = operation;
     }
 
+    public MessageTask(MessageMapper messageMapper, UserMapper userMapper, PostMapper postMapper, ReplyMapper replyMapper, int sessionUid, int operation) {
+        this.messageMapper = messageMapper;
+        this.userMapper = userMapper;
+        this.postMapper = postMapper;
+        this.replyMapper = replyMapper;
+        this.sessionUid = sessionUid;
+        this.operation = operation;
+    }
+
     @Override
     public void run() {
         Message message = new Message();

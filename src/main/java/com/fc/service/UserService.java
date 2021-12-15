@@ -31,21 +31,21 @@ public class UserService {
     private JedisPool jedisPool;
 
     public User getProfile(int sessionUid, int userId) {
-        if(sessionUid!=userId){
+        if (sessionUid != userId) {
             userMapper.updateScanCount(userId);
         }
         User user = userMapper.selectUserByUserId(userId);
         Jedis jedis = jedisPool.getResource();
-        user.setFollowCount((int)(long)jedis.scard(userId+":follow"));
-        user.setFollowerCount((int)(long)jedis.scard(userId+":fans"));
-        String likeCount = jedis.hget("vote",userId+"");
-        if(likeCount==null){
+        user.setFollowCount((int) (long) jedis.scard(userId + ":follow"));
+        user.setFollowerCount((int) (long) jedis.scard(userId + ":fans"));
+        String likeCount = jedis.hget("vote", userId + "");
+        if (likeCount == null) {
             user.setLikeCount(0);
-        }else {
+        } else {
             user.setLikeCount(Integer.valueOf(likeCount));
         }
 
-        if(jedis!=null){
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
         return user;
@@ -76,17 +76,17 @@ public class UserService {
     }
 
     public void updateHeadUrl(int userId, String headUrl) {
-        userMapper.updateHeadUrl(userId,headUrl);
+        userMapper.updateHeadUrl(userId, headUrl);
     }
 
     public void unfollow(int sessionUid, int userId) {
         Jedis jedis = jedisPool.getResource();
         Transaction tx = jedis.multi();
-        tx.srem(sessionUid+":follow", String.valueOf(userId));
-        tx.srem(userId+":fans", String.valueOf(sessionUid));
+        tx.srem(sessionUid + ":follow", String.valueOf(userId));
+        tx.srem(userId + ":fans", String.valueOf(sessionUid));
         tx.exec();
 
-        if(jedis!=null){
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
     }
@@ -94,18 +94,18 @@ public class UserService {
     public void follow(int sessionUid, int userId) {
         Jedis jedis = jedisPool.getResource();
         Transaction tx = jedis.multi();
-        tx.sadd(sessionUid+":follow", String.valueOf(userId));
-        tx.sadd(userId+":fans", String.valueOf(sessionUid));
+        tx.sadd(sessionUid + ":follow", String.valueOf(userId));
+        tx.sadd(userId + ":fans", String.valueOf(sessionUid));
         tx.exec();
-        if(jedis!=null){
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
     }
 
     public boolean getFollowStatus(int sessionUid, int userId) {
         Jedis jedis = jedisPool.getResource();
-        boolean following = jedis.sismember(sessionUid+":follow", String.valueOf(userId));
-        if(jedis!=null){
+        boolean following = jedis.sismember(sessionUid + ":follow", String.valueOf(userId));
+        if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
         return following;
@@ -114,32 +114,32 @@ public class UserService {
     public String updatePassword(String password, String newpassword, String repassword, int sessionUid) {
 
         String oldPassword = userMapper.selectPasswordByUserId(sessionUid);
-        if(!oldPassword.equals(password)){
+        if (!oldPassword.equals(password)) {
             return "You are entering wrong password";
         }
 
-        if(newpassword.length()<6 ||newpassword.length()>20){
+        if (newpassword.length() < 6 || newpassword.length() > 20) {
             return "Length is < 6 or > 20";
         }
 
-        if(!newpassword.equals(repassword)){
+        if (!newpassword.equals(repassword)) {
             return "Re password are not matching with new password";
         }
 
-        userMapper.updatePassword(newpassword,sessionUid);
+        userMapper.updatePassword(newpassword, sessionUid);
         return "ok";
     }
 
     public void forgetPassword(String email) {
         String verifyCode = userMapper.selectVerifyCode(email);
-        System.out.println("verifyCode:"+verifyCode);
-        taskExecutor.execute(new MailTask(verifyCode,email,javaMailSender,2));
+        System.out.println("verifyCode:" + verifyCode);
+        taskExecutor.execute(new MailTask(verifyCode, email, javaMailSender, 2));
     }
 
     public void verifyForgetPassword(String code) {
-        System.out.println("Code："+code);
+        System.out.println("Code：" + code);
         userMapper.updatePasswordByActivateCode(code);
-        System.out.println("Code："+code);
+        System.out.println("Code：" + code);
     }
 }
 

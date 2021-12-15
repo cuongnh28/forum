@@ -9,4 +9,8 @@
     <select id="listImage" resultType="string">
         select image_url from image
     </select>
+
+    <insert id="insertTopic">
+        insert into topic(name,content) values(#{name},#{content})
+    </insert>
 </mapper>
