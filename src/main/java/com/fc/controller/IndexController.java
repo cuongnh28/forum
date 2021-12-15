@@ -3,10 +3,8 @@ package com.fc.controller;
 import com.fc.model.PageBean;
 import com.fc.model.Post;
 import com.fc.model.User;
-import com.fc.service.PostService;
-import com.fc.service.UserService;
+import com.fc.service.*;
 import com.fc.util.MyConstant;
-import com.fc.service.QiniuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +22,9 @@ import java.util.UUID;
 public class IndexController {
 
     @Autowired
+    TestPostService testPostService;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -33,24 +34,23 @@ public class IndexController {
     private QiniuService qiniuService;
 
     @RequestMapping("/toIndex.do")
-    public String toIndex(Model model, HttpServletRequest request){
+    public String toIndex(Model model, HttpServletRequest request) {
         System.out.println(request.getRemoteAddr());
         userService.record(request.getRequestURL(), request.getContextPath(), request.getRemoteAddr());
         PageBean<Post> pageBean;
         pageBean = postService.listPostByNewestTime(1);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
-        model.addAttribute("pageBean",pageBean);
-        model.addAttribute("userList",userList);
-        model.addAttribute("hotUserList",hotUserList);
+        model.addAttribute("pageBean", pageBean);
+        model.addAttribute("userList", userList);
+        model.addAttribute("hotUserList", hotUserList);
         return "index";
     }
 
 
     @RequestMapping(value = "/upload.do", method = {RequestMethod.POST}, produces = "text/plain;charset=UTF-8")
-    public
     @ResponseBody
-    String upload(MultipartFile myFileName) throws IOException {
+    public String upload(MultipartFile myFileName) throws IOException {
 
         String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
         boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());

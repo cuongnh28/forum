@@ -15,17 +15,17 @@ public class ReplyController {
     private ReplyService replyService;
 
     @RequestMapping("/reply.do")
-    public String reply(int postId, String content, HttpSession session){
+    public String reply(int postId, String content, HttpSession session) {
         int sessionUid = (int) session.getAttribute("userId");
-        replyService.reply(sessionUid,postId,content);
-        return "redirect:toPost.do?postId="+postId;
+        replyService.reply(sessionUid, postId, content);
+        return "redirect:toPost.do?postId=" + postId;
     }
 
     @RequestMapping("/comment.do")
-    public String comment(int postId,int replyId, String content, HttpSession session){
+    public String comment(int postId, int replyId, String content, HttpSession session) {
         int sessionUid = (int) session.getAttribute("userId");
-        replyService.comment(postId,sessionUid,replyId,content);
-        return "redirect:toPost.do?postId="+postId;
+        replyService.comment(postId, sessionUid, replyId, content);
+        return "redirect:toPost.do?postId=" + postId;
     }
 }
 

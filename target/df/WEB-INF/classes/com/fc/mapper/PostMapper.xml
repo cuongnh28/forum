@@ -27,6 +27,18 @@
         <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
     </resultMap>
 
+    <resultMap type="com.fc.model.Post" id="searchByTitleMap">
+        <id column="postId" property="postId"/>
+        <result column="title" property="title"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="reply_count" property="replyCount"/>
+        <result column="like_count" property="likeCount"/>
+        <result column="scan_count" property="scanCount"/>
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
+        <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
+    </resultMap>
+
     <resultMap type="com.fc.model.Post" id="postLatestMap">
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
@@ -165,6 +177,23 @@
         select userId, topicId, postId, title, publish_time
         from post
         where topicId = #{topicId} and postId != #{postId}
+    </select>
+
+    <select id="searchByTitle" resultMap="searchByTitleMap">
+        select u.userId,
+               u.username,
+               u.head_url,
+               p.postId,
+               p.topicId,
+               p.title,
+               p.publish_time,
+               p.reply_time,
+               p.reply_count,
+               p.like_count,
+               p.scan_count
+        from post p
+                 join user u on p.userId = u.userId
+        where p.title like '%' #{title} '%' order by p.reply_time
     </select>
 
     <select id="selectPostCount" resultType="int">

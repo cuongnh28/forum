@@ -17,16 +17,16 @@ public class TopicController {
     private TopicService topicService;
 
     @RequestMapping("/listTopic.do")
-    public String listTopic(Model model){
+    public String listTopic(Model model) {
         List<Topic> topicList = topicService.listTopic();
-        model.addAttribute("topicList",topicList);
+        model.addAttribute("topicList", topicList);
         return "topic";
     }
 
     @RequestMapping("/listImage.do")
-    public String listImage(Model model){
+    public String listImage(Model model) {
         List<String> imageList = topicService.listImage();
-        model.addAttribute("imageList",imageList);
+        model.addAttribute("imageList", imageList);
         return "image";
     }
 }

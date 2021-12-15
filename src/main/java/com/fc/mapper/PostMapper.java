@@ -23,6 +23,8 @@ public interface PostMapper {
 
     List<Post> listPostByTopicId(@Param("topicId") int topicId, @Param("postId") int postId);
 
+    List<Post> searchByTitle(@Param("title") String title);
+
     int selectPostCount();
 
     Post getPostByPostId(int postId);

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" import="java.util.*" %>
-<%@ page isELIgnored="false"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <div class="header clearfix">
@@ -11,7 +10,7 @@
             <li class="current-nav"><a href="toIndex.do">Home</a></li>
             <li><a href="listTopic.do">Topics</a></li>
             <li><a href="listImage.do">Images</a></li>
-            <li><a href="toMessage.do">Infomations</a></li>
+            <li><a href="toMessage.do">Information</a></li>
         </ul>
 
         <ul class="right-nav">
@@ -28,17 +27,24 @@
                 <c:otherwise>
                     <li class="login">
                         <a href="toLogin.do">Login</a>
-<%--                        <a href="toLogin.do">/</a>--%>
+                            <%--                        <a href="toLogin.do">/</a>--%>
                         <a href="toLogin.do#register">Register</a>
                     </li>
                 </c:otherwise>
             </c:choose>
 
 
-                <li>
-<%--                    <a href="search.do}"><span class="">glyphicon glyphicon-search</span></a>--%>
-                </li>
-                <li><input type="text"></li>
+            <li>
+                <form action="/search.do" method="get">
+                    <div class="small-3 columns">
+<%--                        <span class="glyphicon glyphicon-search">--%>
+                        <input type="text" name="searchTemp">
+                        <input type="submit" value="search">
+<%--                        </span>--%>
+                    </div>
+                </form>
+            </li>
+<%--            <li><input type="text"></li>--%>
         </ul>
     </div>
 </div>

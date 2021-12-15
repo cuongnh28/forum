@@ -4,11 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.*;
+
 @NoArgsConstructor
 @Getter
 @Setter
-public class Topic {
+@Entity
+public class Topic implements Serializable {
 
+    @Id
     private Integer topicId;
     private String name;
     private String content;

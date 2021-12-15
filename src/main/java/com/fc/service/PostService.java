@@ -23,9 +23,6 @@ import java.util.List;
 @Service
 public class PostService {
 
-//    @Autowired
-//    private PostRepository postRepository;
-
     @Autowired
     private PostMapper postMapper;
 
@@ -75,6 +72,7 @@ public class PostService {
             allPage = allCount / limit + 1;
         }
         List<Post> postList = postMapper.listPostByNewestTime(offset, limit);
+
         Jedis jedis = jedisPool.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
@@ -189,10 +187,16 @@ public class PostService {
         return post;
     }
 
-//    public List<Post> searchByTitle(String q) {
-//        List<Post> postList = postMapper.listPostByTopicId();
-//        return postList;
-//    }
+    public PageBean<Post> searchByTitle(String searchTerm) {
+        List<Post> postList = postMapper.searchByTitle(searchTerm);
+        Jedis jedis = jedisPool.getResource();
+        for (Post post : postList) {
+            post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+        }
+        PageBean<Post> pageBean = new PageBean();
+        pageBean.setList(postList);
+        return pageBean;
+    }
 
     public String clickLike(int postId, int sessionUid) {
         Jedis jedis = jedisPool.getResource();

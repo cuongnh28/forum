@@ -6,11 +6,18 @@ import com.fc.service.ReplyService;
 import com.fc.service.TopicService;
 import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -106,21 +113,16 @@ public class PostController {
         return "post";
     }
 
-//    @RequestMapping("/search.do")
-//    public String toPost(String q, Model model, HttpSession session) {
-//        Integer sessionUid = (Integer) session.getAttribute("userId");
-//        List<Post> listPostsSameTopic = postService.seachByTitle(q);
-//
-//        boolean liked = false;
-//        if (sessionUid != null) {
-//            liked = postService.getLikeStatus(postId, sessionUid);
-//        }
-//        model.addAttribute("post", post);
-//        model.addAttribute("replyList", replyList);
-//        model.addAttribute("liked", liked);
-//        model.addAttribute("suggestedTopics", listPostsSameTopic);
-//        return "post";
-//    }
+    @RequestMapping(value="/search.do", method = RequestMethod.GET)
+    public String search(String searchTemp, Model model, HttpSession session) {
+        PageBean<Post> pageBean = postService.searchByTitle(searchTemp);
+        List<User> userList = userService.listUserByTime();
+        List<User> hotUserList = userService.listUserByHot();
+        model.addAttribute("pageBean", pageBean);
+        model.addAttribute("userList", userList);
+        model.addAttribute("hotUserList", hotUserList);
+        return "index";
+    }
 
     @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8")
     public @ResponseBody

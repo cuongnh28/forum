@@ -4,30 +4,51 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+@Entity
+public class User implements Serializable {
 
+    @Id
     private Integer userId;
 
+    @Column
     private String email;
+    @Column
     private String password;
+    @Column
     private Integer actived;
+    @Column
     private String activateCode;
+    @Column
     private String joinTime;
 
+    @Column
     private String username;
+    @Column
     private String description;
+    @Column
     private String headUrl;
+    @Column
     private String position;
+    @Column
     private String school;
+    @Column
     private String job;
 
+    @Column
     private Integer postCount;
+    @Column
     private Integer scanCount;
+    @Column
     private Integer likeCount;
+    @Column
     private Integer followCount;
+    @Column
     private Integer followerCount;
 
     public User(Integer userId) {

@@ -4,21 +4,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.*;
+
 @NoArgsConstructor
 @Getter
 @Setter
-public class Post {
+@Entity
+public class Post implements Serializable {
+    @Id
     private Integer postId;
+    @Column
     private String title;
+    @Column
     private String content;
+    @Column
     private String publishTime;
+    @Column
     private String replyTime;
-
+    @Column
     private Integer replyCount;
+    @Column
     private Integer likeCount;
+    @Column
     private Integer scanCount;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "topicId")
     private Topic topic;
 
 
