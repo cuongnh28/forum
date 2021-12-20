@@ -86,15 +86,16 @@ public class UserController {
     }
 
     @RequestMapping("/forgetPassword.do")
-    public @ResponseBody
-    String forgetPassword(String email) {
+//    public @ResponseBody
+    public String forgetPassword(String email) {
         userService.forgetPassword(email);
-        return "";
+        return "forgetPassword";
     }
 
 
     @RequestMapping("/afterForgetPassword.do")
-    public String afterForgetPassword() {
+    public String afterForgetPassword(Model model) {
+//        User user = userService.getEditInfo(session)
         return "prompt/afterForgetPassword";
     }
 

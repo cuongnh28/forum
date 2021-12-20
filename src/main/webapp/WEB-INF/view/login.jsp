@@ -32,7 +32,8 @@
                     <input type="password" name="password" required>
                 </div>
                 <button id="login-submit">Login</button>
-                <button type="button" id="forget-password">Forget Password</button>
+                <button type="button" id="forget-password" onclick="location.href='/forgetPassword.do'">Forget Password</button>
+<%--                <input type="button" id="forgetPassword" value="Forget Password" onclick="location.href='/forgetPassword.do'">--%>
             </form>
         </div>
 
@@ -41,7 +42,7 @@
                 <div id="error-message" class="error-message">${error}</div>
                 <div class="email">
                     Email&nbsp;
-                    <input type="text" name="email" value="${email}" id="email" required>
+                    <input type="email" name="email" value="${email}" id="email" required>
                 </div>
                 <div class="password">
                     Password&nbsp;
@@ -111,17 +112,16 @@
             }
         });
 
-        $("#forget-password").click(function () {
-            //alert($("#login-email").val());
-            $.ajax({
-                type: "GET",
-                url: "forgetPassword.do",
-                data: {email: $("#login-email").val()},
-                success: function (response, status, xhr) {
-                    location.href = "afterForgetPassword.do";
-                }
-            });
-        });
+        // $("#forget-password").click(function () {
+        //     $.click({
+        //         type: "GET",
+        //         url: "forgetPassword.do",
+        //         data: {email: $("#login-email").val()},
+        //         success: function (response, status, xhr) {
+        //             location.href = "afterForgetPassword.do";
+        //         }
+        //     });
+        // });
     });
 
 

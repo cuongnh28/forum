@@ -14,7 +14,7 @@ public class MailTask implements Runnable {
     private JavaMailSender javaMailSender;
     private int operation;
 
-    public MailTask(String code, String email, JavaMailSender javaMailSender,int operation) {
+    public MailTask(String code, String email, JavaMailSender javaMailSender, int operation) {
         this.code = code;
         this.email = email;
         this.javaMailSender = javaMailSender;
@@ -26,27 +26,28 @@ public class MailTask implements Runnable {
         javaMailSender.send(new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
                 mimeMessageHelper.setFrom(MyConstant.MAIL_FROM);
                 mimeMessageHelper.setTo(email);
-                mimeMessageHelper.setSubject("一封激活邮件");
-                StringBuilder sb  = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 sb.append("<html><head></head><body>");
 
-                if(operation==1){
-                    sb.append("<a href="+MyConstant.DOMAIN_NAME+"activate.do?code=");
+                if (operation == 1) {
+                    mimeMessageHelper.setSubject("PTIT Forum - Register Account");
+                    sb.append("Hi, please click link bellow to active your account");
+                    sb.append("<br/><a href=" + MyConstant.DOMAIN_NAME + "activate.do?code=");
                     sb.append(code);
-                    sb.append(">点击激活</a></body>");
-                }else{
-                    sb.append("是否将您的密码修改为:");
-                    sb.append(code.substring(0,8));
-                    sb.append("，<a href="+MyConstant.DOMAIN_NAME+"verify.do?code="+code+">");
-                    sb.append("点击是</a></body>");
+                    sb.append(">Click here</a></body>");
+                } else {
+                    mimeMessageHelper.setSubject("PTIT Forum - Forget Password");
+                    sb.append("Hi, please click link bellow to reset your password");
+                    sb.append(code.substring(0, 8));
+                    sb.append("，<br/><a href=" + MyConstant.DOMAIN_NAME + "verify.do?code=" + code + ">");
+                    sb.append("Click here</a></body>");
                 }
 
-                mimeMessageHelper.setText(sb.toString(),true);
+                mimeMessageHelper.setText(sb.toString(), true);
 
-                System.out.println("结束发邮件...");
             }
         });
     }

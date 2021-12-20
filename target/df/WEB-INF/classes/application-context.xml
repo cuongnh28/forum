@@ -15,16 +15,13 @@
 
     <context:property-placeholder location="classpath:df.properties"/>
 
-    <!--数据源-->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="url" value="${mysql.url}" />
 		<property name="driverClassName" value="${mysql.driverClassName}" />
 		<property name="username" value="${mysql.username}" />
-        <!--MySQL密码-->
 		<property name="password" value="${mysql.password}" />
 	</bean>
 
-    <!-- Redis连接池的配置 -->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" >
         <property name="maxTotal" value="${redis.pool.maxActive}"/>
         <property name="maxIdle" value="${redis.pool.maxIdle}"/>
@@ -38,42 +35,38 @@
         <constructor-arg index="1" value="${redis.hostName}" />
         <constructor-arg index="2" value="${redis.port}" />
         <constructor-arg index="3" value="${redis.timeout}" />
-        <!--Redis密码-->
     </bean>
 
-    <!--邮件处理-->
     <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${mail.host}"/>
         <property name="username" value="${mail.username}"/>
         <property name="password" value="${mail.password}"/>
+        <property name="port" value="${mail.port}" />
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.debug">true</prop>
             </props>
         </property>
     </bean>
 
-    <!--注解，声明式事务-->
     <tx:annotation-driven transaction-manager="transactionManager" />
-    <!--事务管理器-->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager ">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
 
-    <!-- session工厂 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
-    <!-- 扫描器 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.fc.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
-    <!--线程池-->
     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="10"/>
         <property name="maxPoolSize" value="20"/>

@@ -2,12 +2,13 @@ package com.fc.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import java.util.List;
 
-public class LoginInterceptor extends HandlerInterceptorAdapter{
+public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     private List<String> excludedUrls;
 
@@ -25,11 +26,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
             }
         }
 
-        Integer userId =  (Integer)request.getSession().getAttribute("userId");
-        if(userId == null){
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        if (userId == null) {
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
             return false;
-        }else{
+        } else {
             return true;
         }
     }

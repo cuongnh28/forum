@@ -7,9 +7,9 @@ public class MyConstant {
     public static final String QINIU_SECRET_KEY = "AXdJXoYtGL42K_w7UzaNxhrNU55K_XEkv-Zgte1w";
     public static final String QINIU_BUCKET_NAME = "excited";
 
-    public static final String MAIL_FROM = "ceshihahu@yeah.net";
+    public static final String MAIL_FROM = "cuongcualo1998@gmail.com";
 
-    public static final String DOMAIN_NAME = "http://naivee.me/";
+    public static final String DOMAIN_NAME = "http://localhost:8081/";
 
     public static final int OPERATION_CLICK_LIKE = 1;
     public static final int OPERATION_REPLY = 2;

@@ -56,7 +56,7 @@ public class LoginController {
     public String activate(String code, Model model) {
         loginService.activate(code);
 
-        model.addAttribute("info", "Not translated");
+        model.addAttribute("info", "Your account has been active.<br/>Please use.");
         return "prompt/promptInfo";
     }
 

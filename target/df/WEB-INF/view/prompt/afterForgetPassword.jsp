@@ -22,7 +22,7 @@
 
 	<div class="main w clearfix">
 		<div>
-			Not implement.
+			Login id and password has been sent to ...
 		</div>
 	</div>
 
