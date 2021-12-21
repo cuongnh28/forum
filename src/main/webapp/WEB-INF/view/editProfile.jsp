@@ -12,7 +12,6 @@
 <body>
 <%@ include file="header.jsp" %>
 
-
 	<div class="main w clearfix">
 		<div class="edit-header"><span></span>&nbsp;Update Profile</div>
 		<form action="editProfile.do" method="post">
@@ -29,6 +28,12 @@
 			<div class="edit-title">
 				School：<input type="text" name="school" value="${user.school}">
 			</div>
+<%--			<div class="edit-title">--%>
+<%--				Last Name：<input type="text" name="lastName" value="${user.fullName.lastName}">--%>
+<%--			</div>--%>
+<%--			<div class="edit-title">--%>
+<%--				First Name：<input type="text" name="firstName" value="${user.fullName.firstName}">--%>
+<%--			</div>--%>
 			<div class="edit-title">
 				Job：<input type="text" name="job" value="${user.job}">
 			</div>

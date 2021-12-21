@@ -1,6 +1,5 @@
 package com.fc.controller;
 
-
 import com.fc.model.Message;
 import com.fc.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,15 @@ import java.util.Map;
 @RequestMapping("/")
 public class MessageController {
 
-
     @Autowired
     private MessageService messageService;
 
     @RequestMapping("/toMessage.do")
     public String toMessage(Model model, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("userId");
-        Map<String,List<Message>> map = messageService.listMessageByUid(sessionUid);
-        model.addAttribute("map",map);
-        System.out.println(map);
+        Map<String, List<Message>> map = messageService.listMessageByUserId(sessionUid);
+        model.addAttribute("map", map);
+//        System.out.println(map);
         return "message";
     }
 

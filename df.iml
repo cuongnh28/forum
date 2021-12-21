@@ -12,7 +12,7 @@
             <entry key="lastExternalPluginCheckTime" value="1639968736783" />
           </map>
         </option>
-        <option name="version" value="30" />
+        <option name="version" value="31" />
       </configuration>
     </facet>
     <facet type="web" name="Web">
@@ -102,5 +102,6 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.9.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.26" level="project" />
+    <orderEntry type="library" name="Maven: javax:javaee-web-api:8.0.1" level="project" />
   </component>
 </module>

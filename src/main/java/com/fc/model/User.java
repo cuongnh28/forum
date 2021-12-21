@@ -51,6 +51,8 @@ public class User implements Serializable {
     @Column
     private Integer followerCount;
 
+    private FullName fullName;
+
     public User(Integer userId) {
         this.userId = userId;
     }

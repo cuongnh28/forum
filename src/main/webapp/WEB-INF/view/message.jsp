@@ -12,7 +12,6 @@
 <body>
 <%@ include file="header.jsp" %>
 
-
 	<div class="main w clearfix" style="margin-bottom: 360px">
 		<div class="message-header"><span></span>&nbsp;Header</div>
         <c:forEach items="${map}" var="item">
@@ -26,7 +25,6 @@
             </div>
         </c:forEach>
 	</div>
-
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>

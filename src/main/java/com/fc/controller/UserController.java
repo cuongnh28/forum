@@ -1,5 +1,6 @@
 package com.fc.controller;
 
+import com.fc.model.FullName;
 import com.fc.model.Post;
 import com.fc.model.User;
 import com.fc.service.PostService;
@@ -67,7 +68,10 @@ public class UserController {
 
     @RequestMapping("/editProfile.do")
     public String editProfile(User user) {
-        System.out.println(user);
+//        FullName fullName = new FullName("", "");
+//        fullName.setLastName(lastName);
+//        fullName.setFirstName(firstName);
+//        user.setFullName(fullName);
         userService.updateUser(user);
         return "redirect:toMyProfile.do";
     }
@@ -86,7 +90,6 @@ public class UserController {
     }
 
     @RequestMapping("/forgetPassword.do")
-//    public @ResponseBody
     public String forgetPassword(String email) {
         userService.forgetPassword(email);
         return "forgetPassword";
