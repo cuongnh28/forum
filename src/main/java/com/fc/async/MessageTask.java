@@ -51,13 +51,13 @@ public class MessageTask implements Runnable {
         message.setPostId(postId);
 
         if(operation== MyConstant.OPERATION_CLICK_LIKE){
-            message.setOperation("赞了您的帖子");
+            message.setOperation(" click like ");
             message.setDisplayedContent(postMapper.getTitleByPostId(postId));
         }else if(operation==MyConstant.OPERATION_REPLY){
-            message.setOperation("回复了您的帖子");
+            message.setOperation(" reply ");
             message.setDisplayedContent(postMapper.getTitleByPostId(postId));
         }else if(operation==MyConstant.OPERATION_COMMENT){
-            message.setOperation("评论了你帖子的回复");
+            message.setOperation(" comment ");
             String content = replyMapper.getContentByReplyId(replyId);
             message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));
         }

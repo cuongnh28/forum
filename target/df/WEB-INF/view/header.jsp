@@ -10,7 +10,7 @@
             <li class="current-nav"><a href="toIndex.do">Home</a></li>
             <li><a href="listTopic.do">Topics</a></li>
             <li><a href="listImage.do">Images</a></li>
-            <li><a href="toMessage.do">Information</a></li>
+            <li><a href="toMessage.do">Activity Log</a></li>
         </ul>
 
         <ul class="right-nav">

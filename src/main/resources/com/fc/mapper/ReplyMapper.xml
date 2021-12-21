@@ -9,7 +9,7 @@
     </resultMap>
 
     <resultMap type="com.fc.model.Reply" id="replyMap">
-        <id column="rid" property="rid"/>
+        <id column="replyId" property="replyId"/>
         <result column="content" property="content"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
     </resultMap>

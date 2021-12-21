@@ -9,7 +9,7 @@
     </insert>
 
     <select id="listMessageByUid" resultType="com.fc.model.Message">
-        select * from message where userId=#{userId}
+        select * from message where userId=#{userId} order by msg_time
     </select>
 
 </mapper>

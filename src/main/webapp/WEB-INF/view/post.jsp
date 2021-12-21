@@ -86,8 +86,8 @@
                                 <div class="reply-input">
                                     <form action="comment.do" method="post">
                                         <input type="hidden" name="postId" value="${post.postId}"/>
-                                        <input type="hidden" name="rid" value="${reply.replyId}"/>
-                                        <textarea id="s${status.count}" name="content"></textarea>
+                                        <input type="hidden" name="replyId" value="${reply.replyId}"/>
+                                        <textarea  name="content"></textarea>
                                         <button type="submit">Submit</button>
                                     </form>
                                 </div>
