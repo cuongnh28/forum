@@ -40,13 +40,13 @@
                                     <div class="post-other-left">
                                         <span class="post-username"><a
                                                 href="toProfile.do?userId=${post.user.userId}">${post.user.username}</a></span>
-                                        <span class="post-time">&nbsp;${post.publishTime}</span>
-                                        <span class="post-reply-time">${post.replyTime}</span>
+                                        <span class="post-time">&nbsp;Post Time: ${post.publishTime}</span>
+                                        <span class="post-reply-time">Reply Time: ${post.replyTime}</span>
                                     </div>
                                     <div class="post-other-right">
-                                        <span class="post-reply-count">${post.replyCount}</span>&nbsp;
-                                        <span class="post-like-count">${post.likeCount}</span>&nbsp;
-                                        <span class="post-scan-count">${post.scanCount}</span>
+                                        <span class="post-reply-count">Replies: ${post.replyCount}</span>&nbsp;
+                                        <span class="post-like-count">Likes: ${post.likeCount}</span>&nbsp;
+                                        <span class="post-scan-count">Scans: ${post.scanCount}</span>
                                     </div>
                                 </div>
                             </div>
@@ -56,12 +56,33 @@
 
                 <nav class="col-md-10 col-md-offset-2">
                     <ul class="pagination pagination-sm">
-                        <li><a href="listPostByNewestTime.do?curPage=1">Page 1</a></li>
                         <c:choose>
-                            <c:when test="${pageBean.curPage!=1 }">
-                                <li>
-                                    <a href="listPostByNewestTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a>
-                                </li>
+                            <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">
+                                <li><a href="listPostByNewestTime.do?curPage=1">Page 1</a></li>
+                            </c:when>
+                            <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
+                                <li><a href="listPostByHottest.do?curPage=1">Page 1</a></li>
+                            </c:when>
+                            <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
+                                <li><a href="listPostByLatestTime.do?curPage=1">Page 1</a></li>
+                            </c:when>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${pageBean.curPage != 1 }">
+<%--                                <li>--%>
+<%--                                    <a href="listPostByNewestTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a>--%>
+<%--                                </li>--%>
+                                <c:choose>
+                                    <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">
+                                        <li><a href="listPostByNewestTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
+                                    </c:when>
+                                    <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
+                                        <li><a href="listPostByHottest.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
+                                    </c:when>
+                                    <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
+                                        <li><a href="listPostByLatestTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
+                                    </c:when>
+                                </c:choose>
                             </c:when>
                             <c:otherwise>
                                 <li><span>&laquo;</span></li>
@@ -70,79 +91,85 @@
                         <c:choose>
                             <c:when test="${pageBean.allPage<=10 }">
                                 <c:forEach begin="1" end="${ pageBean.allPage}" var="i">
-                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a>
-                                    </li>
+<%--                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>--%>
+                                    <c:choose>
+                                        <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">
+                                            <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
+                                            <li class="pageNum"><a href="listPostByLatestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
+                                            <li class="pageNum"><a href="listPostByHottest.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                    </c:choose>
                                 </c:forEach>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">--%>
-<%--                                    <c:forEach begin="1" end="${ pageBean.allPage}" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a>--%>
-<%--                                        </li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">--%>
-<%--                                    <c:forEach begin="1" end="${ pageBean.allPage}" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByLatestTime.do?curPage=${i }">${i }</a>--%>
-<%--                                        </li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('hottest')}">--%>
-<%--                                    <c:forEach begin="1" end="${ pageBean.allPage}" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByHottest.do?curPage=${i }">${i }</a>--%>
-<%--                                        </li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
                             </c:when>
                             <c:when test="${pageBean.curPage<=5 }">
                                 <c:forEach begin="1" end="10" var="i">
-                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>
-                                 </c:forEach>
-                                <%--                                <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">--%>
-<%--                                    <c:forEach begin="1" end="10" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">--%>
-<%--                                    <c:forEach begin="1" end="10" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByLatestTime.do?curPage=${i }">${i }</a></li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('hottest')}">--%>
-<%--                                    <c:forEach begin="1" end="10" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByHottest.do?curPage=${i }">${i }</a></li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
+<%--                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>--%>
+                                    <c:choose>
+                                        <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">
+                                            <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
+                                            <li class="pageNum"><a href="listPostByLatestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
+                                            <li class="pageNum"><a href="listPostByHottest.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                    </c:choose>
+                                </c:forEach>
                             </c:when>
                             <c:when test="${pageBean.allPage-pageBean.curPage<5 }">
-                                <c:forEach begin="${pageBean.allPage-9 }" end="${ pageBean.allPage}" var="i">--%>
-                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>
+                                <c:forEach begin="${pageBean.allPage-9 }" end="${ pageBean.allPage}" var="i">
+<%--                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>--%>
+                                    <c:choose>
+                                        <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">
+                                            <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
+                                            <li class="pageNum"><a href="listPostByLatestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
+                                            <li class="pageNum"><a href="listPostByHottest.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                    </c:choose>
                                 </c:forEach>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">--%>
-<%--                                    <c:forEach begin="${pageBean.allPage-9 }" end="${ pageBean.allPage}" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">--%>
-<%--                                    <c:forEach begin="${pageBean.allPage-9 }" end="${ pageBean.allPage}" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByLatestTime.do?curPage=${i }">${i }</a></li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
-<%--                                <c:when test="${sortBy.equalsIgnoreCase('hottest')}">--%>
-<%--                                    <c:forEach begin="${pageBean.allPage-9 }" end="${ pageBean.allPage}" var="i">--%>
-<%--                                        <li class="pageNum"><a href="listPostByHottest.do?curPage=${i }">${i }</a></li>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:when>--%>
                             </c:when>
                             <c:otherwise>
                                 <c:forEach begin="${pageBean.curPage-4 }" end="${ pageBean.curPage+5}" var="i">--%>
-                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>
+<%--                                    <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>--%>
+                                    <c:choose>
+                                        <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">
+                                            <li class="pageNum"><a href="listPostByNewestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
+                                            <li class="pageNum"><a href="listPostByLatestTime.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                        <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
+                                            <li class="pageNum"><a href="listPostByHottest.do?curPage=${i }">${i }</a></li>
+                                        </c:when>
+                                    </c:choose>
                                 </c:forEach>
                             </c:otherwise>
                         </c:choose>
                         <c:choose>
                             <c:when test="${pageBean.curPage!=pageBean.allPage }">
-                                <li>
-                                    <a href="listPostByNewestTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a>
-                                </li>
+<%--                                <li>--%>
+<%--                                    <a href="listPostByNewestTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a>--%>
+<%--                                </li>--%>
+                                <c:choose>
+                                    <c:when test="${sortBy.equalsIgnoreCase('newestTime')}">
+                                        <li><a href="listPostByNewestTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                    </c:when>
+                                    <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
+                                        <li><a href="listPostByLatestTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                    </c:when>
+                                    <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
+                                        <li><a href="listPostByHottest.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                    </c:when>
+                                </c:choose>
                             </c:when>
                             <c:otherwise>
                                 <li><span>&raquo;</span></li>
@@ -153,10 +180,10 @@
                                 <li><a href="listPostByNewestTime.do?curPage=${pageBean.allPage}">All page</a></li>
                             </c:when>
                             <c:when test="${sortBy.equalsIgnoreCase('latestTime')}">
-                                <li><a href="listPostByNewestTime.do?curPage=${pageBean.allPage}">All page</a></li>
+                                <li><a href="listPostByLatestTime.do?curPage=${pageBean.allPage}">All page</a></li>
                             </c:when>
                             <c:when test="${sortBy.equalsIgnoreCase('hottest')}">
-                                <li><a href="listPostByNewestTime.do?curPage=${pageBean.allPage}">All page</a></li>
+                                <li><a href="listPostByHottest.do?curPage=${pageBean.allPage}">All page</a></li>
                             </c:when>
                         </c:choose>
                     </ul>
