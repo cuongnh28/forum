@@ -22,26 +22,27 @@
                 <span class="glyphicon glyphicon-th"></span>&nbsp;${post.title}
             </div>
             <div class="post-user clearfix">
-                <div class="user-image"><a href="toProfile.do?userId=${post.user.userId}"><img src="${post.user.headUrl}"></a>
+                <div class="user-image"><a href="toProfile.do?userId=${post.user.userId}"><img
+                        src="../../upload/images/${post.user.headUrl}"></a>
                 </div>
                 <div class="user-info">
                     <div class="user-name">${post.user.username}</div>
                     <div class="post-time">Publish Time ${post.publishTime}</div>
                 </div>
                 <div class="other-count">
-                    <span class="reply-count"><a href="#">Reply count ${post.replyCount}</a></span>&nbsp;
+                    <span class="reply-count">Replies: ${post.replyCount}</span>&nbsp;
                     <c:choose>
                         <c:when test="${sessionScope.userId==null}">
-                            <span class="up-count"><a>Like count ${post.likeCount}</a></span>&nbsp;
+                            <span class="up-count"><a>Votes: ${post.likeCount}</a></span>&nbsp;
                         </c:when>
                         <c:when test="${liked==true}">
-                            <span class="up-count"><a style="color:#2e6da4;">Like count ${post.likeCount}</a></span>&nbsp;
+                            <span class="up-count"><a style="color:#2e6da4;">Votes: ${post.likeCount}</a></span>&nbsp;
                         </c:when>
                         <c:when test="${sessionScope.userId!=null}">
-                            <span class="up-count"><a href="#" id="like-button">Like count ${post.likeCount}</a></span>&nbsp;
+                            <span class="up-count"><a href="#" id="like-button">Votes: ${post.likeCount}</a></span>&nbsp;
                         </c:when>
                     </c:choose>
-                    <span class="scan-count"><a href="#">Scan count ${post.scanCount}</a></span>
+                    <span class="scan-count">Scans ${post.scanCount}</span>
                 </div>
             </div>
             <div class="post-desc">
@@ -60,7 +61,7 @@
                 <c:forEach items="${replyList}" var="reply" varStatus="status">
                     <div class="post-reply-item clearfix">
                         <div class="item-image"><a href="toProfile.do?userId=${reply.user.userId}"><img
-                                src="${reply.user.headUrl}"></a></div>
+                                src="../../upload/images/${reply.user.headUrl}"></a></div>
                         <div class="item-info">
                             <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
                             <div class="item-content">${reply.content}</div>
@@ -87,7 +88,7 @@
                                     <form action="comment.do" method="post">
                                         <input type="hidden" name="postId" value="${post.postId}"/>
                                         <input type="hidden" name="replyId" value="${reply.replyId}"/>
-                                        <textarea  name="content"></textarea>
+                                        <textarea name="content"></textarea>
                                         <button type="submit">Submit</button>
                                     </form>
                                 </div>
@@ -102,8 +103,6 @@
                 </c:forEach>
             </div>
         </div>
-
-
 
 
         <div id="reply-area" class="post-reply-textarea">
@@ -177,7 +176,7 @@
             url: "ajaxClickLike.do",
             data: {postId:${post.postId}},
             success: function (response, status, xhr) {
-                likeButton.text("赞 " + response);
+                likeButton.text("voted " + response);
                 likeButton.removeAttr("href");
             }
         });

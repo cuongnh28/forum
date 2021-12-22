@@ -15,4 +15,6 @@ public class MyConstant {
     public static final int OPERATION_REPLY = 2;
     public static final int OPERATION_COMMENT = 3;
 
+    public static final String UPLOAD_FOLDER = "C:\\Users\\Auto02\\Documents\\GitHub\\forum\\src\\main\\webapp\\upload";
+
 }

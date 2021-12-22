@@ -14,9 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,17 +39,18 @@ public class UserController {
     private QiniuService qiniuService;
 
     @RequestMapping("/toMyProfile.do")
-    public String toMyProfile(HttpSession session, Model model) {
+    public String toMyProfile(HttpSession session, Model model, HttpServletRequest request) {
         int sessionUid = (int) session.getAttribute("userId");
         User user = userService.getProfile(sessionUid, sessionUid);
         List<Post> postList = postService.getPostListByUserId(sessionUid);
+
         model.addAttribute("user", user);
         model.addAttribute("postList", postList);
         return "myProfile";
     }
 
     @RequestMapping("/toProfile.do")
-    public String toProfile(int userId, Model model, HttpSession session) {
+    public String toProfile(int userId, Model model, HttpSession session,HttpServletRequest request) {
         int sessionUid = (int) session.getAttribute("userId");
         if (sessionUid == userId) {
             return "redirect:toMyProfile.do";
@@ -107,11 +113,11 @@ public class UserController {
         String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
         boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
         if (!allowed) {
-            model.addAttribute("error3", "图片格式仅限bmp，jpg，png，gif~");
+            model.addAttribute("error3", "We just only accept format: bmp，jpg，png，gif. Please try to upload again.");
             return "editProfile";
         }
         if (myFileName.getSize() > 3 * 1024 * 1024) {
-            model.addAttribute("error3", "图片大小限制在3M以下哦~");
+            model.addAttribute("error3", "Size of the picture are too large. Please try again.");
             return "editProfile";
         }
         String fi = myFileName.getOriginalFilename();
@@ -123,6 +129,51 @@ public class UserController {
         userService.updateHeadUrl(userId, MyConstant.QINIU_IMAGE_URL + remoteFileName);
 
         return "redirect:toMyProfile.do";
+    }
+
+    @RequestMapping("/uploadImage.do")
+    public String uploadImage (MultipartFile myFileName, Model model, HttpSession session, HttpServletRequest request) {
+        if (myFileName != null && !myFileName.isEmpty()) {
+            String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
+            boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
+            if (!allowed) {
+                model.addAttribute("error3", "We just only accept format: bmp，jpg，png，gif. Please try to upload again.");
+                return "editProfile";
+            }
+            if (myFileName.getSize() > 3 * 1024 * 1024) {
+                model.addAttribute("error3", "Size of the picture are too large. Please try again.");
+                return "editProfile";
+            }
+            try {
+                byte[] bytes = myFileName.getBytes();
+                String rootPath = request.getServletContext().getRealPath("upload");
+                File dir = new File(rootPath + File.separator + "images");
+                if (!dir.exists()) {
+                    dir.mkdir();
+                }
+
+                String name = myFileName.getOriginalFilename();
+                File serverFile = new File(dir.getAbsolutePath()+File.separator+name);
+                System.out.println("Path of image on server: " + serverFile.getPath());
+
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+
+                int userId = (int) session.getAttribute("userId");
+                userService.updateHeadUrl(userId, name);
+                User user = userService.getUserById(userId);
+                session.setAttribute("user", user);
+
+                return "redirect:toMyProfile.do";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("File upload false");
+        }
+        return null;
     }
 
     @RequestMapping("/follow.do")

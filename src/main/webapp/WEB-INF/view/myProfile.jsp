@@ -15,7 +15,7 @@
 
 	<div class="main w clearfix">
 		<div class="m-left">
-			<div class="user-image"><img src="${user.headUrl}"></div>
+			<div class="user-image"><img src="../../upload/images/${user.headUrl}"></div>
 			<div class="user-info">
 				<div class="user-name">${user.username}</div>
 				<div class="user-desc">${user.description}</div>

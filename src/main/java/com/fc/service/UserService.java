@@ -141,5 +141,9 @@ public class UserService {
         userMapper.updatePasswordByActivateCode(code);
         System.out.println("Code：" + code);
     }
+
+    public User getUserById (int userId) {
+        return userMapper.selectUserByUserId(userId);
+    }
 }
 

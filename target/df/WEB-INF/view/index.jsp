@@ -31,7 +31,7 @@
                     <c:forEach items="${pageBean.list}" var="post">
                         <li class="clearfix">
                             <div class="post-image">
-                                <a href="toProfile.do?userId=${post.user.userId}"><img src="${post.user.headUrl}"></a>
+                                <a href="toProfile.do?userId=${post.user.userId}"><img src="../../upload/images/${post.user.headUrl}"></a>
                             </div>
                             <div class="post-content">
                                 <div class="post-title"><a href="toPost.do?postId=${post.postId}">${post.title}</a>
@@ -201,7 +201,7 @@
             <ul class="hot-user-list">
                 <c:forEach items="${hotUserList}" var="user">
                     <li class="clearfix">
-                        <a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img src="${user.headUrl}"></a>
+                        <a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img src="../../upload/images/${user.headUrl}"></a>
                         <a href="toProfile.do?userId=${user.userId}" class="hot-user-name">${user.username}</a>
                     </li>
                 </c:forEach>
@@ -215,7 +215,7 @@
             <ul class="hot-user-list">
                 <c:forEach items="${userList}" var="user">
                     <li class="clearfix">
-                        <a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img src="${user.headUrl}"></a>
+                        <a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img src="../../upload/images/${user.headUrl}"></a>
                         <a href="toProfile.do?userId=${user.userId}" class="hot-user-name">${user.username}</a>
                     </li>
                 </c:forEach>

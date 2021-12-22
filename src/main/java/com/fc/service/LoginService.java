@@ -85,10 +85,12 @@ public class LoginService {
         }
 
         String headUrl = userMapper.selectHeadUrl(userId);
+        User currentUser = userMapper.selectUserByUserId(userId);
 
         map.put("status", "yes");
         map.put("userId", userId);
         map.put("headUrl", headUrl);
+        map.put("user", currentUser);
         return map;
     }
 

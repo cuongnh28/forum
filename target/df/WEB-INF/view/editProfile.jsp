@@ -62,13 +62,13 @@
 
         <div style="margin-top: 60px;"></div>
         <div class="edit-header"><span></span>&nbsp;Change Avatar</div>
-        <form action="updateHeadUrl.do" method="post" enctype="multipart/form-data">
+        <form action="uploadImage.do" method="post" enctype="multipart/form-data">
             <div class="edit-title">
 				<span class="text-danger">${error3}</span>
                 <input type="file" name="myFileName">
             </div>
             <div class="relative">
-                <button class="edit-submit">Change</button>
+                <button class="edit-submit">Upload</button>
             </div>
         </form>
 

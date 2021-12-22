@@ -1,6 +1,5 @@
 package com.fc.mapper;
 
-import com.fc.model.Comment;
 import com.fc.model.Topic;
 
 import java.util.List;

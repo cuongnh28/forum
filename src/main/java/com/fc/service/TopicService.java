@@ -48,11 +48,12 @@ public class TopicService {
         return topicMapper.listImage();
     }
 
-    public void addTopic(String name, String content, int sessionUid) {
+    public void addTopic(String name, String content, String image, int sessionUid) {
         User user = new User(sessionUid);
         Topic topic = new Topic();
         topic.setName(name);
         topic.setContent(content);
+        topic.setImage(image);
         topicMapper.insertTopic(topic);
         taskExecutor.execute(new MessageTask(messageMapper, userMapper, postMapper, replyMapper, sessionUid, MyConstant.OPERATION_COMMENT));
     }

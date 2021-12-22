@@ -35,7 +35,6 @@ public class IndexController {
 
     @RequestMapping("/toIndex.do")
     public String toIndex(Model model, HttpServletRequest request) {
-        System.out.println(request.getRemoteAddr());
         userService.record(request.getRequestURL(), request.getContextPath(), request.getRemoteAddr());
         PageBean<Post> pageBean;
         pageBean = postService.listPostByNewestTime(1);

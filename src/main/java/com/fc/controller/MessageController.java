@@ -23,7 +23,6 @@ public class MessageController {
         Integer sessionUid = (Integer) session.getAttribute("userId");
         Map<String, List<Message>> map = messageService.listMessageByUserId(sessionUid);
         model.addAttribute("map", map);
-//        System.out.println(map);
         return "message";
     }
 

@@ -9,7 +9,7 @@
         <ul class="left-nav">
             <li class="current-nav"><a href="toIndex.do">Home</a></li>
             <li><a href="listTopic.do">Topics</a></li>
-            <li><a href="listImage.do">Images</a></li>
+<%--            <li><a href="listImage.do">Images</a></li>--%>
             <li><a href="toMessage.do">Activity Log</a></li>
         </ul>
 
@@ -17,7 +17,7 @@
             <c:choose>
                 <c:when test="${sessionScope.userId != null}">
                     <li class="login2 relative">
-                        <a href="toMyProfile.do" id="profile"><img src="${sessionScope.headUrl}"></a>
+                        <a href="toMyProfile.do" id="profile"><img src="../../upload/images/${sessionScope.user.headUrl}"></a>
                         <ul id="down-menu">
                             <li><a href="toMyProfile.do">My Profile</a></li>
                             <li><a href="logout.do">Log out</a></li>
@@ -39,7 +39,7 @@
                     <div class="small-3 columns">
 <%--                        <span class="glyphicon glyphicon-search">--%>
                         <input type="text" name="searchTemp">
-                        <input type="submit" value="search">
+                        <input type="submit" value="Search">
 <%--                        </span>--%>
                     </div>
                 </form>
