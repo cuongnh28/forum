@@ -29,6 +29,20 @@
                     <div class="user-name">${post.user.username}</div>
                     <div class="post-time">Publish Time ${post.publishTime}</div>
                 </div>
+                <div class="delete-post">
+                    <c:choose>
+                        <c:when test="${post.user.userId==sessionScope.userId}">
+                            <form action="/deletePost.do" method="post">
+                                <input type="hidden" name="postId" value="${post.postId}">
+                                <button class="btn btn-danger" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                            <form action="/editPost.do" method="post">
+                                <input type="hidden" name="postId" value="${post.postId}">
+                                <button class="btn btn-secondary" type="submit" >Edit</button>
+                            </form>
+                        </c:when>
+                    </c:choose>
+                </div>
                 <div class="other-count">
                     <span class="reply-count">Replies: ${post.replyCount}</span>&nbsp;
                     <c:choose>
@@ -65,7 +79,7 @@
                         <div class="item-info">
                             <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
                             <div class="item-content">${reply.content}</div>
-                            <div class="item-date">Reply Time ${reply.replyTime}</div>
+                            <div class="item-date">Reply Time: ${reply.replyTime}</div>
 
                             <div class="item-more">
                                 <c:forEach items="${reply.commentList}" var="comment">

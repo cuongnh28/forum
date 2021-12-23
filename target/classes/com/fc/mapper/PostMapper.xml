@@ -248,6 +248,11 @@
         from post
         where postId = #{postId}
     </select>
+
+    <delete id="deletePost">
+        delete from post
+        where postId = #{postId}
+    </delete>
 </mapper>
 
 

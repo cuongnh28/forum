@@ -11,6 +11,7 @@
     <resultMap type="com.fc.model.Reply" id="replyMap">
         <id column="replyId" property="replyId"/>
         <result column="content" property="content"/>
+        <result column="reply_time" property="replyTime"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
     </resultMap>
 
@@ -26,7 +27,7 @@
     </insert>
 
     <select id="listReply" resultMap="replyMap">
-        select r.replyId,r.content,u.userId,u.username,u.head_url from reply r join user u on r.userId=u.userId
+        select r.replyId,r.content,r.reply_time,u.userId,u.username,u.head_url from reply r join user u on r.userId=u.userId
         where postId=#{postId}
     </select>
 

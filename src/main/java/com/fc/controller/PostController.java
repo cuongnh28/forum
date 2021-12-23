@@ -132,6 +132,36 @@ public class PostController {
         return "index";
     }
 
+    @RequestMapping("/deletePost.do")
+    public String deletePost(int postId, Model model, HttpSession session) {
+        Integer sessionUid = (Integer) session.getAttribute("userId");
+        Post post = postService.getPostByPostId(postId);
+
+        if (sessionUid == post.getUser().getUserId()) {
+            if (postService.deletePost(postId)) {
+                PageBean<Post> pageBean = postService.listPostByNewestTime(1);
+                List<User> userList = userService.listUserByTime();
+                List<User> hotUserList = userService.listUserByHot();
+                String sortBy = "newestTime";
+                model.addAttribute("sortBy", sortBy);
+                model.addAttribute("pageBean", pageBean);
+                model.addAttribute("userList", userList);
+                model.addAttribute("hotUserList", hotUserList);
+                return "index";
+            }
+        }
+
+        return null;
+    }
+
+    @RequestMapping("/editPost.do")
+    public String editPost(int postId, Model model, HttpSession session) {
+        Integer sessionUid = (Integer) session.getAttribute("userId");
+        Post post = postService.getPostByPostId(postId);
+
+        return "index";
+    }
+
     @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8")
     public @ResponseBody
     String ajaxClickLike(int postId, HttpSession session) {

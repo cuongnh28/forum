@@ -39,4 +39,6 @@ public interface PostMapper {
 
     String getTitleByPostId(int postId);
 
+    void deletePost(int postId);
+
 }
