@@ -18,9 +18,10 @@
     <div class="edit-header"><i class="fas fa-user" style="color: #00B091"></i>&nbsp;Update Profile</div>
     <form action="uploadImage.do" method="post" enctype="multipart/form-data">
         <div class="row mx-5 align-items-center position-relative">
-            <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="loadFile(event)">
+            <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="picField(this);">
+<%--            <img src="../../upload/images/${user.headUrl}">--%>
             <div class="border rounded-circle" style="width: fit-content">
-                <img class="border border-dark rounded-circle" id="output" style="width: 120px; height: 120px; object-fit: cover"/>
+                <img src="../../upload/images/${user.headUrl}" class="border border-dark rounded-circle" id="output" style="width: 120px; height: 120px; object-fit: cover"/>
             </div>
             <label class="mx-3 position-absolute" for="photo" style="left: 36px; opacity: 20%"><i class="fas fa-camera fa-2x"></i></label>
             <button class="btn text-white mx-5" style="font-size: 15px; background-color: #00B091;">Save Photo</button>
@@ -108,13 +109,32 @@
 
 <%@ include file="footer.jsp" %>
 <script>
-    var loadFile = function(event) {
-        var output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-            URL.revokeObjectURL(output.src) // free memory
+    // var loadFile = function(event) {
+    //     var output = document.getElementById('output');
+    //     output.src = URL.createObjectURL(event.target.files[0]);
+    //     output.onload = function() {
+    //         URL.revokeObjectURL(output.src) // free memory
+    //     }
+    // };
+    document.getElementById('photo').onchange = function (evt) {
+        var tgt = evt.target || window.event.srcElement,
+            files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                document.getElementById(outImage).src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
         }
-    };
+
+        // Not supported
+        else {
+            // fallback -- perhaps submit the input to an iframe and temporarily store
+            // them on the server until the user's session ends.
+        }
+    }
 </script>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
