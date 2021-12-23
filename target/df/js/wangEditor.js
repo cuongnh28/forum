@@ -865,7 +865,6 @@
             }
         };
 
-        // undo 操作
         E.fn.undo = function () {
             var editor = this;
             var undoList = _getUndoList(editor);
@@ -875,11 +874,9 @@
                 return;
             }
 
-            // 取出 undolist 第一个值，加入 redolist
             var data = undoList.shift();
             redoList.unshift(data);
 
-            // 并修改编辑器的内容
             _handle(this, data, 'undo');
         };
 
@@ -3089,54 +3086,52 @@
             });
         };
     });
-// 语言包
     _e(function (E, $) {
         E.langs = {};
 
         // 中文
         E.langs['zh-cn'] = {
-            bold: '粗体',
-            underline: '下划线',
-            italic: '斜体',
-            forecolor: '文字颜色',
-            bgcolor: '背景色',
-            strikethrough: '删除线',
-            eraser: '清空格式',
-            source: '源码',
-            quote: '引用',
-            fontfamily: '字体',
-            fontsize: '字号',
-            head: '标题',
-            orderlist: '有序列表',
-            unorderlist: '无序列表',
-            alignleft: '左对齐',
-            aligncenter: '居中',
-            alignright: '右对齐',
-            link: '链接',
-            text: '文本',
-            submit: '提交',
-            cancel: '取消',
-            unlink: '取消链接',
-            table: '表格',
-            emotion: '表情',
-            img: '图片',
-            video: '视频',
-            'width': '宽',
-            'height': '高',
-            location: '位置',
-            loading: '加载中',
-            searchlocation: '搜索位置',
-            dynamicMap: '动态地图',
-            clearLocation: '清除位置',
-            langDynamicOneLocation: '动态地图只能显示一个位置',
-            insertcode: '插入代码',
-            undo: '撤销',
-            redo: '重复',
-            fullscreen: '全屏',
-            openLink: '打开链接'
+            bold: 'Bold',
+            underline: 'Uderline',
+            italic: 'Italic',
+            forecolor: 'Fore Color',
+            bgcolor: 'Bg Color',
+            strikethrough: 'Strike through',
+            eraser: 'Eraser',
+            source: 'Source',
+            quote: 'Quote',
+            fontfamily: 'Font family',
+            fontsize: 'Font Size',
+            head: 'Head',
+            orderlist: 'Order List',
+            unorderlist: 'unorderlist',
+            alignleft: 'alignleft',
+            aligncenter: 'aligncenter',
+            alignright: 'alignright',
+            link: 'link',
+            text: 'text',
+            submit: 'submit',
+            cancel: 'cancel',
+            unlink: 'unlink',
+            table: 'table',
+            emotion: 'emotion',
+            img: 'img',
+            video: 'video',
+            'width': 'width',
+            'height': 'height',
+            location: 'location',
+            loading: 'loading',
+            searchlocation: 'searchlocation',
+            dynamicMap: 'dynamicMap',
+            clearLocation: 'clearLocation',
+            langDynamicOneLocation: 'langDynamicOneLocation',
+            insertcode: 'insertcode',
+            undo: 'undo',
+            redo: 'redo',
+            fullscreen: 'fullscreen',
+            openLink: 'openLink'
         };
 
-        // 英文
         E.langs.en = {
             bold: 'Bold',
             underline: 'Underline',
@@ -3179,30 +3174,22 @@
             openLink: 'open link'
         };
     });
-// 全局配置
     _e(function (E, $) {
 
         E.config = {};
 
-        // 全屏时的 z-index
         E.config.zindex = 10000;
 
-        // 是否打印log
         E.config.printLog = true;
 
-        // 菜单吸顶：false - 不吸顶；number - 吸顶，值为top值
         E.config.menuFixed = 0;
 
-        // 编辑源码时，过滤 javascript
         E.config.jsFilter = true;
 
-        // 编辑器允许的标签
         E.config.legalTags = 'p,h1,h2,h3,h4,h5,h6,blockquote,table,ul,ol,pre';
 
-        // 语言包
         E.config.lang = E.langs['zh-cn'];
 
-        // 菜单配置
         E.config.menus = [
             'source',
             '|',
@@ -3239,7 +3226,6 @@
             'fullscreen'
         ];
 
-        // 颜色配置
         E.config.colors = {
             // 'value': 'title'
             '#880000': '暗红色',
@@ -3260,7 +3246,6 @@
             '#ffffff': '白色'
         };
 
-        // 字体
         E.config.familys = [
             '宋体', '黑体', '楷体', '微软雅黑',
             'Arial', 'Verdana', 'Georgia',
@@ -3268,7 +3253,6 @@
             'Trebuchet MS', 'Courier New', 'Impact', 'Comic Sans MS', 'Consolas'
         ];
 
-        // 字号
         E.config.fontsizes = {
             // 格式：'value': 'title'
             1: '12px',
@@ -3280,7 +3264,6 @@
             7: '48px'
         };
 
-        // 表情包
         E.config.emotionsShow = 'icon'; // 显示项，默认为'icon'，也可以配置成'value'
         E.config.emotions = {
             // 'default': {
@@ -3353,7 +3336,6 @@
         // 百度地图的key
         E.config.mapAk = 'TVhjYjq1ICT2qqL5LdS8mwas';
 
-        // 上传图片的配置
         // server地址
         E.config.uploadImgUrl = '';
         // 超时时间
@@ -3396,9 +3378,7 @@
 
         E.UI = {};
 
-        // 为菜单自定义配置的UI
         E.UI.menus = {
-            // 这个 default 不加引号，在 IE8 会报错
             'default': {
                 normal: '<a href="#" tabindex="-1"><i class="wangeditor-menu-img-command"></i></a>',
                 selected: '.selected'
@@ -3518,7 +3498,6 @@
         };
 
     });
-// 对象配置
     _e(function (E, $) {
 
         E.fn.initDefaultConfig = function () {
@@ -5242,10 +5221,8 @@
                 }
             });
 
-            // 增加到editor对象中
             editor.menus[menuId] = menu;
 
-            // tab 切换事件
             function tabToggle() {
                 $uploadTab.click(function (e) {
                     $tabContainer.children().removeClass('selected');

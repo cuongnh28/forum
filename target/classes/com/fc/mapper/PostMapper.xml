@@ -253,6 +253,12 @@
         delete from post
         where postId = #{postId}
     </delete>
+
+    <update id="minusReplyCount">
+        update post
+        set reply_count = reply_count - 1
+        where postId = #{postId}
+    </update>
 </mapper>
 
 

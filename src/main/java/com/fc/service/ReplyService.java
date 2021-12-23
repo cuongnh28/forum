@@ -10,6 +10,7 @@ import com.fc.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
@@ -65,6 +66,20 @@ public class ReplyService {
             reply.setCommentList(commentList);
         }
         return replyList;
+    }
+
+    public Reply getReplyById(int replyId) {
+        Reply reply = replyMapper.getReplyById(replyId);
+        return reply;
+    }
+
+    public boolean deleteReply(int replyId) {
+        try {
+            replyMapper.deleteReply(replyId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
 

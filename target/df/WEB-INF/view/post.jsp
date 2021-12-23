@@ -36,10 +36,10 @@
                                 <input type="hidden" name="postId" value="${post.postId}">
                                 <button class="btn btn-danger" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
                             </form>
-                            <form action="/editPost.do" method="post">
-                                <input type="hidden" name="postId" value="${post.postId}">
-                                <button class="btn btn-secondary" type="submit" >Edit</button>
-                            </form>
+<%--                            <form action="/editPost.do" method="post">--%>
+<%--                                <input type="hidden" name="postId" value="${post.postId}">--%>
+<%--                                <button class="btn btn-secondary" type="submit" >Edit</button>--%>
+<%--                            </form>--%>
                         </c:when>
                     </c:choose>
                 </div>
@@ -76,6 +76,21 @@
                     <div class="post-reply-item clearfix">
                         <div class="item-image"><a href="toProfile.do?userId=${reply.user.userId}"><img
                                 src="../../upload/images/${reply.user.headUrl}"></a></div>
+                        <div class="delete-reply">
+                            <c:choose>
+                                <c:when test="${reply.user.userId==sessionScope.userId}">
+                                    <form action="/deleteReply.do" method="post">
+                                        <input type="hidden" name="replyId" value="${reply.replyId}">
+                                        <input type="hidden" name="postId" value="${post.postId}">
+                                        <button class="btn btn-danger" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+<%--                                    <form action="/editReply.do" method="post">--%>
+<%--                                        <input type="hidden" name="postId" value="${post.postId}">--%>
+<%--                                        <button class="btn btn-secondary" type="submit" >Edit</button>--%>
+<%--                                    </form>--%>
+                                </c:when>
+                            </c:choose>
+                        </div>
                         <div class="item-info">
                             <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
                             <div class="item-content">${reply.content}</div>
@@ -92,9 +107,21 @@
                                         </div>
 
                                         <div class="item-more-date">${comment.commentTime}</div>
-                                        <div class="item-more-other">
-                                            <a href="#s${status.count}" class="item-more-reply">Status count</a>&nbsp;
-                                        </div>
+                                    </div>
+                                    <div class="delete-comment">
+                                        <c:choose>
+                                            <c:when test="${comment.user.userId==sessionScope.userId}">
+                                                <form action="/deleteComment.do" method="post">
+                                                    <input type="hidden" name="commentId" value="${comment.commentId}">
+                                                    <input type="hidden" name="postId" value="${post.postId}">
+                                                    <button class="btn btn-danger" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
+                                                </form>
+                                                <%--                                    <form action="/editReply.do" method="post">--%>
+                                                <%--                                        <input type="hidden" name="postId" value="${post.postId}">--%>
+                                                <%--                                        <button class="btn btn-secondary" type="submit" >Edit</button>--%>
+                                                <%--                                    </form>--%>
+                                            </c:when>
+                                        </c:choose>
                                     </div>
                                 </c:forEach>
 
@@ -109,9 +136,9 @@
                             </div>
 
                         </div>
-                        <div class="item-other">
-                            <a href="#s${status.count}" class="item-reply">Count</a>&nbsp;
-                        </div>
+<%--                        <div class="item-other">--%>
+<%--                            <a href="#s${status.count}" class="item-reply">Count</a>&nbsp;--%>
+<%--                        </div>--%>
 
                     </div>
                 </c:forEach>
@@ -123,7 +150,7 @@
             <div style="width: 650px;margin: 10px 20px">
                 <form action="reply.do" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="postId" value="${post.postId}"/>
-                    <textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
+                    <textarea name="contentReply" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
                     <button class="reply-button">Reply</button>
                 </form>
             </div>
@@ -154,34 +181,35 @@
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/wangEditor.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
+<script src="../../ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-    var editor = new wangEditor('textarea');
-
-    editor.config.menus = [
-        'source',
-        '|',
-        'bold',
-        'underline',
-        'italic',
-        'strikethrough',
-        'eraser',
-        'fontsize',
-        '|',
-        'link',
-        'table',
-        'emotion',
-        '|',
-        'img',
-        'insertcode',
-        '|',
-        'undo',
-    ];
-
-    editor.config.uploadImgUrl = 'upload.do';
-    editor.config.uploadImgFileName = 'myFileName';
-
-
-    editor.create();
+    CKEDITOR.replace('contentReply');
+    // var editor = new wangEditor('textarea');
+    //
+    // editor.config.menus = [
+    //     'source',
+    //     '|',
+    //     'bold',
+    //     'underline',
+    //     'italic',
+    //     'strikethrough',
+    //     'eraser',
+    //     'fontsize',
+    //     '|',
+    //     'table',
+    //     'link',
+    //     '|',
+    //     'img',
+    //     'insertcode',
+    //     '|',
+    //     'undo',
+    // ];
+    //
+    // editor.config.uploadImgUrl = 'upload.do';
+    // editor.config.uploadImgFileName = 'myFileName';
+    //
+    //
+    // editor.create();
 
     var likeButton = $("#like-button");
     likeButton.click(function () {

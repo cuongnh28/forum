@@ -231,5 +231,9 @@ public class PostService {
         }
     }
 
+    public void updateReplyCount (int postId) {
+        postMapper.minusReplyCount(postId);
+    }
+
 }
 

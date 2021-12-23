@@ -15,9 +15,8 @@
 
 
 	<div class="main w clearfix">
-		<form action="publishPost.do" method="post">
-            <input type="hidden" name="topic.topicId" value="1" id="topicId">
-            <input type="hidden" name="user.userId" value="${sessionScope.userId}">
+		<form action="publishPost.do" method="post" id="new-post-form">
+            <input type="hidden" name="userId" value="${sessionScope.userId}">
 
 			<div class="pub-header"><span></span>&nbsp;Text here (Not translate)</div>
 			<div class="pub-title">
@@ -27,14 +26,15 @@
 				<span>Topic：</span>
 				<div class="topic-list">
 					<c:forEach items="${topicList}" var="topic">
-                        <a class="topics" href="#" title="${topic.topicId}">${topic.name}</a>
+                        <a class="topics" href="#" title="${topic.topicId}" onclick="chooseTopic(this)">${topic.name}</a>
+<%--						<input>--%>
                     </c:forEach>
 				</div>
 			</div>
 
 			<div class="pub-textarea">
 				<div style="width: 920px;">
-					<textarea name="content" id="textarea" style="height: 300px;max-height: 1000px;"></textarea>
+					<textarea name="content" id="input-content" style="height: 300px;max-height: 1000px;"></textarea>
 				</div>
                 <button class="pub-button">Publish</button>
 			</div>
@@ -46,33 +46,82 @@
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/wangEditor.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
+<script src="../../ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
+	window.onload = function () {
+		let form = document.getElementById("new-post-form");
+		form.onsubmit = function (ev) {
+			ev.preventDefault();
+			let selectedTopics = document.getElementsByClassName("selectedTopic");
+			let data = {
+				title: document.getElementsByName("title")[0].value,
+				content: CKEDITOR.instances["input-content"].getData(),
+				topic: {topicId: selectedTopics != null && selectedTopics.length > 0 ? selectedTopics[0].getAttribute("title") : null},
+				user: {userId: document.getElementsByName("userId")[0].value}
+			};
+
+			// validate here
+			if (data.title == null || data.title === "") {
+				alert("Chưa Nhập Topic");
+				return;
+			}
+
+			addNewPost(data, "/publishPost.do");
+		};
+	};
+
+	// larry
+	function addNewPost(post, url) {
+		let req = new XMLHttpRequest();
+		req.open("POST", url, true);
+		req.setRequestHeader("Content-Type", "application/json");
+		req.responseType = "text";
+		req.onreadystatechange = function () {
+			if (this.readyState !== XMLHttpRequest.DONE) {
+				return;
+			}
+			if (this.status !== 200) {
+				alert("Error! Can't publish post!");
+			} else {
+				window.location = "/toPost.do?postId=" + this.responseText;
+			}
+		};
+		req.send(JSON.stringify(post));
+	}
+
+	function chooseTopic(topicElement) {
+		topicElement.classList.add("selectedTopic");
+	}
+
+
+
+	CKEDITOR.replace('content');
     $(function(){
-        var editor = new wangEditor('textarea');
-
-        editor.config.menus = [
-            'source',
-            '|',
-            'bold',
-            'underline',
-            'italic',
-            'strikethrough',
-            'eraser',
-            'fontsize',
-            '|',
-            'link',
-            'table',
-            'emotion',
-            '|',
-            'img',
-            'insertcode',
-            '|',
-            'undo',
-        ];
-
-        editor.config.uploadImgUrl = 'upload.do';
-        editor.config.uploadImgFileName = 'myFileName';
-        editor.create();
+        // var editor = new wangEditor('textarea');
+		//
+        // editor.config.menus = [
+        //     'source',
+        //     '|',
+        //     'bold',
+        //     'underline',
+        //     'italic',
+        //     'strikethrough',
+        //     'eraser',
+        //     'fontsize',
+        //     '|',
+        //     'link',
+        //     'table',
+        //     'emotion',
+        //     '|',
+        //     'img',
+        //     'insertcode',
+        //     '|',
+        //     'undo',
+        // ];
+		//
+        // editor.config.uploadImgUrl = 'upload.do';
+        // editor.config.uploadImgFileName = 'myFileName';
+        // editor.create();
 
         var topics = $(".topics");
         var topicId = $("#topicId");
