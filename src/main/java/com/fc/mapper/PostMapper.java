@@ -29,7 +29,11 @@ public interface PostMapper {
 
     Post getPostByPostId(int postId);
 
+//    +1
     void updateReplyCount(int postId);
+
+//    -1
+    void minusReplyCount(int postId);
 
     void updateScanCount(int postId);
 
@@ -38,5 +42,7 @@ public interface PostMapper {
     int getUserIdByPostId(int postId);
 
     String getTitleByPostId(int postId);
+
+    void deletePost(int postId);
 
 }

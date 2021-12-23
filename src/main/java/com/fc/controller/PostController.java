@@ -8,10 +8,13 @@ import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,10 +48,11 @@ public class PostController {
         return "publish";
     }
 
-    @RequestMapping("/publishPost.do")
-    public String publishPost(Post post) {
+    @RequestMapping(value = "/publishPost.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Integer> publishPost(@RequestBody Post post) {
         int id = postService.publishPost(post);
-        return "redirect:toPost.do?postId=" + id;
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @RequestMapping("/listPostByNewestTime.do")
@@ -129,6 +133,36 @@ public class PostController {
         model.addAttribute("pageBean", pageBean);
         model.addAttribute("userList", userList);
         model.addAttribute("hotUserList", hotUserList);
+        return "index";
+    }
+
+    @RequestMapping("/deletePost.do")
+    public String deletePost(int postId, Model model, HttpSession session) {
+        Integer sessionUid = (Integer) session.getAttribute("userId");
+        Post post = postService.getPostByPostId(postId);
+
+        if (sessionUid == post.getUser().getUserId()) {
+            if (postService.deletePost(postId)) {
+                PageBean<Post> pageBean = postService.listPostByNewestTime(1);
+                List<User> userList = userService.listUserByTime();
+                List<User> hotUserList = userService.listUserByHot();
+                String sortBy = "newestTime";
+                model.addAttribute("sortBy", sortBy);
+                model.addAttribute("pageBean", pageBean);
+                model.addAttribute("userList", userList);
+                model.addAttribute("hotUserList", hotUserList);
+                return "index";
+            }
+        }
+
+        return null;
+    }
+
+    @RequestMapping("/editPost.do")
+    public String editPost(int postId, Model model, HttpSession session) {
+        Integer sessionUid = (Integer) session.getAttribute("userId");
+        Post post = postService.getPostByPostId(postId);
+
         return "index";
     }
 

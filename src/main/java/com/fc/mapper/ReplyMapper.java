@@ -18,4 +18,8 @@ public interface ReplyMapper {
 
     String getContentByReplyId(int replyId);
 
+    Reply getReplyById (int replyId);
+
+    void deleteReply(int replyId);
+
 }

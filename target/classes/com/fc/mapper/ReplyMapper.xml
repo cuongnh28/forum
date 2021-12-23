@@ -11,13 +11,22 @@
     <resultMap type="com.fc.model.Reply" id="replyMap">
         <id column="replyId" property="replyId"/>
         <result column="content" property="content"/>
+        <result column="reply_time" property="replyTime"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
     </resultMap>
 
     <resultMap type="com.fc.model.Comment" id="commentMap">
         <id column="commentId" property="commentId"/>
         <result column="content" property="content"/>
+        <result column="comment_time" property="commentTime"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
+    </resultMap>
+
+    <resultMap type="com.fc.model.Reply" id="replyById">
+        <id column="replyId" property="replyId"/>
+        <result column="content" property="content"/>
+        <result column="reply_time" property="replyTime"/>
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
     </resultMap>
 
 
@@ -26,7 +35,7 @@
     </insert>
 
     <select id="listReply" resultMap="replyMap">
-        select r.replyId,r.content,u.userId,u.username,u.head_url from reply r join user u on r.userId=u.userId
+        select r.replyId,r.content,r.reply_time,u.userId,u.username,u.head_url from reply r join user u on r.userId=u.userId
         where postId=#{postId}
     </select>
 
@@ -35,12 +44,23 @@
     </insert>
 
     <select id="listComment" resultMap="commentMap">
-        select c.commentId,c.content,u.userId,u.username,u.head_url from comment c join user u on c.userId=u.userId
+        select c.commentId,c.content,c.comment_time,u.userId,u.username,u.head_url from comment c join user u on c.userId=u.userId
         where replyId=#{replyId}
     </select>
 
     <select id="getContentByReplyId" resultType="String">
         select content from reply where replyId=#{replyId}
     </select>
+
+    <select id="getReplyById" resultMap="replyById">
+        select *
+        from reply r
+        where r.replyId = #{replyId}
+    </select>
+
+    <delete id="deleteReply">
+        delete from reply
+        where replyId = #{replyId}
+    </delete>
 
 </mapper>

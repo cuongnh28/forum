@@ -221,5 +221,19 @@ public class PostService {
         }
         return result;
     }
+
+    public boolean deletePost(int postId) {
+        try {
+            postMapper.deletePost(postId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void updateReplyCount (int postId) {
+        postMapper.minusReplyCount(postId);
+    }
+
 }
 
