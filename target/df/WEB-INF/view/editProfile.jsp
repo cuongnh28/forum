@@ -3,80 +3,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
-	<link rel="stylesheet" type="text/css" href="css/base.css">
-	<link rel="stylesheet" type="text/css" href="css/editProfile.css">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/editProfile.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 </head>
 <body>
 <%@ include file="header.jsp" %>
 
-	<div class="main w clearfix">
-		<div class="edit-header"><span></span>&nbsp;Update Profile</div>
-		<form action="editProfile.do" method="post">
-			<div class="edit-title">
-                <input type="hidden" name="userId" value="${user.userId}">
-				Username：<input type="text" name="username" value="${user.username}">
-			</div>
-			<div class="edit-title">
-				Description：<input type="text" name="description" value="${user.description}">
-			</div>
-			<div class="edit-title">
-				Position：<input type="text" name="position" value="${user.position}">
-			</div>
-			<div class="edit-title">
-				School：<input type="text" name="school" value="${user.school}">
-			</div>
-<%--			<div class="edit-title">--%>
-<%--				Last Name：<input type="text" name="lastName" value="${user.fullName.lastName}">--%>
-<%--			</div>--%>
-<%--			<div class="edit-title">--%>
-<%--				First Name：<input type="text" name="firstName" value="${user.fullName.firstName}">--%>
-<%--			</div>--%>
-			<div class="edit-title">
-				Job：<input type="text" name="job" value="${user.job}">
-			</div>
-			<div class="relative">
-				<button class="edit-submit">Submit</button>
-			</div>
-		</form>
+<div class="main w clearfix">
+    <div class="edit-header"><span></span>&nbsp;Update Profile</div>
+    <form action="editProfile.do" method="post">
+        <div class="edit-title">
+            <input type="hidden" name="userId" value="${user.userId}">
+            Username：<input type="text" name="username" value="${user.username}">
+        </div>
+        <div class="edit-title">
+            Description：<input type="text" name="description" value="${user.description}">
+        </div>
+        <div class="edit-title">
+            Position：<input type="text" name="position" value="${user.position}">
+        </div>
+        <div class="edit-title">
+            School：<input type="text" name="school" value="${user.school}">
+        </div>
+        <%--			<div class="edit-title">--%>
+        <%--				Last Name：<input type="text" name="lastName" value="${user.fullName.lastName}">--%>
+        <%--			</div>--%>
+        <%--			<div class="edit-title">--%>
+        <%--				First Name：<input type="text" name="firstName" value="${user.fullName.firstName}">--%>
+        <%--			</div>--%>
+        <div class="edit-title">
+            Job：<input type="text" name="job" value="${user.job}">
+        </div>
+        <div class="relative">
+            <button class="edit-submit">Submit</button>
+        </div>
+    </form>
 
-        <div style="margin-top: 60px;"></div>
-		<div class="edit-header"><span></span>&nbsp;Change Password</div>
-		<form action="updatePassword.do" method="post">
-			<div class="edit-title">
-                <div class="text-danger">${passwordError}</div>
-				Current Password：<input type="password" name="password">
-			</div>
-			<div class="edit-title">
-				New Password：<input type="password" name="newpassword">
-			</div>
-			<div class="edit-title">
-				Confirm New Password：<input type="password" name="repassword">
-			</div>
-			<div class="relative">
-				<button class="edit-submit">Submit</button>
-			</div>
-		</form>
+    <div style="margin-top: 60px;"></div>
+    <div class="edit-header"><span></span>&nbsp;Change Password</div>
+    <form action="updatePassword.do" method="post">
+        <div class="edit-title">
+            <div class="text-danger">${passwordError}</div>
+            Current Password：<input type="password" name="password">
+        </div>
+        <div class="edit-title">
+            New Password：<input type="password" name="newpassword">
+        </div>
+        <div class="edit-title">
+            Confirm New Password：<input type="password" name="repassword">
+        </div>
+        <div class="relative">
+            <button class="edit-submit">Submit</button>
+        </div>
+    </form>
 
-        <div style="margin-top: 60px;"></div>
-        <div class="edit-header"><span></span>&nbsp;Change Avatar</div>
-        <form action="uploadImage.do" method="post" enctype="multipart/form-data">
-            <div class="edit-title">
-				<span class="text-danger">${error3}</span>
-                <input type="file" name="myFileName">
-            </div>
-            <div class="relative">
-                <button class="edit-submit">Upload</button>
-            </div>
-        </form>
+    <div style="margin-top: 60px;"></div>
+    <div class="edit-header"><span></span>&nbsp;Change Avatar</div>
+    <form action="uploadImage.do" method="post" enctype="multipart/form-data">
+        <div class="edit-title">
+            <span class="text-danger">${error3}</span>
+            <input type="file" name="myFileName">
+        </div>
+        <div class="relative">
+            <button class="edit-submit">Upload</button>
+        </div>
+    </form>
 
-	</div>
+</div>
 
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
