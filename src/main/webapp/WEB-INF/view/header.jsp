@@ -3,48 +3,57 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-<div class="header clearfix">
-    <div class="w">
-        <h1 class="logo"><a href="toIndex.do">Home</a></h1>
-        <ul class="left-nav">
-            <li class="current-nav"><a href="toIndex.do">Home</a></li>
-            <li><a href="listTopic.do">Topics</a></li>
-<%--            <li><a href="listImage.do">Images</a></li>--%>
-            <li><a href="toMessage.do">Activity Log</a></li>
+<div style="height: 63px">
+    <div class="position-fixed w-100 nav nav-tabs d-flex bg-dark text-white justify-content-between"
+         style="font-size: 16px; z-index: 10">
+        <%--        left        --%>
+        <ul class="nav py-3 row align-items-center">
+            <li class="nav-item"><a href="toIndex.do" class="text-white" style="font-size: 20px"><b>Home</b></a></li>
+            <li class="nav-item"><a href="listTopic.do" class="text-white">Topics</a></li>
+            <%--            <li><a href="listImage.do">Images</a></li>--%>
+            <li class="nav-item"><a href="toMessage.do" class="text-white">Activity Log</a></li>
         </ul>
 
-        <ul class="right-nav">
-            <c:choose>
-                <c:when test="${sessionScope.userId != null}">
-                    <li class="login2 relative">
-                        <a href="toMyProfile.do" id="profile"><img src="../../upload/images/${sessionScope.user.headUrl}"></a>
-                        <ul id="down-menu">
-                            <li><a href="toMyProfile.do">My Profile</a></li>
-                            <li><a href="logout.do">Log out</a></li>
-                        </ul>
-                    </li>
-                </c:when>
-                <c:otherwise>
-                    <li class="login">
-                        <a href="toLogin.do">Login</a>
-                            <%--                        <a href="toLogin.do">/</a>--%>
-                        <a href="toLogin.do#register">Register</a>
-                    </li>
-                </c:otherwise>
-            </c:choose>
+        <div class="nav">
 
+            <%--             search         --%>
+            <form action="/search.do" method="get" class="row">
+                <div class="form-group d-flex align-items-center m-0">
+                    <input class="form-control col-8 mx-1" placeholder="topic" type="text" style="font-size: 15px" name="searchTemp">
+                    <button type="submit" class="btn btn-success col-4 mx-1" style="font-size: 15px">Search</button>
+                </div>
+            </form>
 
-            <li>
-                <form action="/search.do" method="get">
-                    <div class="small-3 columns">
-<%--                        <span class="glyphicon glyphicon-search">--%>
-                        <input type="text" name="searchTemp">
-                        <input type="submit" value="Search">
-<%--                        </span>--%>
-                    </div>
-                </form>
-            </li>
-<%--            <li><input type="text"></li>--%>
-        </ul>
+            <%--          right          --%>
+            <ul class="nav align-items-center ml-5">
+                <c:choose>
+                    <c:when test="${sessionScope.userId != null}">
+                        <div class="dropdown ml-4">
+                            <a role="button" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <img src="../../upload/images/${sessionScope.user.headUrl}"
+                                     style="height: 30px ; width: 30px ; border-radius: 50%">
+                            </a>
+                            <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton"
+                                 style="font-size: 14px">
+                                <a class="col-12 text-white d-block my-2" href="toMyProfile.do" style="text-decoration: none">My Profile</a>
+                                <a class="col-12 text-white d-block my-2" href="logout.do" style="text-decoration: none">Log out</a>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <a href="toLogin.do" class="text-white">Login</a>
+                        </li>
+                        <%--                        <a href="toLogin.do">/</a>--%>
+                        <li>
+                            <a href="toLogin.do#register" class="text-white">Register</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+
+                <%--            <li><input type="text"></li>--%>
+            </ul>
+        </div>
     </div>
 </div>

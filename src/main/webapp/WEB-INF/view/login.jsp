@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
@@ -23,46 +24,57 @@
         <div id="login-area">
             <form action="login.do" method="post">
                 <div class="error-message">${error}</div>
-                <div class="email">
-                    email&nbsp;
-                    <input id="login-email" type="text" name="email" value="${email}" required>
+                <div class="email form-group ">
+                    <label for="login-email">Email</label>
+                    <input id="login-email" type="text" name="email" class="form-control w-100" value="${email}"
+                           required>
                 </div>
-                <div class="password">
-                    password&nbsp;
-                    <input type="password" name="password" required>
+                <div class="password form-group ">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" class="form-control w-100" required>
                 </div>
-                <button id="login-submit">Login</button>
-                <button type="button" id="forget-password" onclick="location.href='/forgetPassword.do'">Forget Password</button>
-<%--                <input type="button" id="forgetPassword" value="Forget Password" onclick="location.href='/forgetPassword.do'">--%>
+                <div class="row justify-content-center">
+                    <button id="login-submit" class="btn col-5 m-0 mx-2 p-0">Login</button>
+                    <button type="button" class="btn col-5 m-0 p-0 mx-2" id="forget-password"
+                            onclick="location.href='/forgetPassword.do'">Forget Password
+                    </button>
+                </div>
+                <%--                <input type="button" id="forgetPassword" value="Forget Password" onclick="location.href='/forgetPassword.do'">--%>
             </form>
         </div>
 
         <div id="register-area">
             <form action="register.do" method="post">
-                <div id="error-message" class="error-message">${error}</div>
-                <div class="email">
-                    Email&nbsp;
-                    <input type="email" name="email" value="${email}" id="email" required>
+                <div id="error-message" class="error-message text-center p-0">${error}</div>
+                <div class="email form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control w-100" type="email" name="email" value="${email}" id="email" required/>
                 </div>
                 <div class="password">
-                    Password&nbsp;
-                    <input type="password" name="password" id="password" required>
+                    <label for="password">Password</label>&nbsp;
+                    <input class="form-control w-100" type="password" name="password" id="password" required/>
                 </div>
                 <div class="password relative clearfix">
-                    <span style="position: absolute;left: -30px;">Confirm Password&nbsp;</span>
-                    <input type="password" name="repassword" id="repassword" required
-                           style="position: absolute;left: 40px;">
+                    <label for="repassword">Confirm Password&nbsp;</label>
+                    <input class="form-control w-100" type="password" name="repassword" id="repassword" required/>
                 </div>
-                <div class="relative">
-                    <button id="register-submit">Register</button>
-                </div>
+                <button class="w-100 position-static" id="register-submit">Register</button>
             </form>
         </div>
     </div>
 </div>
 
 
-<%@ include file="footer.jsp" %>
+<%--<%@ include file="footer.jsp" %>--%>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
@@ -126,6 +138,15 @@
 
 
 </script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>
 
