@@ -15,7 +15,7 @@
 <%@ include file="header.jsp" %>
 
 <div class="main w clearfix" style="font-size: 15px">
-    <div class="edit-header"><i class="fas fa-user" style="color: #00B091"></i>&nbsp;Update Profile</div>
+    <div class="edit-header"><i class="fas fa-user" style="color: #00B091"></i>&nbsp;&nbsp;Update Profile</div>
     <form action="uploadImage.do" method="post" enctype="multipart/form-data">
         <div class="row mx-5 align-items-center position-relative">
             <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="loadFile(event)">
@@ -86,21 +86,29 @@
     </form>
 
     <div style="margin-top: 60px;"></div>
-    <div class="edit-header"><span></span>&nbsp;Change Password</div>
+    <div class="edit-header"><i class="fas fa-unlock-alt" style="color: #00B091"></i>&nbsp;&nbsp;Change Password</div>
     <form action="updatePassword.do" method="post">
-        <div class="edit-title">
-            <div class="text-danger">${passwordError}</div>
-            Current Password：<input type="password" name="password">
+
+        <div class="text-danger ml-5 mb-3">${passwordError}</div>
+        <div class="form-group row">
+            <label for="password" class="col-3 mx-3">Current Password: </label>
+            <input class="form-control col-8 mx-3" type="password" id="password" name="password" style="font-size: 15px" />
         </div>
-        <div class="edit-title">
-            New Password：<input type="password" name="newpassword">
+
+        <div class="form-group row">
+            <label for="newpassword" class="col-3 mx-3">New Password: </label>
+            <input class="form-control col-8 mx-3" type="password" id="newpassword" name="newpassword" style="font-size: 15px" />
         </div>
-        <div class="edit-title">
-            Confirm New Password：<input type="password" name="repassword">
+
+        <div class="form-group row">
+            <label for="repassword" class="col-3 mx-3">Confirm New Password： </label>
+            <input class="form-control col-8 mx-3" type="password" id="repassword" name="repassword" style="font-size: 15px" />
         </div>
-        <div class="relative">
-            <button class="edit-submit">Submit</button>
+
+        <div class="form-group" style="margin: 0px 10px">
+            <button class="btn text-white" style="font-size: 15px; background-color: #00B091;">Submit</button>
         </div>
+
     </form>
 
 </div>
