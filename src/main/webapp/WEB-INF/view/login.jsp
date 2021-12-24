@@ -9,60 +9,196 @@
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="image/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
 
+<div class="limiter">
+    <div class="container-login100 ">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="image/img-01.png" alt="IMG">
+            </div>
 
-<div class="main w clearfix">
-    <div class="buttons clearfix">
-        <a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</a>
-        <a href="#" id="register-button" class="unselected"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Register</a>
-    </div>
-    <div class="contents">
+<%--            Login --%>
+            <form class="login100-form validate-form" action="login.do" method="post" id="login">
+					<span class="login100-form-title">
+						Member Login
+					</span>
 
-        <div id="login-area">
-            <form action="login.do" method="post">
-                <div class="error-message">${error}</div>
-                <div class="email form-group ">
-                    <label for="login-email">Email</label>
-                    <input id="login-email" type="text" name="email" class="form-control w-100" value="${email}"
-                           required>
+                <div class="error-message text-center p-0">${error}</div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input id="login-email" class="input100" type="text" name="email" value="${email}" placeholder="Email" required />
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
                 </div>
-                <div class="password form-group ">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" name="password" class="form-control w-100" required>
+
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <input class="input100" type="password" name="password" placeholder="Password"required />
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
                 </div>
-                <div class="row justify-content-center">
-                    <button id="login-submit" class="btn col-5 m-0 mx-2 p-0">Login</button>
-                    <button type="button" class="btn col-5 m-0 p-0 mx-2" id="forget-password"
-                            onclick="location.href='/forgetPassword.do'">Forget Password
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                        Login
                     </button>
                 </div>
-                <%--                <input type="button" id="forgetPassword" value="Forget Password" onclick="location.href='/forgetPassword.do'">--%>
-            </form>
-        </div>
 
-        <div id="register-area">
-            <form action="register.do" method="post">
+                <div class="text-center p-t-12">
+						<span class="txt1">
+							Forgot
+						</span>
+                    <a class="txt2" href="#">
+                        Username / Password?
+                    </a>
+                </div>
+
+                <div class="text-center p-t-136">
+                    <a class="txt2" id="moveToRegister" href="#" onClick="moveToRegister(event)">
+                        Create your Account
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>
+
+<%-- Register --%>
+            <form class="login100-form validate-form d-none" action="register.do" method="post" id="register">
+					<span class="login100-form-title">
+						Create Your Account
+					</span>
+
                 <div id="error-message" class="error-message text-center p-0">${error}</div>
-                <div class="email form-group">
-                    <label for="email">Email</label>
-                    <input class="form-control w-100" type="email" name="email" value="${email}" id="email" required/>
+
+                <div class="error-message text-center p-0">${error}</div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input id="email" class="input100" type="text" name="email" value="${email}" placeholder="Email" required />
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
                 </div>
-                <div class="password">
-                    <label for="password">Password</label>&nbsp;
-                    <input class="form-control w-100" type="password" name="password" id="password" required/>
+
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <input class="input100" type="password" name="password" placeholder="Password" required />
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
                 </div>
-                <div class="password relative clearfix">
-                    <label for="repassword">Confirm Password&nbsp;</label>
-                    <input class="form-control w-100" type="password" name="repassword" id="repassword" required/>
+
+                <div class="wrap-input100 validate-input" data-validate = "Re-Password is required">
+                    <input class="input100" type="password" name="repassword" placeholder="Confirm Your Password" required />
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
                 </div>
-                <button class="w-100 position-static" id="register-submit">Register</button>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                        Register
+                    </button>
+                </div>
+
+                <div class="text-center p-t-136">
+                    <a class="txt2" id="moveToLogin" href="#" onclick="moveToLogin(event)">
+                        <i class="fa fa-long-arrow-left m-r-5" aria-hidden="true"></i>
+                        Have an account ? Login now
+                    </a>
+                </div>
             </form>
         </div>
     </div>
 </div>
+
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+
+    function moveToRegister(e){
+        e.preventDefault();
+        document.querySelector('#login').className += ' d-none'
+        document.querySelector('#register').classList.remove('d-none')
+    }
+
+    function moveToLogin(e){
+        e.preventDefault();
+        document.querySelector('#register').className += ' d-none'
+        document.querySelector('#login').classList.remove('d-none')
+    }
+</script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+
+
+
+<%--<div class="main w clearfix">--%>
+<%--    <div class="buttons clearfix">--%>
+<%--        <a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</a>--%>
+<%--        <a href="#" id="register-button" class="unselected"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Register</a>--%>
+<%--    </div>--%>
+<%--    <div class="contents">--%>
+
+<%--        <div id="login-area">--%>
+<%--            <form action="login.do" method="post">--%>
+<%--                <div class="error-message">${error}</div>--%>
+<%--                <div class="email form-group ">--%>
+<%--                    <label for="login-email">Email</label>--%>
+<%--                    <input id="login-email" type="text" name="email" class="form-control w-100" value="${email}"--%>
+<%--                           required>--%>
+<%--                </div>--%>
+<%--                <div class="password form-group ">--%>
+<%--                    <label for="login-password">Password</label>--%>
+<%--                    <input type="password" id="login-password" name="password" class="form-control w-100" required>--%>
+<%--                </div>--%>
+<%--                <div class="row justify-content-center">--%>
+<%--                    <button id="login-submit" class="btn col-5 m-0 mx-2 p-0">Login</button>--%>
+<%--                    <button type="button" class="btn col-5 m-0 p-0 mx-2" id="forget-password"--%>
+<%--                            onclick="location.href='/forgetPassword.do'">Forget Password--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--                &lt;%&ndash;                <input type="button" id="forgetPassword" value="Forget Password" onclick="location.href='/forgetPassword.do'">&ndash;%&gt;--%>
+<%--            </form>--%>
+<%--        </div>--%>
+
+<%--        <div id="register-area">--%>
+<%--            <form action="register.do" method="post">--%>
+<%--                <div id="error-message" class="error-message text-center p-0">${error}</div>--%>
+<%--                <div class="email form-group">--%>
+<%--                    <label for="email">Email</label>--%>
+<%--                    <input class="form-control w-100" type="email" name="email" value="${email}" id="email" required/>--%>
+<%--                </div>--%>
+<%--                <div class="password">--%>
+<%--                    <label for="password">Password</label>&nbsp;--%>
+<%--                    <input class="form-control w-100" type="password" name="password" id="password" required/>--%>
+<%--                </div>--%>
+<%--                <div class="password relative clearfix">--%>
+<%--                    <label for="repassword">Confirm Password&nbsp;</label>--%>
+<%--                    <input class="form-control w-100" type="password" name="repassword" id="repassword" required/>--%>
+<%--                </div>--%>
+<%--                <button class="w-100 position-static" id="register-submit">Register</button>--%>
+<%--            </form>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 
 <%--<%@ include file="footer.jsp" %>--%>
@@ -79,40 +215,40 @@
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
     $(function () {
-        var loginButton = $("#login-button");
-        var registerButton = $("#register-button");
-        var lArea = $("#login-area");
-        var rArea = $("#register-area");
-        rArea.hide();
-
-        loginButton.click(function () {
-            loginButton.addClass("selected");
-            loginButton.removeClass("unselected");
-            registerButton.addClass("unselected");
-            registerButton.removeClass("selected");
-            lArea.show();
-            rArea.hide();
-        });
-
-        registerButton.click(function () {
-            registerButton.addClass("selected");
-            registerButton.removeClass("unselected");
-            loginButton.addClass("unselected");
-            loginButton.removeClass("selected");
-            lArea.hide();
-            rArea.show();
-        });
+        // var loginButton = $("#login-button");
+        // var registerButton = $("#register-button");
+        // var lArea = $("#login-area");
+        // var rArea = $("#register-area");
+        // rArea.hide();
+        //
+        // loginButton.click(function () {
+        //     loginButton.addClass("selected");
+        //     loginButton.removeClass("unselected");
+        //     registerButton.addClass("unselected");
+        //     registerButton.removeClass("selected");
+        //     lArea.show();
+        //     rArea.hide();
+        // });
+        //
+        // registerButton.click(function () {
+        //     registerButton.addClass("selected");
+        //     registerButton.removeClass("unselected");
+        //     loginButton.addClass("unselected");
+        //     loginButton.removeClass("selected");
+        //     lArea.hide();
+        //     rArea.show();
+        // });
 
         if (location.href.indexOf("#register") >= 0) {
-            registerButton.click();
+            document.querySelector('#moveToRegister').click();
         } else {
-            loginButton.click();
+            document.querySelector('#moveToLogin').click();
         }
 
-        var hideInfo = "${register}";
-        if (hideInfo != null && hideInfo != "") {
-            registerButton.click();
-        }
+        <%--var hideInfo = "${register}";--%>
+        <%--if (hideInfo != null && hideInfo != "") {--%>
+        <%--    registerButton.click();--%>
+        <%--}--%>
 
 
         $("#email").blur(function () {
@@ -138,15 +274,7 @@
 
 
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
 </body>
 </html>
 
