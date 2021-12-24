@@ -18,6 +18,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <%@ include file="header.jsp" %>
@@ -35,10 +36,10 @@
 						Member Login
 					</span>
 
-                <div class="error-message text-center p-0">${error}</div>
+                <div id="error" class="error-message text-center p-0 mb-4">${error}</div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input id="login-email" class="input100" type="text" name="email" value="${email}" placeholder="Email" required />
+                    <input id="login-email" class="input100" type="text" name="email" value="${email}" placeholder="Email" />
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -46,7 +47,7 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Password"required />
+                    <input class="input100" type="password" name="password" placeholder="Password"/>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -82,12 +83,12 @@
 						Create Your Account
 					</span>
 
-                <div id="error-message" class="error-message text-center p-0">${error}</div>
+                <div id="error-message" class="error-message text-center p-0 mb-4">${error}</div>
 
-                <div class="error-message text-center p-0">${error}</div>
+<%--                <div class="error-message text-center p-0">${error}</div>--%>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input id="email" class="input100" type="text" name="email" value="${email}" placeholder="Email" required />
+                    <input id="email" class="input100" type="email" name="email" value="${email}" placeholder="Email" />
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -95,15 +96,15 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Password" required />
+                    <input class="input100" type="password" name="password" placeholder="Password" />
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Re-Password is required">
-                    <input class="input100" type="password" name="repassword" placeholder="Confirm Your Password" required />
+                    <input class="input100" type="password" name="repassword" placeholder="Confirm Your Password" />
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -143,6 +144,7 @@
         document.querySelector('#register').className += ' d-none'
         document.querySelector('#login').classList.remove('d-none')
     }
+
 </script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
@@ -213,6 +215,10 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/tilt.jquery.min.js"></script>
+
+
 <script type="text/javascript">
     $(function () {
         // var loginButton = $("#login-button");
@@ -251,14 +257,14 @@
         <%--}--%>
 
 
-        $("#email").blur(function () {
-            var value = $(this).val();
-            if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value)) {
-                $("#error-message").text("Username or password is wrong.");
-            } else {
-                $("#error-message").text("");
-            }
-        });
+        // $("#email").blur(function () {
+        //     var value = $(this).val();
+        //     if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value)) {
+        //         $("#error-message").text("Username or password is wrong.");
+        //     } else {
+        //         $("#error-message").text("");
+        //     }
+        // });
 
         // $("#forget-password").click(function () {
         //     $.click({
