@@ -12,4 +12,9 @@
         select * from message where userId=#{userId}
     </select>
 
+    <delete id="deleteMassage">
+        delete from message
+        where postId = #{postId}
+    </delete>
+
 </mapper>

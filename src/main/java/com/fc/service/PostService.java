@@ -225,6 +225,7 @@ public class PostService {
     public boolean deletePost(int postId) {
         try {
             postMapper.deletePost(postId);
+            messageMapper.deleteMassage(postId);
             return true;
         } catch (Exception e) {
             return false;

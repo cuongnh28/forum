@@ -28,11 +28,15 @@
         <div class="clearfix" style="border-bottom: 1px dashed #ddd;"></div>
         <div class="user-button">
             <c:choose>
-                <c:when test="${following == true}">
+                <c:when test="${following == true && sessionScope.userId != null}">
                     <a href="unfollow.do?userId=${user.userId}" class="button-unfollow">Unfollow</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="follow.do?userId=${user.userId}" class="button-follow">Follow</a>
+                    <c:choose>
+                        <c:when test="${sessionScope.userId != null}">
+                            <a href="follow.do?userId=${user.userId}" class="button-follow">Follow</a>
+                        </c:when>
+                    </c:choose>
                 </c:otherwise>
             </c:choose>
 

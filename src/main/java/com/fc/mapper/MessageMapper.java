@@ -10,5 +10,6 @@ public interface MessageMapper {
 
     List<Message> listMessageByUid(Integer userId);
 
+    void deleteMassage(int postId);
 
 }
