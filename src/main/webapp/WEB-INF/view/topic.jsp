@@ -8,12 +8,71 @@
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/topic.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
 </head>
 <body>
 <%@ include file="header.jsp" %>
 
-
 <div class="main w clearfix">
+
+<%--    main-left --%>
+
+    <div class="">
+<%--        Topic type--%>
+        <div class="">
+            <h2>Topic Title</h2>
+            <input class="form-control" placeholder="Select of your topic" />
+            <h2>Topic Type</h2>
+            <div class="row text-center">
+                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+                    <i class="fas fa-file-word pb-2" style="font-size: 40px"></i>
+                    <h3>Discussion</h3>
+                </div>
+                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+                    <i class="far fa-question-circle" style="font-size: 40px"></i>
+                    <h3>Question</h3>
+                </div>
+                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+                    <i class="fas fa-play-circle" style="font-size: 40px"></i>
+                    <h3>Video</h3>
+                </div>
+                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+                    <i class="fas fa-list-ol" style="font-size: 40px"></i>
+                    <h3>Other</h3>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Topic</th>
+                        <th scope="col">Likes</th>
+                        <th scope="col">Comments</th>
+                        <th scope="col">Views</th>
+                        <th scope="col">Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${topicList}" var="topic" varStatus="status">
+                    <c:choose>
+                            <div class="topic-odd relative">
+                                <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>
+                                <div class="topic-content">
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
+                                       class="topic-name">${topic.name}</a>
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
+                                       class="topic-desc">${topic.content}</a>
+                                </div>
+                            </div>
+                    </c:choose>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="main-left">
         <div class="share">
             <div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Home Topics</div>
@@ -96,6 +155,8 @@
     </form>
     <span id="close-mask">×</span>
 </div>
+
+
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>

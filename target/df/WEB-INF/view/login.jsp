@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="container-login100-form-btn">
-                    <button class="login100-form-btn">
+                    <button class="login100-form-btn" type="submit" id="btn">
                         Login
                     </button>
                 </div>
@@ -133,6 +133,8 @@
         scale: 1.1
     })
 
+    console.log('hello')
+
     function moveToRegister(e){
         e.preventDefault();
         document.querySelector('#login').className += ' d-none'
@@ -147,7 +149,7 @@
 
 </script>
 <!--===============================================================================================-->
-<script src="js/main.js"></script>
+<%--<script src="js/main.js"></script>--%>
 
 
 
@@ -213,7 +215,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<%--<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>--%>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/tilt.jquery.min.js"></script>
