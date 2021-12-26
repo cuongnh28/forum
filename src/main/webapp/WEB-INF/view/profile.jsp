@@ -32,6 +32,16 @@
                 <c:when test="${following == true}">
                     <button class="btn btn-success text-white" style="font-size: 15px;">Followed <i class="fas fa-check-circle"></i></button>
                 </c:when>
+                <!-- <c:when test="${following == true && sessionScope.userId != null}">
+                    <a href="unfollow.do?userId=${user.userId}" class="button-unfollow">Unfollow</a>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${sessionScope.userId != null}">
+                            <a href="follow.do?userId=${user.userId}" class="button-follow">Follow</a>
+                        </c:when>
+                    </c:choose>
+                </c:otherwise> -->
             </c:choose>
         </div>
 

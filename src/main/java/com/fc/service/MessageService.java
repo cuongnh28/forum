@@ -20,12 +20,22 @@ public class MessageService {
         for (Message message : messageList) {
             String time = MyUtil.formatDate(message.getMsgTime()).substring(0, 11);
             if (map.get(time) == null) {
-                map.put(time, new LinkedList<Message>());
+                map.put(time, new LinkedList<>());
                 map.get(time).add(message);
             } else {
                 map.get(time).add(message);
             }
         }
+        map = sortByTime(map);
         return map;
+    }
+
+    public static Map<String, List<Message>> sortByTime(Map<String, List<Message>> map)
+    {
+        TreeMap<String, List<Message>> sorted = new TreeMap<>();
+
+        sorted.putAll(map);
+
+        return sorted;
     }
 }

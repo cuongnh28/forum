@@ -9,7 +9,12 @@
     </insert>
 
     <select id="listMessageByUid" resultType="com.fc.model.Message">
-        select * from message where userId=#{userId} order by msg_time
+        select * from message where userId=#{userId}
     </select>
+
+    <delete id="deleteMassage">
+        delete from message
+        where postId = #{postId}
+    </delete>
 
 </mapper>

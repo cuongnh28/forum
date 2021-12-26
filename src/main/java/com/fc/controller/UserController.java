@@ -50,8 +50,8 @@ public class UserController {
     }
 
     @RequestMapping("/toProfile.do")
-    public String toProfile(int userId, Model model, HttpSession session,HttpServletRequest request) {
-        int sessionUid = (int) session.getAttribute("userId");
+    public String toProfile(int userId, Model model, HttpSession session) {
+        int sessionUid = session.getAttribute("userId") == null ? Integer.MAX_VALUE : (int) session.getAttribute("userId");
         if (sessionUid == userId) {
             return "redirect:toMyProfile.do";
         }

@@ -58,7 +58,7 @@
                             <span class="up-count"><a href="#" id="like-button">Votes: ${post.likeCount}</a></span>&nbsp;
                         </c:when>
                     </c:choose>
-                    <span class="scan-count">Scans ${post.scanCount}</span>
+                    <span class="scan-count">Views: ${post.scanCount}</span>
                 </div>
             </div>
             <div class="post-desc">
@@ -71,7 +71,11 @@
             <div class="post-reply-title">
                 <h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;Reply: ${post.replyCount}
                 </h2>
-                <a href="#reply-area">reply area</a>
+                <c:choose>
+                    <c:when test="${sessionScope.userId != null}">
+                        <a href="#reply-area">Wanna reply?</a>
+                    </c:when>
+                </c:choose>
             </div>
             <div class="post-reply-content">
                 <c:forEach items="${replyList}" var="reply" varStatus="status">
@@ -127,14 +131,18 @@
                                     </div>
                                 </c:forEach>
 
-                                <div class="reply-input">
-                                    <form action="comment.do" method="post">
-                                        <input type="hidden" name="postId" value="${post.postId}"/>
-                                        <input type="hidden" name="replyId" value="${reply.replyId}"/>
-                                        <textarea name="content"></textarea>
-                                        <button type="submit">Submit</button>
-                                    </form>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${sessionScope.userId != null}">
+                                        <div class="reply-input">
+                                            <form action="comment.do" method="post">
+                                                <input type="hidden" name="postId" value="${post.postId}"/>
+                                                <input type="hidden" name="replyId" value="${reply.replyId}"/>
+                                                <textarea name="content"></textarea>
+                                                <button type="submit">Submit</button>
+                                            </form>
+                                        </div>
+                                    </c:when>
+                                </c:choose>
                             </div>
 
                         </div>
@@ -148,15 +156,19 @@
         </div>
 
 
-        <div id="reply-area" class="post-reply-textarea">
-            <div style="width: 650px;margin: 10px 20px">
-                <form action="reply.do" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="postId" value="${post.postId}"/>
-                    <textarea name="contentReply" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
-                    <button class="reply-button">Reply</button>
-                </form>
-            </div>
-        </div>
+        <c:choose>
+            <c:when test="${sessionScope.userId != null}">
+                <div id="reply-area" class="post-reply-textarea">
+                    <div style="width: 650px;margin: 10px 20px">
+                        <form action="reply.do" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="postId" value="${post.postId}"/>
+                            <textarea name="contentReply" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
+                            <button class="reply-button">Reply</button>
+                        </form>
+                    </div>
+                </div>
+            </c:when>
+        </c:choose>
 
     </div>
 

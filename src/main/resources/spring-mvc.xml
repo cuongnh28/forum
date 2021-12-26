@@ -50,6 +50,7 @@
                         <value>/afterForgetPassword.do</value>
                         <value>/verify.do</value>
                         <value>/listImage.do</value>
+                        <value>/toProfile.do</value>
                     </list>
                 </property>
             </bean>
