@@ -38,26 +38,14 @@ public class ReplyController {
     }
 
     @RequestMapping(value = "/deleteReply.do", method = RequestMethod.POST)
-    public String deleteReply(int replyId, int postId, Model model, HttpSession session) {
+    public String deleteReply(int replyId, int postId, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("userId");
         Reply reply = replyService.getReplyById(replyId);
 
         if (sessionUid == reply.getUser().getUserId()) {
             if (replyService.deleteReply(replyId)) {
                 postService.updateReplyCount(postId);
-                Post post = postService.getPostByPostId(postId);
-                List<Reply> replyList = replyService.listReply(postId);
-                List<Post> listPostSameTopic = postService.listPostByTopicId(post.getTopic().getTopicId(), postId);
-
-                boolean liked = false;
-                if (sessionUid != null) {
-                    liked = postService.getLikeStatus(postId, sessionUid);
-                }
-                model.addAttribute("post", post);
-                model.addAttribute("replyList", replyList);
-                model.addAttribute("liked", liked);
-                model.addAttribute("suggestedTopics", listPostSameTopic);
-                return "post";
+                return "redirect:toPost.do?postId=" + postId;
             }
         }
 

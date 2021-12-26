@@ -30,20 +30,20 @@
                 <img src="image/img-01.png" alt="IMG">
             </div>
 
-<%--            Login --%>
-            <form class="login100-form validate-form" action="login.do" method="post" id="login">
-					<span class="login100-form-title">
-						Member Login
-					</span>
+<div class="main w clearfix">
+    <div class="buttons clearfix">
+        <a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</a>
+        <a href="#" id="register-button" class="unselected"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Register</a>
+    </div>
+    <div class="contents">
 
-                <div id="error" class="error-message text-center p-0 mb-4">${error}</div>
-
-                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input id="login-email" class="input100" type="text" name="email" value="${email}" placeholder="Email" />
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
+        <div id="login-area">
+            <form action="login.do" method="post">
+                <div class="error-login">${error}</div>
+                <div class="email form-group ">
+                    <label for="login-email">Email</label>
+                    <input id="login-email" type="text" name="email" class="form-control w-100" value="${email}"
+                           required>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
@@ -77,38 +77,12 @@
                 </div>
             </form>
 
-<%-- Register --%>
-            <form class="login100-form validate-form d-none" action="register.do" method="post" id="register">
-					<span class="login100-form-title">
-						Create Your Account
-					</span>
-
-                <div id="error-message" class="error-message text-center p-0 mb-4">${error}</div>
-
-<%--                <div class="error-message text-center p-0">${error}</div>--%>
-
-                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input id="email" class="input100" type="email" name="email" value="${email}" placeholder="Email" />
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
-                </div>
-
-                <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Password" />
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
-                </div>
-
-                <div class="wrap-input100 validate-input" data-validate = "Re-Password is required">
-                    <input class="input100" type="password" name="repassword" placeholder="Confirm Your Password" />
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
+        <div id="register-area">
+            <form action="register.do" method="post">
+                <div id="error-login" class="error-login text-center p-0">${error}</div>
+                <div class="email form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control w-100" type="email" name="email" value="${email}" id="email" required/>
                 </div>
 
                 <div class="container-login100-form-btn">
@@ -259,14 +233,14 @@
         <%--}--%>
 
 
-        // $("#email").blur(function () {
-        //     var value = $(this).val();
-        //     if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value)) {
-        //         $("#error-message").text("Username or password is wrong.");
-        //     } else {
-        //         $("#error-message").text("");
-        //     }
-        // });
+        $("#email").blur(function () {
+            var value = $(this).val();
+            if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value)) {
+                $("#error-login").text("Username or password is wrong.");
+            } else {
+                $("#error-login").text("");
+            }
+        });
 
         // $("#forget-password").click(function () {
         //     $.click({

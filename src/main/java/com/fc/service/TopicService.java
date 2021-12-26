@@ -1,18 +1,12 @@
 package com.fc.service;
 
-import com.fc.async.MessageTask;
-import com.fc.mapper.MessageMapper;
+import com.fc.mapper.LogMapper;
 import com.fc.mapper.PostMapper;
 import com.fc.mapper.ReplyMapper;
 import com.fc.mapper.TopicMapper;
 import com.fc.mapper.UserMapper;
-import com.fc.model.Comment;
-import com.fc.model.Reply;
 import com.fc.model.Topic;
-import com.fc.model.User;
-import com.fc.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,10 +29,7 @@ public class TopicService {
     private UserMapper userMapper;
 
     @Autowired
-    private MessageMapper messageMapper;
-
-    @Autowired
-    private TaskExecutor taskExecutor;
+    private LogMapper logMapper;
 
     public List<Topic> listTopic() {
         return topicMapper.listTopic();
@@ -48,14 +39,12 @@ public class TopicService {
         return topicMapper.listImage();
     }
 
-    public void addTopic(String name, String content, String image, int sessionUid) {
-        User user = new User(sessionUid);
+    public void addTopic(String name, String content, String image) {
         Topic topic = new Topic();
         topic.setName(name);
         topic.setContent(content);
         topic.setImage(image);
         topicMapper.insertTopic(topic);
-        taskExecutor.execute(new MessageTask(messageMapper, userMapper, postMapper, replyMapper, sessionUid, MyConstant.OPERATION_COMMENT));
     }
 }
 

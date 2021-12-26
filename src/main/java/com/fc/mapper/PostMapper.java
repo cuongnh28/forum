@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface PostMapper {
 
-
     List<Post> listPostByUserId(int userId);
 
     int insertPost(Post post);

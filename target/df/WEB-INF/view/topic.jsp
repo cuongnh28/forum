@@ -77,13 +77,17 @@
         <div class="share">
             <div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Home Topics</div>
             <div class="share-right">
-                <a href="#" id="open-mask"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Up Topic</a>
+                <c:choose>
+                    <c:when test="${sessionScope.userId != null}">
+                        <a href="#" id="open-mask"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Up Topic</a>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
         <div class="topic-root">
             <div class="topic-root-wrap">
                 <c:forEach items="${topicList}" var="topic">
-                    <a href="#">${topic.name}</a>
+                    <a href="listPostByTopic.do?topicId=${topic.topicId}">${topic.name}</a>
                 </c:forEach>
 
             </div>
@@ -96,9 +100,9 @@
                             <div class="topic-odd relative">
                                 <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>
                                 <div class="topic-content">
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
                                        class="topic-name">${topic.name}</a>
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
                                        class="topic-desc">${topic.content}</a>
                                 </div>
                             </div>
@@ -107,9 +111,9 @@
                             <div class="topic-even relative">
                                 <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>
                                 <div class="topic-content">
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
                                        class="topic-name">${topic.name}</a>
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
                                        class="topic-desc">${topic.content}</a>
                                 </div>
                             </div>

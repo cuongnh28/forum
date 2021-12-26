@@ -29,7 +29,7 @@
     </select>
 
     <select id="selectEditInfo" resultType="com.fc.model.User">
-        select userId,username,description,position,school,job from user
+        select userId,username,head_url,description,position,school,job from user
         where userId=#{userId}
     </select>
 

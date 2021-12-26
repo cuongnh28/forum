@@ -17,7 +17,11 @@
     <div class="main-left border" style="border-radius: 8px">
         <div class="d-flex justify-content-between align-items-center border-bottom py-3" >
             <p class="mx-4 my-0" style="font-size: 18px"><b><i class="fas fa-circle-notch text-success" ></i> Topic</b></p>
-            <a role="button" class="btn btn-success mx-4 px-4" href="toPublish.do" style="font-size: 15px"><i class="fas fa-pencil-alt"></i> Write</a>
+            <c:choose>
+                <c:when test="${sessionScope.userId != null}">
+                    <a role="button" class="btn btn-success mx-4 px-4" href="toPublish.do" style="font-size: 15px"><i class="fas fa-pencil-alt"></i> Write</a>
+                </c:when>
+            </c:choose>
         </div>
         <div class="post">
             <div class="post-wrap">
@@ -56,8 +60,11 @@
 <%--                            post-down--%>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="row" style="margin-left: 0px">
+                                    <div class="border px-2 py-1 mr-2" style="border-radius: 10px">
+                                        <a href="listPostByTopic.do?topicId=${post.topic.topicId}"
+                                           class="topic-name">Topic: ${post.topic.content}</a>
+                                    </div>
                                     <div class="border px-2 py-1 mr-2" style="border-radius: 10px">Post Time: ${post.publishTime}</div>
-                                    <div class="border px-2 py-1" style="border-radius: 10px">Reply Time: ${post.replyTime}</div>
                                 </div>
                                 <div class="d-flex align-items-center ">
                                         <span class="mx-1" style="font-size: 15px">
