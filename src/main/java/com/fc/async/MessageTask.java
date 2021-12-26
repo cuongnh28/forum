@@ -46,20 +46,20 @@ public class MessageTask implements Runnable {
         message.setUserId(userId);
 
         User user = userMapper.selectUsernameByUserId(sessionUid);
-        message.setOtherId(user.getUserId());
+        message.setUserId(user.getUserId());
+        message.setOtherId(28);
         message.setOtherUsername(user.getUsername());
         message.setPostId(postId);
 
-        if(operation== MyConstant.OPERATION_CLICK_LIKE){
-            message.setOperation(" click like ");
+        if (operation == MyConstant.OPERATION_CLICK_LIKE) {
+            message.setOperation(" voted on ");
             message.setDisplayedContent(postMapper.getTitleByPostId(postId));
-        }else if(operation==MyConstant.OPERATION_REPLY){
-            message.setOperation(" reply ");
+        } else if (operation == MyConstant.OPERATION_REPLY) {
+            message.setOperation(" commented on ");
             message.setDisplayedContent(postMapper.getTitleByPostId(postId));
-        }else if(operation==MyConstant.OPERATION_COMMENT){
-            message.setOperation(" comment ");
-            String content = replyMapper.getContentByReplyId(replyId);
-            message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));
+        } else if (operation == MyConstant.OPERATION_COMMENT) {
+            message.setOperation(" replied on ");
+            message.setDisplayedContent(postMapper.getTitleByPostId(postId));
         }
 
         messageMapper.insertMessage(message);

@@ -8,7 +8,7 @@ public interface MessageMapper {
 
     void insertMessage(Message message);
 
-    List<Message> listMessageByUid(Integer userId);
+    List<Message> listMessageByUserId(Integer userId);
 
     void deleteMassage(int postId);
 

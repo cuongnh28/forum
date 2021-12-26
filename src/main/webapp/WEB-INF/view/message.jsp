@@ -21,7 +21,7 @@
             <div class="m-date">${item.key}</div>
             <ul class="m-list">
                 <c:forEach items="${item.value}" var="m">
-                    <li><a href="toProfile.do?userId=${m.otherId}"><span>${m.otherUsername}</span></a> ${m.operation} <a
+                    <li><a href="toProfile.do?userId=${m.userId}"><span>${m.otherUsername}</span></a> ${m.operation} <a
                             href="toPost.do?postId=${m.postId}"><span>${m.displayedContent}</span></a></li>
                 </c:forEach>
             </ul>
