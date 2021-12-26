@@ -12,7 +12,7 @@
             <entry key="lastExternalPluginCheckTime" value="1639968736783" />
           </map>
         </option>
-        <option name="version" value="37" />
+        <option name="version" value="40" />
       </configuration>
     </facet>
     <facet type="web" name="Web">
@@ -50,7 +50,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

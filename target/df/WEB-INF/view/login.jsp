@@ -30,7 +30,7 @@
                 <img src="image/img-01.png" alt="IMG">
             </div>
 
-<%--            Login --%>
+            <%--            Login --%>
             <form class="login100-form validate-form" action="login.do" method="post" id="login">
 					<span class="login100-form-title">
 						Member Login
@@ -77,7 +77,7 @@
                 </div>
             </form>
 
-<%-- Register --%>
+            <%-- Register --%>
             <form class="login100-form validate-form d-none" action="register.do" method="post" id="register">
 					<span class="login100-form-title">
 						Create Your Account
@@ -85,7 +85,7 @@
 
                 <div id="error-message" class="error-message text-center p-0 mb-4">${error}</div>
 
-<%--                <div class="error-message text-center p-0">${error}</div>--%>
+                <%--                <div class="error-message text-center p-0">${error}</div>--%>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
                     <input id="email" class="input100" type="email" name="email" value="${email}" placeholder="Email" />

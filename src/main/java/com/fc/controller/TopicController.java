@@ -70,21 +70,20 @@ public class TopicController {
                 }
 
                 String image = myFileName.getOriginalFilename();
-                File serverFile = new File(dir.getAbsolutePath()+File.separator+image);
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + image);
                 System.out.println("Path of image on server: " + serverFile.getPath());
 
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
 
-                topicService.addTopic(name, content, image, sessionUid);
+                topicService.addTopic(name, content, image);
                 List<Topic> topicList = topicService.listTopic();
                 model.addAttribute("topicList", topicList);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File upload false");
         }
 

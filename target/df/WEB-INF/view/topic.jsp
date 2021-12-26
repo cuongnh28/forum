@@ -16,10 +16,10 @@
 
 <div class="main w clearfix">
 
-<%--    main-left --%>
+    <%--    main-left --%>
 
     <div class="">
-<%--        Topic type--%>
+        <%--        Topic type--%>
         <div class="">
             <h2>Topic Title</h2>
             <input class="form-control" placeholder="Select of your topic" />
@@ -46,28 +46,28 @@
         <div>
             <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th scope="col">Topic</th>
-                        <th scope="col">Likes</th>
-                        <th scope="col">Comments</th>
-                        <th scope="col">Views</th>
-                        <th scope="col">Activity</th>
-                    </tr>
+                <tr>
+                    <th scope="col">Topic</th>
+                    <th scope="col">Likes</th>
+                    <th scope="col">Comments</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">Activity</th>
+                </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${topicList}" var="topic" varStatus="status">
-                    <c:choose>
-                            <div class="topic-odd relative">
-                                <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>
-                                <div class="topic-content">
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
-                                       class="topic-name">${topic.name}</a>
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"
-                                       class="topic-desc">${topic.content}</a>
-                                </div>
-                            </div>
-                    </c:choose>
-                </c:forEach>
+                <%--                <c:forEach items="${topicList}" var="topic" varStatus="status">--%>
+                <%--                    <c:choose>--%>
+                <%--                            <div class="topic-odd relative">--%>
+                <%--                                <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>--%>
+                <%--                                <div class="topic-content">--%>
+                <%--                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"--%>
+                <%--                                       class="topic-name">${topic.name}</a>--%>
+                <%--                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"--%>
+                <%--                                       class="topic-desc">${topic.content}</a>--%>
+                <%--                                </div>--%>
+                <%--                            </div>--%>
+                <%--                    </c:choose>--%>
+                <%--                </c:forEach>--%>
                 </tbody>
             </table>
         </div>

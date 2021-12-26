@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class Reply {
     private Post post;
     private User user;
 
-    private String replyTime;
+    private Date replyTime;
 
     private List<Comment> commentList;
 
