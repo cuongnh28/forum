@@ -9,64 +9,106 @@
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
 
 </head>
 <body>
 <%@ include file="header.jsp" %>
 
 
-<div class="main w clearfix">
-    <div class="m-left">
-        <div class="user-image"><img src="../../upload/images/${user.headUrl}"></div>
-        <div class="user-info">
-            <div class="user-name">${user.username}</div>
-            <div class="user-desc">${user.description}</div>
-            <div class="user-position">Position：${user.position}</div>
-            <div class="user-school">School：${user.school}</div>
-            <div class="user-job">Job：${user.job}</div>
+<div class="w main">
+
+    <%--    wallpaper    --%>
+    <div class="border position-relative d-flex justify-content-center align-items-center" style="height: 400px; background-color: #c1c1c1">
+        <p class="" style="font-size: 50px"> <b>This is wallpaper</b></p>
+
+        <div class="w-100 h-100 position-absolute" style="top: 0 ; bottom: 0">
+            <img class="w-100 h-100" id="output" style="height: auto; object-fit: cover"/>
         </div>
-        <div class="clearfix" style="border-bottom: 1px dashed #ddd;"></div>
-        <div class="user-button">
+
+        <div class="position-absolute btn-group" role="group" aria-label="Basic example" style="bottom: 20px; right: 20px">
             <c:choose>
-                <c:when test="${following == true && sessionScope.userId != null}">
-                    <a href="unfollow.do?userId=${user.userId}" class="button-unfollow">Unfollow</a>
+                <c:when test="${following == true}">
+                    <button class="btn btn-success text-white" style="font-size: 15px;">Followed <i class="fas fa-check-circle"></i></button>
                 </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${sessionScope.userId != null}">
-                            <a href="follow.do?userId=${user.userId}" class="button-follow">Follow</a>
-                        </c:when>
-                    </c:choose>
-                </c:otherwise>
             </c:choose>
-
         </div>
 
-        <div class="user-post">
-            <div class="user-post-title"><span></span>&nbsp;User Post Title</div>
-            <ul class="user-post-list">
-                <c:forEach items="${postList}" var="post">
-                    <li>
-                        <span class="glyphicon glyphicon-file"></span>&nbsp;
-                        <a href="toPost.do?postId=${post.postId}">${post.title}</a>
-                        <span class="user-post-time">Publish Time ${post.publishTime}</span>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
     </div>
 
-    <div class="m-right">
-        <div class="user-follow">
-            <div class="user-follow">Following: <span class="user-count">${user.followCount}</span></div>
-            <div class="user-follower">Followers: <span class="user-count">${user.followerCount}</span></div>
+    <%--    left-content    --%>
+    <div class="row">
+        <div class="bg-white border border-success row flex-column align-items-center  m-0" style="border-radius: 6px ;width: 30% ;height: 320px; transform: translate(10%,-50%)">
+            <img class="rounded-circle my-4"  src="../../upload/images/${user.headUrl}" style="width: 120px;  height: 120px; object-fit: cover; border: 2px solid #28a745">
+            <p class="m-0 text-success" style="font-size: 20px"><b>${user.username}</b></p>
+            <div class="border-bottom w-75 text-center py-3 mb-4">
+                <div class="user-button">
+                    <c:choose>
+                        <c:when test="${following == true}">
+                            <a href="unfollow.do?userId=${user.userId}" role="button" class="btn btn-warning" style="font-size: 15px">Unfollow</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="follow.do?userId=${user.userId}" role="button" class="btn btn-success" style="font-size: 15px">Follow</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <div class="row mt-3 w-100 text-center" style="font-size: 15px">
+                <p class="col my-0"><b>Follows</b></p>
+                <p class="col my-0"><b>Followers</b></p>
+                <p class="col my-0"><b>Likes</b></p>
+            </div>
+            <div class="row mt-3 w-100 text-center text-success" style="font-size: 15px">
+                <p class="col my-0"><b>${user.followCount}</b></p>
+                <p class="col my-0"><b>${user.followerCount}</b></p>
+                <p class="col my-0"><b>${user.likeCount}</b></p>
+            </div>
         </div>
-        <div class="user-attr">
-            <span class="user-like-count">Like Counts：${user.likeCount}</span><br/>
-            <span class="user-post-count">Post Counts：${user.postCount}</span>
 
+        <%--        right-bottom-content   --%>
+        <div class="col border " style=" margin: 15px 30px 15px 45px ; border-radius: 6px; font-size: 15px; height: 330px">
+            <nav>
+                <div class="nav nav-tabs pt-2" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Posts</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Favorite Posts</a>
+                </div>
+            </nav>
+
+            <%--            content of tabs--%>
+            <div class="tab-content" id="nav-tabContent">
+                <%--                tab 1--%>
+                <div class="tab-pane show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <p class="mt-4"><b>Description: </b> ${user.description}</p>
+                    <p><b>Position: </b> ${user.position}</p>
+                    <p><b>School: </b> ${user.school}</p>
+                    <p><b>Job: </b> ${user.job}</p>
+                </div>
+                <%--                tab 2--%>
+                <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <h3 class="mt-4 pb-2 mb-4 border-bottom">Total Post: <span class="text-success">${user.postCount}</span></h3>
+
+                    <%--                    list of posts--%>
+                    <ul class="user-post-list">
+                        <c:forEach items="${postList}" var="post">
+                            <li class="my-3 px-4 row justify-content-between">
+                                <div class="col">
+                                    <i class="far fa-copy"></i>
+                                    <a href="toPost.do?postId=${post.postId}"> ${post.title}</a>
+                                </div>
+
+                                <p class="col text-right">${post.publishTime}</p>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                <%--                tab 3--%>
+                <div class="tab-pane" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <h3 class="mt-4 pb-2">Not interest anythings</h3>
+                </div>
+            </div>
         </div>
-        <div class="user-scan-count">Scans: ${user.scanCount}</div>
     </div>
 
 </div>

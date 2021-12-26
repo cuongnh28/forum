@@ -17,5 +17,13 @@ $(function(){
         downMenu.hide();
     });
 
+    for (let i = 0; i < document.querySelectorAll('input').length; i++) {
+        document.querySelectorAll('input')[i].onclick = function (){
+            document.querySelector('#error').innerHTML = ''
+            document.querySelector('#error-message').innerHTML = ''
+        }
+    }
 
 });
+
+

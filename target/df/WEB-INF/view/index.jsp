@@ -304,9 +304,6 @@
     //     $(this).addClass('active').siblings().removeClass('active');
     // })
 
-
-
-
 </script>
 </body>
 </html>
