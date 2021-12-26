@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.*;
+import java.util.Date;
 
 @NoArgsConstructor
 @Getter
@@ -19,9 +20,9 @@ public class Post implements Serializable {
     @Column
     private String content;
     @Column
-    private String publishTime;
+    private Date publishTime;
     @Column
-    private String replyTime;
+    private Date replyTime;
     @Column
     private Integer replyCount;
     @Column
@@ -29,12 +30,10 @@ public class Post implements Serializable {
     @Column
     private Integer scanCount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "topicId")
     private Topic topic;
 
 

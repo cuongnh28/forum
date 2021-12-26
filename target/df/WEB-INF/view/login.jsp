@@ -23,7 +23,7 @@
 
         <div id="login-area">
             <form action="login.do" method="post">
-                <div class="error-message">${error}</div>
+                <div class="error-login">${error}</div>
                 <div class="email form-group ">
                     <label for="login-email">Email</label>
                     <input id="login-email" type="text" name="email" class="form-control w-100" value="${email}"
@@ -45,7 +45,7 @@
 
         <div id="register-area">
             <form action="register.do" method="post">
-                <div id="error-message" class="error-message text-center p-0">${error}</div>
+                <div id="error-login" class="error-login text-center p-0">${error}</div>
                 <div class="email form-group">
                     <label for="email">Email</label>
                     <input class="form-control w-100" type="email" name="email" value="${email}" id="email" required/>
@@ -118,9 +118,9 @@
         $("#email").blur(function () {
             var value = $(this).val();
             if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value)) {
-                $("#error-message").text("Username or password is wrong.");
+                $("#error-login").text("Username or password is wrong.");
             } else {
-                $("#error-message").text("");
+                $("#error-login").text("");
             }
         });
 

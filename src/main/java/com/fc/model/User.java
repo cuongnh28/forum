@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -25,7 +26,7 @@ public class User implements Serializable {
     @Column
     private String activateCode;
     @Column
-    private String joinTime;
+    private Date joinTime;
 
     @Column
     private String username;

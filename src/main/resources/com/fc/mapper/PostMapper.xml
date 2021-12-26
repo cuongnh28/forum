@@ -108,6 +108,8 @@
         select u.userId,
                u.username,
                u.head_url,
+               t.name,
+               t.content,
                p.postId,
                p.topicId,
                p.title,
@@ -118,6 +120,7 @@
                p.scan_count
         from post p
                  join user u on p.userId = u.userId
+                 join topic t on p.topicId = t.topicId
         order by p.reply_time desc limit #{offset}, #{limit}
     </select>
 
@@ -125,6 +128,8 @@
         select u.userId,
                u.username,
                u.head_url,
+               t.name,
+               t.content,
                p.postId,
                p.topicId,
                p.title,
@@ -135,6 +140,7 @@
                p.scan_count
         from post p
                  join user u on p.userId = u.userId
+                 join topic t on p.topicId = t.topicId
         order by p.reply_time asc limit #{offset}, #{limit}
     </select>
 
@@ -142,6 +148,8 @@
         select u.userId,
                u.username,
                u.head_url,
+               t.name,
+               t.content,
                p.postId,
                p.topicId,
                p.title,
@@ -152,6 +160,7 @@
                p.scan_count
         from post p
                  join user u on p.userId = u.userId
+                 join topic t on p.topicId = t.topicId
         order by p.scan_count desc limit #{offset}, #{limit}
     </select>
 
@@ -159,6 +168,8 @@
         select u.userId,
                u.username,
                u.head_url,
+               t.name,
+               t.content,
                p.postId,
                p.topicId,
                p.title,
@@ -169,6 +180,7 @@
                p.scan_count
         from post p
                  join user u on p.userId = u.userId
+                 join topic t on p.topicId = t.topicId
         where p.topicId = #{topicId}
         order by p.reply_time desc limit #{offset}, #{limit}
     </select>
@@ -183,6 +195,8 @@
         select u.userId,
                u.username,
                u.head_url,
+               t.name,
+               t.content,
                p.postId,
                p.topicId,
                p.title,
@@ -193,6 +207,7 @@
                p.scan_count
         from post p
                  join user u on p.userId = u.userId
+                 join topic t on p.topicId = t.topicId
         where p.title like '%' #{title} '%' order by p.reply_time
     </select>
 

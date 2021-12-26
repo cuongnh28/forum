@@ -11,7 +11,7 @@
             <li class="nav-item"><a href="toIndex.do" class="text-white" style="font-size: 20px"><b>Home</b></a></li>
             <li class="nav-item"><a href="listTopic.do" class="text-white">Topics</a></li>
             <%--            <li><a href="listImage.do">Images</a></li>--%>
-            <li class="nav-item"><a href="toMessage.do" class="text-white">Activity Log</a></li>
+            <li class="nav-item"><a href="toLog.do" class="text-white">Activity Log</a></li>
         </ul>
 
         <div class="nav">
@@ -43,7 +43,7 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a href="toLogin.do" class="text-white">Login</a>
+                            <a href="toLogin" class="text-white">Login</a>
                         </li>
                         <%--                        <a href="toLogin.do">/</a>--%>
                         <li>

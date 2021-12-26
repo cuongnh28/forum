@@ -13,13 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class LoginService {
-
 
     @Autowired
     private UserMapper userMapper;
@@ -54,7 +52,7 @@ public class LoginService {
         user.setActived(0);
         String activateCode = MyUtil.createActivateCode();
         user.setActivateCode(activateCode);
-        user.setJoinTime(MyUtil.formatDate(new Date()));
+        user.setJoinTime(new Date());
         int index = user.getEmail().indexOf('@');
         String username  = user.getEmail().substring(0,index);
         user.setUsername(username);

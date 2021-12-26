@@ -60,8 +60,11 @@
 <%--                            post-down--%>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="row" style="margin-left: 0px">
+                                    <div class="border px-2 py-1 mr-2" style="border-radius: 10px">
+                                        <a href="listPostByTopic.do?topicId=${post.topic.topicId}"
+                                           class="topic-name">Topic: ${post.topic.content}</a>
+                                    </div>
                                     <div class="border px-2 py-1 mr-2" style="border-radius: 10px">Post Time: ${post.publishTime}</div>
-                                    <div class="border px-2 py-1" style="border-radius: 10px">Reply Time: ${post.replyTime}</div>
                                 </div>
                                 <div class="d-flex align-items-center ">
                                         <span class="mx-1" style="font-size: 15px">

@@ -635,25 +635,26 @@ INSERT INTO `info` VALUES ('8', 'http://localhost:8080/df/toIndex.do', '/df', '0
 INSERT INTO `info` VALUES ('9', 'http://localhost:8080/df/toIndex.do', '/df', '0:0:0:0:0:0:0:1', '2016-11-11 23:22:21');
 
 -- ----------------------------
--- Table structure for `message`
+-- Table structure for `log`
 -- ----------------------------
-DROP TABLE IF EXISTS `message`;
-CREATE TABLE `message` (
-  `messageId` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+  `logId` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
-  `otherId` int(11) NOT NULL,
+  `replyId` int(11),
+  `commentId` int(11),
   `other_username` varchar(20) NOT NULL,
   `postId` int(11) NOT NULL,
   `operation` varchar(20) NOT NULL,
   `displayed_content` varchar(100) NOT NULL,
   `msg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`messageId`),
+  PRIMARY KEY (`logId`),
   KEY `uid` (`uid`),
-  CONSTRAINT `message_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
+  CONSTRAINT `log_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of message
+-- Records of log
 -- ----------------------------
 
 -- ----------------------------

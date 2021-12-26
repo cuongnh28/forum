@@ -29,25 +29,13 @@ public class CommentController {
     private CommentService commentService;
 
     @RequestMapping(value = "/deleteComment.do", method = RequestMethod.POST)
-    public String deleteComment(int commentId, int postId, Model model, HttpSession session) {
+    public String deleteComment(int commentId, int postId, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("userId");
         Comment comment = commentService.getCommentById(commentId);
 
         if (sessionUid == comment.getUser().getUserId()) {
             if (commentService.deleteComment(commentId)) {
-                Post post = postService.getPostByPostId(postId);
-                List<Reply> replyList = replyService.listReply(postId);
-                List<Post> listPostSameTopic = postService.listPostByTopicId(post.getTopic().getTopicId(), postId);
-
-                boolean liked = false;
-                if (sessionUid != null) {
-                    liked = postService.getLikeStatus(postId, sessionUid);
-                }
-                model.addAttribute("post", post);
-                model.addAttribute("replyList", replyList);
-                model.addAttribute("liked", liked);
-                model.addAttribute("suggestedTopics", listPostSameTopic);
-                return "post";
+                return "redirect:toPost.do?postId=" + postId;
             }
         }
 

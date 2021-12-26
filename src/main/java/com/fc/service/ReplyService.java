@@ -1,7 +1,8 @@
 package com.fc.service;
 
-import com.fc.async.MessageTask;
-import com.fc.mapper.MessageMapper;
+import com.fc.async.LogTask;
+import com.fc.mapper.CommentMapper;
+import com.fc.mapper.LogMapper;
 import com.fc.mapper.PostMapper;
 import com.fc.mapper.ReplyMapper;
 import com.fc.mapper.UserMapper;
@@ -10,8 +11,8 @@ import com.fc.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,13 +23,16 @@ public class ReplyService {
     private ReplyMapper replyMapper;
 
     @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
     private PostMapper postMapper;
 
     @Autowired
     private UserMapper userMapper;
 
     @Autowired
-    private MessageMapper messageMapper;
+    private LogMapper logMapper;
 
     @Autowired
     private TaskExecutor taskExecutor;
@@ -40,14 +44,15 @@ public class ReplyService {
         reply.setUser(user);
         reply.setPost(post);
         reply.setContent(content);
+        reply.setReplyTime(new Date());
         replyMapper.insertReply(reply);
         postMapper.updateReplyCount(postId);
         postMapper.updateReplyTime(postId);
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,postId,0,sessionUid, MyConstant.OPERATION_REPLY));
+        taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, replyMapper, commentMapper, postId, reply.getReplyId(), null, sessionUid, MyConstant.OPERATION_REPLY));
 
     }
 
-    public void comment(int postId,int sessionUid, int replyId, String content) {
+    public void comment(int postId, int sessionUid, int replyId, String content) {
         User user = new User(sessionUid);
         Reply reply = new Reply(replyId);
         Comment comment = new Comment();
@@ -56,12 +61,12 @@ public class ReplyService {
         comment.setContent(content);
         replyMapper.insertComment(comment);
         postMapper.updateReplyTime(postId);
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,postId,replyId,sessionUid, MyConstant.OPERATION_COMMENT));
+        taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, replyMapper, commentMapper, postId, replyId, comment.getCommentId(), sessionUid, MyConstant.OPERATION_COMMENT));
     }
 
     public List<Reply> listReply(int postId) {
         List<Reply> replyList = replyMapper.listReply(postId);
-        for(Reply reply : replyList){
+        for (Reply reply : replyList) {
             List<Comment> commentList = replyMapper.listComment(reply.getReplyId());
             reply.setCommentList(commentList);
         }
@@ -76,6 +81,7 @@ public class ReplyService {
     public boolean deleteReply(int replyId) {
         try {
             replyMapper.deleteReply(replyId);
+            logMapper.deleteLogByReply(replyId);
             return true;
         } catch (Exception e) {
             return false;

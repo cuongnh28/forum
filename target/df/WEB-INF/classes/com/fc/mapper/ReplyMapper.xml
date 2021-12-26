@@ -31,6 +31,9 @@
 
 
     <insert id="insertReply">
+        <selectKey resultType="int" order="AFTER" keyProperty="replyId">
+            select last_insert_id() as replyId
+        </selectKey>
         insert into reply(content,userId,postId,reply_time) values(#{content},#{user.userId},#{post.postId},date_format(now(),'%Y-%c-%d %H:%i:%s'))
     </insert>
 
@@ -40,6 +43,9 @@
     </select>
 
     <insert id="insertComment">
+        <selectKey resultType="int" order="AFTER" keyProperty="commentId">
+            select last_insert_id() as commentId
+        </selectKey>
         insert into comment(content,userId,replyId,comment_time) values(#{content},#{user.userId},#{reply.replyId},date_format(now(),'%Y-%c-%d %H:%i:%s'))
     </insert>
 

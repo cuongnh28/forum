@@ -12,7 +12,6 @@
 <body>
 <%@ include file="header.jsp" %>
 
-
 <div class="main w clearfix">
     <div class="main-left">
         <div class="share">
