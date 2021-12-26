@@ -43,7 +43,7 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a href="toLogin" class="text-white">Login</a>
+                            <a href="toLogin.do" class="text-white">Login</a>
                         </li>
                         <%--                        <a href="toLogin.do">/</a>--%>
                         <li>

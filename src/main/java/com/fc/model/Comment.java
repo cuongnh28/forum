@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +17,7 @@ public class Comment {
     private Reply reply;
     private User user;
 
-    private String commentTime;
+    private Date commentTime;
 
     @Override
     public String toString() {

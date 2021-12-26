@@ -59,6 +59,7 @@ public class ReplyService {
         comment.setUser(user);
         comment.setReply(reply);
         comment.setContent(content);
+        comment.setCommentTime(new Date());
         replyMapper.insertComment(comment);
         postMapper.updateReplyTime(postId);
         taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, replyMapper, commentMapper, postId, replyId, comment.getCommentId(), sessionUid, MyConstant.OPERATION_COMMENT));
