@@ -51,6 +51,8 @@
                         <value>/verify.do</value>
                         <value>/listImage.do</value>
                         <value>/toProfile.do</value>
+                        <value>/admin.do</value>
+                        <value>/acceptPost.do</value>
                     </list>
                 </property>
             </bean>

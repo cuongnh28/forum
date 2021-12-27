@@ -7,6 +7,7 @@
         <id column="userId" property="userId"></id>
         <result column="username" property="username"></result>
         <result column="head_url" property="headUrl"></result>
+        <result column="description" property="description"></result>
     </resultMap>
 
     <resultMap type="com.fc.model.Topic" id="topicMap">
@@ -78,7 +79,6 @@
         <result column="isPublish" property="isPublish"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
         <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
-
     </resultMap>
 
     <resultMap type="com.fc.model.Post" id="post2Map">
@@ -114,6 +114,7 @@
         select u.userId,
                u.username,
                u.head_url,
+               u.description,
                t.name,
                t.content,
                p.postId,
@@ -134,6 +135,7 @@
         select u.userId,
                u.username,
                u.head_url,
+               u.description,
                t.name,
                t.content,
                p.postId,
@@ -155,6 +157,7 @@
         select u.userId,
                u.username,
                u.head_url,
+               u.description,
                t.name,
                t.content,
                p.postId,
@@ -176,6 +179,7 @@
         select u.userId,
                u.username,
                u.head_url,
+               u.description,
                t.name,
                t.content,
                p.postId,
@@ -194,6 +198,26 @@
         order by p.reply_time desc limit #{offset}, #{limit}
     </select>
 
+    <select id="listPostsNotApprove" resultMap="post2Map">
+        select u.userId,
+               u.username,
+               u.head_url,
+               u.description,
+               t.name,
+               t.content,
+               p.postId,
+               p.topicId,
+               p.title,
+               p.publish_time,
+               p.reply_time,
+               p.isPublish
+        from post p
+                 join user u on p.userId = u.userId
+                 join topic t on p.topicId = t.topicId
+        where p.isPublish = 'N'
+        order by p.reply_time
+    </select>
+
     <select id="listPostByTopicId" resultType="com.fc.model.Post">
         select userId, topicId, postId, title, publish_time
         from post
@@ -204,6 +228,7 @@
         select u.userId,
                u.username,
                u.head_url,
+               u.description,
                t.name,
                t.content,
                p.postId,
@@ -230,6 +255,7 @@
         select u.userId,
                u.username,
                u.head_url,
+               u.description,
                p.postId,
                p.topicId,
                p.title,
@@ -285,6 +311,13 @@
         set reply_count = reply_count - 1
         where postId = #{postId}
     </update>
+
+    <update id="acceptPost">
+        update post
+        set isPublish = 'Y'
+        where postId = #{postId}
+    </update>
+
 </mapper>
 
 

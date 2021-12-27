@@ -239,5 +239,17 @@ public class PostService {
         postMapper.minusReplyCount(postId);
     }
 
+    public List<Post> listPostsNotApprove () {
+        return postMapper.listPostsNotApprove();
+    }
+
+    public boolean acceptPost (int postId) {
+        return postMapper.acceptPost(postId);
+    }
+
+    public boolean rejectPost (int postId) {
+        return postMapper.deletePost(postId);
+    }
+
 }
 

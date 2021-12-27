@@ -28,10 +28,10 @@ public interface PostMapper {
 
     Post getPostByPostId(int postId);
 
-//    +1
+    //    +1
     void updateReplyCount(int postId);
 
-//    -1
+    //    -1
     void minusReplyCount(int postId);
 
     void updateScanCount(int postId);
@@ -42,6 +42,10 @@ public interface PostMapper {
 
     String getTitleByPostId(int postId);
 
-    void deletePost(int postId);
+    boolean deletePost(int postId);
+
+    List<Post> listPostsNotApprove();
+
+    boolean acceptPost(int postId);
 
 }

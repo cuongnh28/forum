@@ -51,6 +51,10 @@
                         <value>/verify.do</value>
                         <value>/listImage.do</value>
                         <value>/toProfile.do</value>
+                        <value>/admin.do</value>
+                        <value>/postPendingTables.do</value>
+                        <value>/acceptPost.do</value>
+                        <value>/rejectPost.do</value>
                     </list>
                 </property>
             </bean>
