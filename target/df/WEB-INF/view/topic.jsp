@@ -14,148 +14,98 @@
 <body>
 <%@ include file="header.jsp" %>
 
-<div class="main w clearfix">
+<div class="main w">
 
     <%--    main-left --%>
 
-    <div class="">
+    <div class="border p-4" style="border-radius: 8px">
         <%--        Topic type--%>
-        <div class="">
-            <h2>Topic Title</h2>
+        <div class="my-3">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="" style="width: fit-content">Topic Title</h2>
+                <c:choose>
+                    <c:when test="${sessionScope.userId != null}">
+                        <a role="button" class="btn btn-success px-4 py-3" href="#" id="open-mask" style="font-size: 15px"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Up Topic</a>
+                    </c:when>
+                </c:choose>
+            </div>
             <input class="form-control" placeholder="Select of your topic" />
-            <h2>Topic Type</h2>
-            <div class="row text-center">
-                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+            <h2 class="my-3">Topic Type</h2>
+            <div class="row text-center my-3 justify-content-around">
+                <div class="col-2 border mx-1 border py-4" style="border-radius: 8px ">
                     <i class="fas fa-file-word pb-2" style="font-size: 40px"></i>
                     <h3>Discussion</h3>
                 </div>
-                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+                <div class="col-2 border mx-1 border py-4" style="border-radius: 8px ">
                     <i class="far fa-question-circle" style="font-size: 40px"></i>
                     <h3>Question</h3>
                 </div>
-                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+                <div class="col-2 border mx-1 border py-4" style="border-radius: 8px ">
                     <i class="fas fa-play-circle" style="font-size: 40px"></i>
                     <h3>Video</h3>
                 </div>
-                <div class="col border mx-1 border py-4" style="border-radius: 8px ">
+                <div class="col-2 border mx-1 border py-4" style="border-radius: 8px ">
                     <i class="fas fa-list-ol" style="font-size: 40px"></i>
                     <h3>Other</h3>
                 </div>
             </div>
+            <div class="my-3">
+
+            </div>
         </div>
         <div>
-            <table class="table table-striped">
+            <table class="table table-striped" style="font-size: 15px">
                 <thead>
-                <tr>
-                    <th scope="col">Topic</th>
-                    <th scope="col">Likes</th>
-                    <th scope="col">Comments</th>
-                    <th scope="col">Views</th>
-                    <th scope="col">Activity</th>
-                </tr>
+                    <tr>
+                        <th scope="col">Topic</th>
+                        <th scope="col">Likes</th>
+                        <th scope="col">Comments</th>
+                        <th scope="col">Views</th>
+                        <th scope="col">Activity</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <%--                <c:forEach items="${topicList}" var="topic" varStatus="status">--%>
-                <%--                    <c:choose>--%>
-                <%--                            <div class="topic-odd relative">--%>
-                <%--                                <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>--%>
-                <%--                                <div class="topic-content">--%>
-                <%--                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"--%>
-                <%--                                       class="topic-name">${topic.name}</a>--%>
-                <%--                                    <a href="listPostByTopic.do?topicId=${topic.topicId }"--%>
-                <%--                                       class="topic-desc">${topic.content}</a>--%>
-                <%--                                </div>--%>
-                <%--                            </div>--%>
-                <%--                    </c:choose>--%>
-                <%--                </c:forEach>--%>
+                    <c:forEach items="${topicList}" var="topic">
+                        <tr>
+                            <td>
+                                <img src="../../upload/images/${topic.image}" class="rounded-circle mr-3" style="width: 50px; height: 50px ; object-fit: cover"/>
+                                    <a href="listPostByTopic.do?topicId=${topic.topicId}">
+                                            ${topic.name}
+                                    </a>
+<%--                                    <a href="listPostByTopic.do?topicId=${topic.topicId}">--%>
+<%--                                            ${topic.content}--%>
+<%--                                    </a>--%>
+                            </td>
+                            <td class="" style="vertical-align: center">5</td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td>10 hour ago</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
-        </div>
-    </div>
-
-    <div class="main-left">
-        <div class="share">
-            <div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Home Topics</div>
-            <div class="share-right">
-                <c:choose>
-                    <c:when test="${sessionScope.userId != null}">
-                        <a href="#" id="open-mask"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Up Topic</a>
-                    </c:when>
-                </c:choose>
-            </div>
-        </div>
-        <div class="topic-root">
-            <div class="topic-root-wrap">
-                <c:forEach items="${topicList}" var="topic">
-                    <a href="listPostByTopic.do?topicId=${topic.topicId}">${topic.name}</a>
-                </c:forEach>
-
-            </div>
-        </div>
-        <div class="topic-list">
-            <div class="topic-list-wrap clearfix">
-                <c:forEach items="${topicList}" var="topic" varStatus="status">
-                    <c:choose>
-                        <c:when test="${status.count % 2 !=0}">
-                            <div class="topic-odd relative">
-                                <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>
-                                <div class="topic-content">
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
-                                       class="topic-name">${topic.name}</a>
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
-                                       class="topic-desc">${topic.content}</a>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="topic-even relative">
-                                <a href="#" class="topic-image"><img src="../../upload/images/${topic.image}"></a>
-                                <div class="topic-content">
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
-                                       class="topic-name">${topic.name}</a>
-                                    <a href="listPostByTopic.do?topicId=${topic.topicId}"
-                                       class="topic-desc">${topic.content}</a>
-                                </div>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </div>
-        </div>
-        <div class="topic-more">
-            <a href="#">More</a>
-        </div>
-    </div>
-    <div class="main-right">
-        <div class="hot-user">
-            <div class="clearfix">
-                <div class="hot-user-title"><span></span>&nbsp;Hot Users</div>
-            </div>
-            <ul class="hot-user-list">
-                <c:forEach items="${hotUserList}" var="user">
-                    <li class="clearfix">
-                        <a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img
-                                src="../../upload/images/${user.headUrl}"></a>
-                        <a href="toProfile.do?userId=${user.userId}" class="hot-user-name">${user.username}</a>
-                    </li>
-                </c:forEach>
-            </ul>
         </div>
     </div>
 </div>
 
 <div class="mask"></div>
-<div class="upon-mask">
-    <form action="addTopic.do" enctype="multipart/form-data" method="post">
-        <div class="edit-title">
-            <span class="text-danger">${error4}</span>
-            <input type="text" name="name" placeholder="Topic" required>
-            <input type="text" name="content" placeholder="Content">
-            <input type="file" name="myFileName" required>
+<div class="upon-mask" style="height: fit-content; transform: translateY(-50%)">
+    <form action="addTopic.do" enctype="multipart/form-data" method="post" style="font-size: 15px">
+            <div class="text-danger mb-3 text-center">${error4}</div>
+            <div class="form-group">
+                <label for="topic">Topic</label>
+                <input type="text" class="form-control w-100" name="name" id="topic" placeholder="Topic here" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Topic</label>
+                <input type="text" class="form-control w-100" name="content" id="content" placeholder="Content here" required>
+            </div>
+        <div class="form-group">
+            <label for="content">Image</label>
+            <input type="file" class="form-control w-100" name="myFileName" id="myFileName" required>
         </div>
-        <div class="relative">
-            <button type="submit">Confirm</button>
-        </div>
+        <button type="submit" class="btn btn-success">Upload</button>
+
     </form>
     <span id="close-mask">×</span>
 </div>
