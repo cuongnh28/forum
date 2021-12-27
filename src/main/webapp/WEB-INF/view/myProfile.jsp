@@ -37,7 +37,7 @@
 <%--    left-content    --%>
     <div class="row">
         <div class="bg-white border border-success row flex-column align-items-center  m-0" style="border-radius: 6px ;width: 30% ;height: 320px; transform: translate(10%,-50%)">
-            <img class="rounded-circle my-4"  src="../../upload/images/${user.headUrl}" style="width: 120px;  height: 120px; border: 2px solid #28a745">
+            <img class="rounded-circle my-4"  src="../../upload/images/${user.headUrl}" style="width: 120px;  height: 120px; object-fit:cover; border: 2px solid #28a745">
             <p class="m-0 text-success" style="font-size: 20px"><b>${user.username}</b></p>
             <div class="border-bottom w-75 text-center py-3 mb-4">
 

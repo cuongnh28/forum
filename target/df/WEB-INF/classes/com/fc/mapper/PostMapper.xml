@@ -99,7 +99,7 @@
     <select id="listPostByUserId" resultType="com.fc.model.Post">
         select userId, topicId, postId, title, publish_time
         from post
-        where userId = #{userId}
+        where userId = #{userId} and isPublish = 'Y'
     </select>
 
     <insert id="insertPost">
@@ -124,10 +124,12 @@
                p.reply_time,
                p.reply_count,
                p.like_count,
-               p.scan_count
+               p.scan_count,
+               p.isPublish
         from post p
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
+        where p.isPublish = 'Y'
         order by p.reply_time desc limit #{offset}, #{limit}
     </select>
 
@@ -150,6 +152,7 @@
         from post p
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
+        where p.isPublish = 'Y'
         order by p.reply_time asc limit #{offset}, #{limit}
     </select>
 
@@ -172,6 +175,7 @@
         from post p
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
+        where p.isPublish = 'Y'
         order by p.scan_count desc limit #{offset}, #{limit}
     </select>
 
@@ -204,12 +208,13 @@
                u.head_url,
                u.description,
                t.name,
-               t.content,
                p.postId,
                p.topicId,
                p.title,
+               p.content,
                p.publish_time,
                p.reply_time,
+               p.scan_count,
                p.isPublish
         from post p
                  join user u on p.userId = u.userId
@@ -221,7 +226,7 @@
     <select id="listPostByTopicId" resultType="com.fc.model.Post">
         select userId, topicId, postId, title, publish_time
         from post
-        where topicId = #{topicId} and postId != #{postId}
+        where topicId = #{topicId} and postId != #{postId} and isPublish = 'Y'
     </select>
 
     <select id="searchByTitle" resultMap="searchByTitleMap">
@@ -243,12 +248,14 @@
         from post p
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
-        where p.title like '%' #{title} '%' order by p.reply_time
+        where p.title like '%' #{title} '%' and p.isPublish = 'Y'
+        order by p.reply_time
     </select>
 
     <select id="selectPostCount" resultType="int">
         select count(*)
         from post
+        where isPublish = 'Y'
     </select>
 
     <select id="getPostByPostId" resultMap="post2Map">
@@ -268,7 +275,7 @@
                p.isPublish
         from post p
                  join user u on p.userId = u.userId
-        where p.postId = #{postId}
+        where p.postId = #{postId} and p.isPublish = 'Y'
     </select>
 
     <update id="updateReplyCount">

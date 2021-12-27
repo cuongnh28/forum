@@ -18,6 +18,12 @@
   <link rel="stylesheet" href="admin/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   <!-- Argon CSS -->
   <link rel="stylesheet" href="admin/css/argon.css?v=1.2.0" type="text/css">
+
+  <style>
+    .modal-dialog{
+      max-width: 800px;
+    }
+  </style>
 </head>
 
 <body>
@@ -290,7 +296,7 @@
                     <img alt="Image placeholder" src="admin/img/theme/team-4.jpg">
                   </span>
                 <div class="media-body  ml-2  d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                  <span class="mb-0 text-sm  font-weight-bold">${sessionScope.user.username}</span>
                 </div>
               </div>
             </a>
@@ -302,18 +308,18 @@
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
-              </a>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
-              </a>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
-              </a>
+<%--              <a href="#!" class="dropdown-item">--%>
+<%--                <i class="ni ni-settings-gear-65"></i>--%>
+<%--                <span>Settings</span>--%>
+<%--              </a>--%>
+<%--              <a href="#!" class="dropdown-item">--%>
+<%--                <i class="ni ni-calendar-grid-58"></i>--%>
+<%--                <span>Activity</span>--%>
+<%--              </a>--%>
+<%--              <a href="#!" class="dropdown-item">--%>
+<%--                <i class="ni ni-support-16"></i>--%>
+<%--                <span>Support</span>--%>
+<%--              </a>--%>
               <div class="dropdown-divider"></div>
               <a href="#!" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
@@ -372,7 +378,7 @@
               </tr>
               </thead>
               <tbody class="list">
-              <c:forEach items="${listPost}" var="post" >
+              <c:forEach items="${listPost}" var="post" varStatus="vs">
                 <tr>
                 <th scope="row">
                   <div class="media align-items-center">
@@ -380,7 +386,28 @@
                       <img alt="Image placeholder" src="admin/img/theme/images.png">
                     </a>
                     <div class="media-body">
-                      <span class="name mb-0 text-sm">${post.title}</span>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal${vs.index}">
+                        <span class="name mb-0 text-sm">${post.title}</span>
+                      </button>
+                        <div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Post Content</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  ${post.content}
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Accept</button>
+                                <button type="button" class="btn btn-primary">Reject</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </th>
@@ -405,11 +432,11 @@
                   <div class="d-flex align-items-center">
                     <form action="acceptPost.do" method="post">
                       <input type="hidden" name="postId" value="${post.postId}">
-                      <button type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Are you sure?')">Accept</button>
+                      <button type="submit" class="btn btn-sm btn-primary mx-2" onclick="return confirm('Are you sure?')">Accept</button>
                     </form>
                     <form action="rejectPost.do" method="post">
                       <input type="hidden" name="postId" value="${post.postId}">
-                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Reject</button>
+                      <button type="submit" class="btn btn-sm btn-danger mx-2" onclick="return confirm('Are you sure?')">Reject</button>
                     </form>
                   </div>
                 </td>

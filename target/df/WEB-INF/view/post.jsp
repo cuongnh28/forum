@@ -198,35 +198,13 @@
 <script src="../../ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
     CKEDITOR.replace('contentReply');
-    // var editor = new wangEditor('textarea');
-    //
-    // editor.config.menus = [
-    //     'source',
-    //     '|',
-    //     'bold',
-    //     'underline',
-    //     'italic',
-    //     'strikethrough',
-    //     'eraser',
-    //     'fontsize',
-    //     '|',
-    //     'table',
-    //     'link',
-    //     '|',
-    //     'img',
-    //     'insertcode',
-    //     '|',
-    //     'undo',
-    // ];
-    //
-    // editor.config.uploadImgUrl = 'upload.do';
-    // editor.config.uploadImgFileName = 'myFileName';
-    //
-    //
-    // editor.create();
 
     var likeButton = $("#like-button");
+    likeButton.click(function(){
+        alert("The paragraph was clicked.");
+    })
     likeButton.click(function () {
+        console.log('function')
         $.ajax({
             type: "GET",
             url: "ajaxClickLike.do",

@@ -32,7 +32,7 @@
                             <a role="button" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <img src="../../upload/images/${sessionScope.user.headUrl}"
-                                     style="height: 30px ; width: 30px ; border-radius: 50%">
+                                     style="height: 30px ; width: 30px ; object-fit:cover; border-radius: 50%">
                             </a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton"
                                  style="font-size: 14px">

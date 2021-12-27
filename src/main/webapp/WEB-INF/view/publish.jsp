@@ -84,7 +84,7 @@
 			if (this.status !== 200) {
 				alert("Error! Can't publish post!");
 			} else {
-				window.location = "/toPost.do?postId=" + this.responseText;
+				window.location = "/toIndex.do";
 			}
 		};
 		req.send(JSON.stringify(post));

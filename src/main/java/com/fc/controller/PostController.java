@@ -166,7 +166,7 @@ public class PostController {
         return "index";
     }
 
-    @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
     public @ResponseBody
     String ajaxClickLike(int postId, HttpSession session) {
         int sessionUid = (int) session.getAttribute("userId");
