@@ -9,187 +9,210 @@
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/post.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <style>
+        p img{
+            width: 100%;
+        }
+        button{
+            font-size: 15px!important;
+        }
+        .dropdown-toggle:after{
+            content: none;
+        }
+        .dropdown-item{
+            font-size: 15px;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="header.jsp" %>
 
-
-<div class="main w clearfix">
-
-    <div class="main-left">
-
-        <div class="post-content">
-            <div class="post-title">
-                <span class="glyphicon glyphicon-th"></span>&nbsp;${post.title}
+<div class="main w d-flex">
+<%--    post--%>
+    <div class="border p-3" style="width: 690px;border-radius: 8px ;">
+<%--        first line of post--%>
+        <div class="d-flex justify-content-between align-items-center mx-0">
+            <p style="font-style: italic">In <a href="#">name of topic</a></p>
+            <button class="btn dropdown-toggle p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h fa-2x" ></i></button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <c:choose>
+                    <c:when test="${post.user.userId==sessionScope.userId}">
+                        <form action="/deletePost.do" method="post" class="" style="padding: 2.5px 7.5px">
+                            <input type="hidden" name="postId" value="${post.postId}">
+                            <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                        <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>
+                    </c:when>
+                </c:choose>
+                <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Report</a>
+                <a class="dropdown-item" href="#" style="padding: 6.25px 15px">History edit</a>
             </div>
-            <div class="post-user clearfix">
-                <div class="user-image"><a href="toProfile.do?userId=${post.user.userId}"><img
-                        src="../../upload/images/${post.user.headUrl}"></a>
+        </div>
+<%--    title--%>
+        <h2><b>${post.title}</b></h2>
+<%--    author & publish date--%>
+        <div class="d-flex justify-content-between">
+            <p>Author: <a href="toProfile.do?userId=${post.user.userId}">${post.user.username}</a></p>
+            <p class="format-date">Publish on: ${post.publishTime}</p>
+        </div>
+<%--    post content--%>
+        <div class="border p-3 mb-3" style="font-size: 15px; border-radius: 8px;  background-color: #F2f2f2">
+            ${post.content}
+        </div>
+<%--    like, comment, view count --%>
+        <div class="border-top py-3 d-flex justify-content-between align-items-center" style="font-size: 15px">
+            <div class="d-flex align-items-center">
+                <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center" style="width: 25px; height: 25px;">
+                    <i class="fas fa-thumbs-up"></i>
                 </div>
-                <div class="user-info">
-                    <div class="user-name">${post.user.username}</div>
-                    <div class="post-time">Publish Time ${post.publishTime}</div>
-                </div>
-                <div class="delete-post">
-                    <c:choose>
-                        <c:when test="${post.user.userId==sessionScope.userId}">
-                            <form action="/deletePost.do" method="post">
-                                <input type="hidden" name="postId" value="${post.postId}">
-                                <button class="btn btn-danger" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-<%--                            <form action="/editPost.do" method="post">--%>
-<%--                                <input type="hidden" name="postId" value="${post.postId}">--%>
-<%--                                <button class="btn btn-secondary" type="submit" >Edit</button>--%>
-<%--                            </form>--%>
-                        </c:when>
-                    </c:choose>
-                </div>
-                <div class="other-count">
-                    <span class="reply-count">Replies: ${post.replyCount}</span>&nbsp;
-                    <c:choose>
-                        <c:when test="${sessionScope.userId==null}">
-                            <span class="up-count"><a>Votes: ${post.likeCount}</a></span>&nbsp;
-                        </c:when>
-                        <c:when test="${liked==true}">
-                            <span class="up-count"><a style="color:#2e6da4;">Votes: ${post.likeCount}</a></span>&nbsp;
-                        </c:when>
-                        <c:when test="${sessionScope.userId!=null}">
-                            <span class="up-count"><a href="#" id="like-button">Votes: ${post.likeCount}</a></span>&nbsp;
-                        </c:when>
-                    </c:choose>
-                    <span class="scan-count">Views: ${post.scanCount}</span>
-                </div>
+                <p class="my-0 mx-2" style="font-size: 20px">${post.likeCount}</p>
             </div>
-            <div class="post-desc">
-                ${post.content}
+            <div class="d-flex align-items-center">
+                <p class="my-0 mx-3">${post.replyCount} comments</p>
+                <p class="my-0">${post.scanCount} views </p>
             </div>
+        </div>
+<%--    like & comment button--%>
+        <div class="border-top d-flex" style="font-size: 15px; border-bottom: 1px solid rgb(222, 226, 230)">
+            <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> like</button>
+            <button class="col py-3 btn" id="comment-button"><i class="far fa-comment-alt"></i> comment</button>
         </div>
 
 
-        <div class="post-reply">
-            <div class="post-reply-title">
-                <h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;Reply: ${post.replyCount}
-                </h2>
-                <c:choose>
-                    <c:when test="${sessionScope.userId != null}">
-                        <a href="#reply-area">Wanna reply?</a>
-                    </c:when>
-                </c:choose>
-            </div>
-            <div class="post-reply-content">
+<%--        content of comments--%>
+        <div id="comment-box" class="d-none">
+<%--            box chat--%>
+            <c:choose>
+                <c:when test="${sessionScope.userId != null}">
+                    <div id="reply-area" class="post-reply-textarea">
+                            <form action="reply.do" method="post" enctype="multipart/form-data" style="overflow: auto">
+                                <input type="hidden" name="postId" value="${post.postId}"/>
+                                <textarea name="contentReply" style="height: 100px;max-height: 1000px;"></textarea>
+                                <button class="btn btn-primary float-right my-3">Reply</button>
+                            </form>
+                    </div>
+                </c:when>
+            </c:choose>
+<%--            other comments--%>
+            <div class="">
                 <c:forEach items="${replyList}" var="reply" varStatus="status">
-                    <div class="post-reply-item clearfix">
-                        <div class="item-image"><a href="toProfile.do?userId=${reply.user.userId}"><img
-                                src="../../upload/images/${reply.user.headUrl}"></a></div>
-                        <div class="delete-reply">
-                            <c:choose>
-                                <c:when test="${reply.user.userId==sessionScope.userId}">
-                                    <form action="/deleteReply.do" method="post">
-                                        <input type="hidden" name="replyId" value="${reply.replyId}">
-                                        <input type="hidden" name="postId" value="${post.postId}">
-                                        <button class="btn btn-danger" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
-                                    </form>
-<%--                                    <form action="/editReply.do" method="post">--%>
-<%--                                        <input type="hidden" name="postId" value="${post.postId}">--%>
-<%--                                        <button class="btn btn-secondary" type="submit" >Edit</button>--%>
-<%--                                    </form>--%>
-                                </c:when>
-                            </c:choose>
+                    <div class="d-flex my-3">
+                        <div class="mr-3"><a href="toProfile.do?userId=${reply.user.userId}">
+                            <img src="../../upload/images/${reply.user.headUrl}" class="rounded-circle my-2 b-block" style="width: 40px; height: 40px"></a>
                         </div>
-                        <div class="item-info">
-                            <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
-                            <div class="item-content">${reply.content}</div>
-                            <div class="item-date">Reply Time: ${reply.replyTime}</div>
+<%--                comment content --%>
+                        <div class="" style="font-size: 15px">
+                            <div class="d-flex justify-content-between">
+                                <div class="item-user-name mx-2"><a href="#">${reply.user.username}</a></div>
 
-                            <div class="item-more">
-                                <c:forEach items="${reply.commentList}" var="comment">
-                                    <div class="item-wrap">
-                                        <div class="item-more-1">
-                                            <a href="toProfile.do?userId=${comment.user.userId}"
-                                               class="item-more-user">${comment.user.username}</a>
-                                            <span>：</span>
-                                            <span class="item-more-content">${comment.content}</span>
-                                        </div>
-
-                                        <div class="item-more-date">${comment.commentTime}</div>
-                                    </div>
-                                    <div class="delete-comment">
-                                        <c:choose>
-                                            <c:when test="${comment.user.userId==sessionScope.userId}">
-                                                <form action="/deleteComment.do" method="post">
-                                                    <input type="hidden" name="commentId" value="${comment.commentId}">
-                                                    <input type="hidden" name="postId" value="${post.postId}">
-                                                    <button class="btn btn-danger" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
-                                                </form>
-                                                <%--                                    <form action="/editReply.do" method="post">--%>
-                                                <%--                                        <input type="hidden" name="postId" value="${post.postId}">--%>
-                                                <%--                                        <button class="btn btn-secondary" type="submit" >Edit</button>--%>
-                                                <%--                                    </form>--%>
-                                            </c:when>
-                                        </c:choose>
-                                    </div>
-                                </c:forEach>
-
-                                <c:choose>
-                                    <c:when test="${sessionScope.userId != null}">
-                                        <div class="reply-input">
-                                            <form action="comment.do" method="post">
-                                                <input type="hidden" name="postId" value="${post.postId}"/>
-                                                <input type="hidden" name="replyId" value="${reply.replyId}"/>
-                                                <textarea name="content"></textarea>
-                                                <button type="submit">Submit</button>
+                                    <%--                            dropdown-delete comment--%>
+                                <button class="btn dropdown-toggle p-0 mx-2" type="button" id="dropdownDelete" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h" ></i></button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownDelete">
+                                    <c:choose>
+                                        <c:when test="${reply.user.userId==sessionScope.userId}">
+                                            <form action="/deleteReply.do" method="post" class="" style="padding: 2.5px 7.5px">
+                                                <input type="hidden" name="replyId" value="${reply.replyId}">
+                                                <input type="hidden" name="postId" value="${post.postId}">
+                                                <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
                                             </form>
-                                        </div>
-                                    </c:when>
-                                </c:choose>
+                                            <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>
+                                        </c:when>
+                                    </c:choose>
+                                    <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Report</a>
+                                    <a class="dropdown-item" href="#" style="padding: 6.25px 15px">History edit</a>
+                                </div>
                             </div>
 
-                        </div>
-<%--                        <div class="item-other">--%>
-<%--                            <a href="#s${status.count}" class="item-reply">Count</a>&nbsp;--%>
-<%--                        </div>--%>
 
+                            <div class="">
+                                <div class="border p-3" style=" background-color: #F2f2f2; border-radius: 8px">${reply.content}</div>
+                                <div class="d-flex justify-content-between" style="font-size: 12px">
+                                    <div class="format-date mx-3 mt-1">${reply.replyTime}</div>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.userId != null}">
+                                            <a role="button" class="reply-button mx-3 mt-1">reply</a>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+                            </div>
+
+<%--                            reply comment--%>
+                            <c:choose>
+                                <c:when test="${sessionScope.userId != null}">
+                                    <div class="reply-box pl-5 mt-3 d-none">
+                                        <form action="comment.do" method="post" class="d-flex align-items-center">
+                                            <input type="hidden" name="postId" value="${post.postId}"/>
+                                            <input type="hidden" name="replyId" value="${reply.replyId}"/>
+                                            <textarea name="content" class="mx-2 col" style="border-radius: 8px"></textarea>
+                                            <button type="submit" class="mx-2 btn btn-secondary">Sent</button>
+                                        </form>
+                                    </div>
+                                </c:when>
+                            </c:choose>
+
+                            <c:forEach items="${reply.commentList}" var="comment">
+                                <div class="pl-5 d-flex mt-3">
+                                    <div class="mr-3"><a href="toProfile.do?userId=${comment.user.userId}">
+                                        <img src="../../upload/images/${comment.user.headUrl}" class="rounded-circle my-2 b-block" style="width: 32px; height: 32px"></a>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="item-user-name mx-2"><a href="toProfile.do?userId=${comment.user.userId}">${comment.user.username}</a></div>
+
+<%--                                        dropdown delete reply-comment--%>
+                                            <button class="btn dropdown-toggle p-0 mx-2" type="button" id="dropdownDeleteReply" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h" ></i></button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownDeleteReply">
+                                                <c:choose>
+                                                    <c:when test="${comment.user.userId==sessionScope.userId}">
+                                                        <form action="/deleteComment.do" method="post" style="padding: 2.5px 7.5px">
+                                                            <input type="hidden" name="commentId" value="${comment.commentId}">
+                                                            <input type="hidden" name="postId" value="${post.postId}">
+                                                            <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
+                                                        </form>
+                                                        <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>
+                                                    </c:when>
+                                                </c:choose>
+                                                <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Report</a>
+                                                <a class="dropdown-item" href="#" style="padding: 6.25px 15px">History edit</a>
+                                            </div>
+                                        </div>
+                                        <div class="">
+<%--                                            content reply of comment--%>
+                                            <div class="border p-3" style=" background-color: #F2f2f2; border-radius: 8px">${comment.content}</div>
+                                            <div class="d-flex justify-content-between" style="font-size: 12px">
+                                                <div class="format-date mx-3 mt-1">${comment.commentTime}</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                 </c:forEach>
             </div>
         </div>
-
-
-        <c:choose>
-            <c:when test="${sessionScope.userId != null}">
-                <div id="reply-area" class="post-reply-textarea">
-                    <div style="width: 650px;margin: 10px 20px">
-                        <form action="reply.do" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="postId" value="${post.postId}"/>
-                            <textarea name="contentReply" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
-                            <button class="reply-button">Reply</button>
-                        </form>
-                    </div>
-                </div>
-            </c:when>
-        </c:choose>
-
     </div>
 
-    <div class="main-right">
+    <div class="col border ml-3 p-3" style="height: fit-content; min-height: 250px; border-radius: 8px; font-size: 15px">
         <div class="hot-user">
-            <div class="clearfix">
-                <div class="hot-user-title"><span></span>&nbsp;Suggested Topics</div>
+            <div class="">
+                <div class="hot-user-title mb-3"><span></span><b>Suggested Topics</b></div>
             </div>
             <ul class="hot-user-list">
                 <c:forEach items="${suggestedTopics}" var="post">
-                    <li>
-                        <span class="glyphicon glyphicon-file"></span>&nbsp;
-                        <a href="toPost.do?postId=${post.postId}">${post.title}</a>
-                        <span class="user-post-time"> ${post.publishTime}</span>
+                    <li class="d-flex justify-content-between">
+                        <a href="toPost.do?postId=${post.postId}"><span class="glyphicon glyphicon-file"></span> ${post.title}</a>
+                        <span class="format-date user-post-time"> ${post.publishTime}</span>
                     </li>
                 </c:forEach>
             </ul>
         </div>
     </div>
-</div>
 
+</div>
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
@@ -197,6 +220,56 @@
 <script type="text/javascript" src="js/base.js"></script>
 <script src="../../ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
+
+<%--    change time format--%>
+
+    function timeSince(date) {
+
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " years ago";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months ago";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days ago";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours ago";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minutes ago";
+        }
+        return Math.floor(seconds) + " seconds ago";
+    }
+
+    for (let i = 0; i < document.querySelectorAll('.format-date').length; i++) {
+        document.querySelectorAll('.format-date')[i].innerHTML = timeSince(new Date(document.querySelectorAll('.format-date')[i].innerHTML.split('ICT').join('')))
+    }
+
+    //reply button
+
+    for (let i = 0; i < document.querySelectorAll('.reply-button').length; i++) {
+        document.querySelectorAll('.reply-button')[i].addEventListener('click', () =>{
+            document.querySelectorAll('.reply-box')[i].classList.remove('d-none')
+        })
+    }
+
+    // comment button
+
+    document.querySelector('#comment-button').addEventListener('click', () =>{
+        document.querySelector('#comment-box').classList.remove('d-none')
+    })
+
+
     CKEDITOR.replace('contentReply');
     // var editor = new wangEditor('textarea');
     //

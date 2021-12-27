@@ -97,7 +97,7 @@
                 <input type="text" class="form-control w-100" name="name" id="topic" placeholder="Topic here" required>
             </div>
             <div class="form-group">
-                <label for="content">Topic</label>
+                <label for="content">Content</label>
                 <input type="text" class="form-control w-100" name="content" id="content" placeholder="Content here" required>
             </div>
         <div class="form-group">
