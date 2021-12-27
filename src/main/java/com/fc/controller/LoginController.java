@@ -45,6 +45,7 @@ public class LoginController {
             session.setAttribute("userId", map.get("userId"));
             session.setAttribute("headUrl", map.get("headUrl"));
             session.setAttribute("user", map.get("user"));
+            session.setAttribute("isAdmin", map.get("isAdmin"));
             return "redirect:toMyProfile.do";
         } else {
             model.addAttribute("email", user.getEmail());

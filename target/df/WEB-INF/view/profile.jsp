@@ -45,12 +45,12 @@
             <div class="border-bottom w-75 text-center py-3 mb-4">
                 <div class="user-button">
                     <c:choose>
-                        <c:when test="${following == true}">
+                        <c:when test="${following == true && sessionScope.userId != null}">
                             <a href="unfollow.do?userId=${user.userId}" role="button" class="btn btn-warning" style="font-size: 15px">Unfollow</a>
                         </c:when>
-                        <c:otherwise>
+                        <c:when test="${following == false && sessionScope.userId != null}">
                             <a href="follow.do?userId=${user.userId}" role="button" class="btn btn-success" style="font-size: 15px">Follow</a>
-                        </c:otherwise>
+                        </c:when>
                     </c:choose>
                 </div>
             </div>

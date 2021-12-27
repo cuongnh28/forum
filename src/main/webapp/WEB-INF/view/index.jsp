@@ -30,13 +30,13 @@
                         <a href="#" class="nav-link disabled"><b>Order by: </b></a>
                     </li>
                     <li class="nav-item">
-                        <a href="listPostByNewestTime.do?curPage=${pageBean.curPage }"  class="post-choice-current nav-link">Newest</a>
+                        <a href="listPostByNewestTime.do?curPage=1"  class="post-choice-current nav-link">Newest</a>
                     </li>
                     <li class="nav-item">
-                        <a href="listPostByHottest.do?curPage=${pageBean.curPage }"  class="nav-link ">Hottest</a>
+                        <a href="listPostByHottest.do?curPage=1"  class="nav-link ">Hottest</a>
                     </li>
                     <li class="nav-item">
-                        <a href="listPostByLatestTime.do?curPage=${pageBean.curPage }"  class="post-choice-last nav-link">Latest</a>
+                        <a href="listPostByLatestTime.do?curPage=1"  class="post-choice-last nav-link">Latest</a>
                     </li>
                 </ul>
 

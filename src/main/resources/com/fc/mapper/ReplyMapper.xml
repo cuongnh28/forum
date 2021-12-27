@@ -12,6 +12,7 @@
         <id column="replyId" property="replyId"/>
         <result column="content" property="content"/>
         <result column="reply_time" property="replyTime"/>
+        <result column="isPublish" property="isPublish"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
     </resultMap>
 
@@ -19,6 +20,7 @@
         <id column="commentId" property="commentId"/>
         <result column="content" property="content"/>
         <result column="comment_time" property="commentTime"/>
+        <result column="isPublish" property="isPublish"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap" />
     </resultMap>
 
@@ -26,6 +28,7 @@
         <id column="replyId" property="replyId"/>
         <result column="content" property="content"/>
         <result column="reply_time" property="replyTime"/>
+        <result column="isPublish" property="isPublish"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
     </resultMap>
 
@@ -38,7 +41,7 @@
     </insert>
 
     <select id="listReply" resultMap="replyMap">
-        select r.replyId,r.content,r.reply_time,u.userId,u.username,u.head_url from reply r join user u on r.userId=u.userId
+        select r.replyId,r.content,r.reply_time,r.isPublish,u.userId,u.username,u.head_url from reply r join user u on r.userId=u.userId
         where postId=#{postId}
     </select>
 
@@ -50,7 +53,7 @@
     </insert>
 
     <select id="listComment" resultMap="commentMap">
-        select c.commentId,c.content,c.comment_time,u.userId,u.username,u.head_url from comment c join user u on c.userId=u.userId
+        select c.commentId,c.content,c.comment_time,c.isPublish,u.userId,u.username,u.head_url from comment c join user u on c.userId=u.userId
         where replyId=#{replyId}
     </select>
 

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 @Getter
@@ -16,6 +17,7 @@ public class Comment {
     private String content;
     private Reply reply;
     private User user;
+    private String isPublish = "N";
 
     private Date commentTime;
 

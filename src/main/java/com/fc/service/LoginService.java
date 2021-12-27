@@ -89,6 +89,7 @@ public class LoginService {
         map.put("userId", userId);
         map.put("headUrl", headUrl);
         map.put("user", currentUser);
+        map.put("isAdmin", currentUser.getIsAdmin());
         return map;
     }
 

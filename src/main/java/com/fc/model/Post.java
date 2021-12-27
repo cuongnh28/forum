@@ -29,6 +29,8 @@ public class Post implements Serializable {
     private Integer likeCount;
     @Column
     private Integer scanCount;
+    @Column
+    private String isPublish;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")

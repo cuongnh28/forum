@@ -12,6 +12,7 @@
         <id column="commentId" property="commentId"/>
         <result column="content" property="content"/>
         <result column="comment_time" property="commentTime"/>
+        <result column="isPublish" property="isPublish"/>
         <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
     </resultMap>
 

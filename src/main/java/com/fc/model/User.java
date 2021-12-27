@@ -52,6 +52,9 @@ public class User implements Serializable {
     @Column
     private Integer followerCount;
 
+    @Column
+    private String isAdmin;
+
     private FullName fullName;
 
     public User(Integer userId) {
@@ -78,6 +81,7 @@ public class User implements Serializable {
                 ", scanCount=" + scanCount +
                 ", followCount=" + followCount +
                 ", followerCount=" + followerCount +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }
