@@ -61,9 +61,9 @@
                                 <div class="row" style="margin-left: 0px">
                                     <div class="border px-2 py-1 mr-2" style="border-radius: 10px">
                                         <a href="listPostByTopic.do?topicId=${post.topic.topicId}"
-                                           class="topic-name">Topic: ${post.topic.content}</a>
+                                           class="topic-name">Topic: ${post.topic.name}</a>
                                     </div>
-                                    <div class="border px-2 py-1 mr-2" style="border-radius: 10px">Post Time: ${post.publishTime}</div>
+                                    <div class="border px-2 py-1 mr-2" style="border-radius: 10px"><p class="format-date">Post Time: ${post.publishTime} </p></div>
                                 </div>
                                 <div class="d-flex align-items-center ">
                                         <span class="mx-1" style="font-size: 15px">
@@ -290,6 +290,39 @@
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
+
+    function timeSince(date) {
+
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " years ago";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months ago";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days ago";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours ago";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minutes ago";
+        }
+        return Math.floor(seconds) + " seconds ago";
+    }
+
+    for (let i = 0; i < document.querySelectorAll('.format-date').length; i++) {
+        document.querySelectorAll('.format-date')[i].innerHTML = timeSince(new Date(document.querySelectorAll('.format-date')[i].innerHTML.split('ICT').join('')))
+    }
+
     $(function () {
         var curPage = ${pageBean.curPage};
         $(".pageNum").each(function () {

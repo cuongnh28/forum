@@ -269,6 +269,8 @@ img
 
     width: 100%;
 
+    object-fit: cover;
+
     vertical-align: middle;
 
     border-style: none;

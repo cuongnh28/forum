@@ -377,7 +377,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">POSTS</h5>
                                         <span class="h2 font-weight-bold mb-0">924</span>
                                     </div>
                                     <div class="col-auto">
@@ -399,7 +399,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">COMMENTS</h5>
                                         <span class="h2 font-weight-bold mb-0">49,65%</span>
                                     </div>
                                     <div class="col-auto">
@@ -462,7 +462,7 @@
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">COMMENTS</h6>
                                 <h5 class="h3 mb-0">Total orders</h5>
                             </div>
                         </div>

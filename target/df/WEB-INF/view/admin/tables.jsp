@@ -23,6 +23,9 @@
     .modal-dialog{
       max-width: 800px;
     }
+    .table td, .table th {
+       white-space: normal;
+    }
   </style>
 </head>
 
@@ -386,7 +389,7 @@
                       <img alt="Image placeholder" src="admin/img/theme/images.png">
                     </a>
                     <div class="media-body">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal${vs.index}">
+                      <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#myModal${vs.index}">
                         <span class="name mb-0 text-sm">${post.title}</span>
                       </button>
                         <div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -402,8 +405,8 @@
                                   ${post.content}
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Accept</button>
-                                <button type="button" class="btn btn-primary">Reject</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
+                                <button type="button" class="btn btn-danger">Reject</button>
                               </div>
                             </div>
                           </div>
@@ -417,13 +420,13 @@
                 <td>
                       <span class="badge badge-dot mr-4">
                         <i class="bg-warning"></i>
-                        <span class="status">${post.publishTime}</span>
+                        <span class="format-date">${post.publishTime}</span>
                       </span>
                 </td>
                 <td>
                   <div class="avatar-group">
                     <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="${post.user.description}">
-                      <img alt="Image placeholder" src="../../upload/images/${post.user.headUrl}">
+                      <img alt="Image placeholder" src="../../upload/images/${post.user.headUrl}" style="height: 100%; object-fit: cover">
                     </a>
                     ${post.user.username}
                   </div>
@@ -523,6 +526,43 @@
 <script src="admin/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
 <!-- Argon JS -->
 <script src="admin/js/argon.js?v=1.2.0"></script>
+<script type="text/javascript">
+
+  <%--    change time format--%>
+
+  function timeSince(date) {
+
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + " years ago";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+  }
+
+  for (let i = 0; i < document.querySelectorAll('.format-date').length; i++) {
+    document.querySelectorAll('.format-date')[i].innerHTML = timeSince(new Date(document.querySelectorAll('.format-date')[i].innerHTML.split('ICT').join('')))
+  }
+
+</script>
 </body>
 
 </html>
