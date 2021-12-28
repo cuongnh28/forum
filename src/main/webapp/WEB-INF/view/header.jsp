@@ -28,17 +28,18 @@
             <ul class="nav align-items-center ml-5">
                 <c:choose>
                     <c:when test="${sessionScope.userId != null}">
+                        <p class="mx-3 my-0">Hi <a href="toMyProfile.do">${sessionScope.user.username}</a>,</p>
                         <div class="dropdown ml-4">
-                            <a role="button" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <img src="../../upload/images/${sessionScope.user.headUrl}"
-                                     style="height: 30px ; width: 30px ; object-fit:cover; border-radius: 50%">
-                            </a>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton"
-                                 style="font-size: 14px">
-                                <a class="col-12 text-white d-block my-2" href="toMyProfile.do" style="text-decoration: none">My Profile</a>
-                                <a class="col-12 text-white d-block my-2" href="logout.do" style="text-decoration: none">Log out</a>
-                            </div>
+                                <a role="button" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <img src="../../upload/images/${sessionScope.user.headUrl}"
+                                         style="height: 30px ; width: 30px ;border: 1px solid grey; border-radius: 50%">
+                                </a>
+                                <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton"
+                                     style="font-size: 14px">
+                                    <a class="col-12 text-white d-block my-2" href="toMyProfile.do" style="text-decoration: none">My Profile</a>
+                                    <a class="col-12 text-white d-block my-2" href="logout.do" style="text-decoration: none">Log out</a>
+                                </div>
                         </div>
                     </c:when>
                     <c:otherwise>
