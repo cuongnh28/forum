@@ -172,4 +172,5 @@ public class PostController {
         int sessionUid = (int) session.getAttribute("userId");
         return postService.clickLike(postId, sessionUid);
     }
+
 }
