@@ -71,10 +71,6 @@ public class UserController {
 
     @RequestMapping("/editProfile.do")
     public String editProfile(User user) {
-//        FullName fullName = new FullName("", "");
-//        fullName.setLastName(lastName);
-//        fullName.setFirstName(firstName);
-//        user.setFullName(fullName);
         userService.updateUser(user);
         return "redirect:toMyProfile.do";
     }
@@ -129,7 +125,7 @@ public class UserController {
     }
 
     @RequestMapping("/uploadImage.do")
-    public String uploadImage (MultipartFile myFileName, Model model, HttpSession session, HttpServletRequest request) {
+    public String uploadImage (MultipartFile myFileName, String addTo, Model model, HttpSession session, HttpServletRequest request) {
         if (myFileName != null && !myFileName.isEmpty()) {
             String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
             boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
@@ -158,7 +154,12 @@ public class UserController {
                 stream.close();
 
                 int userId = (int) session.getAttribute("userId");
-                userService.updateHeadUrl(userId, name);
+                if (addTo.equalsIgnoreCase("avatar")) {
+                    userService.updateHeadUrl(userId, name);
+                }
+                else if (addTo.equalsIgnoreCase("cover")){
+                    userService.updateCover(userId, name);
+                }
                 User user = userService.getUserById(userId);
                 session.setAttribute("user", user);
 

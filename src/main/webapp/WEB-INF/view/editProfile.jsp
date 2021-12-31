@@ -19,6 +19,7 @@
     <form action="uploadImage.do" method="post" enctype="multipart/form-data">
         <div class="row mx-5 align-items-center position-relative">
             <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="picField(this);">
+            <input type="hidden" name="addTo" value="avatar">
 <%--            <img src="../../upload/images/${user.headUrl}">--%>
             <div class="border rounded-circle" style="width: fit-content">
                 <img src="../../upload/images/${user.headUrl}" class="border border-dark rounded-circle" id="output" style="width: 120px; height: 120px; object-fit: cover"/>

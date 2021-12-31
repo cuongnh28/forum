@@ -1,5 +1,7 @@
 package com.fc.controller;
 
+import com.fc.model.PageBean;
+import com.fc.model.Post;
 import com.fc.model.Topic;
 import com.fc.model.User;
 import com.fc.service.TopicService;
@@ -87,6 +89,15 @@ public class TopicController {
             System.out.println("File upload false");
         }
 
+        return "topic";
+    }
+
+    @RequestMapping(value="/searchTopic.do", method = RequestMethod.GET)
+    public String searchTopic(String searchTemp, Model model) {
+        List<Topic> topicList = topicService.searchByTopicName(searchTemp);
+        List<User> hotUserList = userService.listUserByHot();
+        model.addAttribute("topicList", topicList);
+        model.addAttribute("hotUserList", hotUserList);
         return "topic";
     }
 

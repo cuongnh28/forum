@@ -57,31 +57,15 @@ public class User implements Serializable {
 
     private FullName fullName;
 
+    @Column
+    private String cover;
+
     public User(Integer userId) {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", actived=" + actived +
-                ", activateCode='" + activateCode + '\'' +
-                ", joinTime='" + joinTime + '\'' +
-                ", username='" + username + '\'' +
-                ", description='" + description + '\'' +
-                ", headUrl='" + headUrl + '\'' +
-                ", position='" + position + '\'' +
-                ", school='" + school + '\'' +
-                ", job='" + job + '\'' +
-                ", likeCount=" + likeCount +
-                ", postCount=" + postCount +
-                ", scanCount=" + scanCount +
-                ", followCount=" + followCount +
-                ", followerCount=" + followerCount +
-                ", isAdmin=" + isAdmin +
-                '}';
+    public boolean checkIsAdmin () {
+        return isAdmin.equalsIgnoreCase("Y");
     }
+
 }

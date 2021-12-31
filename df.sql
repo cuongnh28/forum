@@ -32,7 +32,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`commentId`),
   KEY `replyId` (`replyId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`replyId`) REFERENCES `reply` (`replyId`) ON DELETE CASCADE,
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`replyId`) REFERENCES `comment` (`replyId`) ON DELETE CASCADE,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -705,10 +705,10 @@ INSERT INTO `post` VALUES ('20', 'test20', 'test content20', '2016-10-24 07:10:3
 INSERT INTO `post` VALUES ('21', 'a天气', '<p><img src=\"http://od6v5lenq.bkt.clouddn.com/22f3b086-01f5-4e3a-8f8b-77cc9d4cfa2d.jpg\" alt=\"a\" style=\"max-width:100%;\"><br></p><p><br></p>', '2016-10-25 10:10:17', '2016-10-25 10:10:17', '0', '0', '1', '1', '6');
 
 -- ----------------------------
--- Table structure for `reply`
+-- Table structure for `comment`
 -- ----------------------------
-DROP TABLE IF EXISTS `reply`;
-CREATE TABLE `reply` (
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
   `replyId` int(11) NOT NULL AUTO_INCREMENT,
   `content` text,
   `postId` int(11) NOT NULL,
@@ -722,7 +722,7 @@ CREATE TABLE `reply` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of reply
+-- Records of comment
 -- ----------------------------
 
 -- ----------------------------

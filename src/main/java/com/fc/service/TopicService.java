@@ -2,7 +2,7 @@ package com.fc.service;
 
 import com.fc.mapper.LogMapper;
 import com.fc.mapper.PostMapper;
-import com.fc.mapper.ReplyMapper;
+import com.fc.mapper.CommentMapper;
 import com.fc.mapper.TopicMapper;
 import com.fc.mapper.UserMapper;
 import com.fc.model.Topic;
@@ -20,7 +20,7 @@ public class TopicService {
     private TopicMapper topicMapper;
 
     @Autowired
-    private ReplyMapper replyMapper;
+    private CommentMapper commentMapper;
 
     @Autowired
     private PostMapper postMapper;
@@ -33,6 +33,10 @@ public class TopicService {
 
     public List<Topic> listTopic() {
         return topicMapper.listTopic();
+    }
+
+    public List<Topic> searchByTopicName(String name) {
+        return topicMapper.searchByTopicName(name);
     }
 
     public List<String> listImage() {

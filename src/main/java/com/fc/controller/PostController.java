@@ -2,25 +2,19 @@ package com.fc.controller;
 
 import com.fc.model.*;
 import com.fc.service.PostService;
-import com.fc.service.ReplyService;
+import com.fc.service.CommentService;
 import com.fc.service.TopicService;
 import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -38,7 +32,7 @@ public class PostController {
     private TopicService topicService;
 
     @Autowired
-    private ReplyService replyService;
+    private CommentService commentService;
 
 
     @RequestMapping("/toPublish.do")
@@ -111,21 +105,25 @@ public class PostController {
     public String toPost(int postId, Model model, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("userId");
         Post post = postService.getPostByPostId(postId);
-        List<Reply> replyList = replyService.listReply(postId);
-        List<Post> listPostsSameTopic = postService.listPostByTopicId(post.getTopic().getTopicId(), postId);
+        if (post != null) {
+            postService.insertPostVisit(post.getPostId());
+            List<Comment> commentList = commentService.listComment(postId);
+            List<Post> listPostsSameTopic = postService.listPostByTopicId(post.getTopic().getTopicId(), postId);
 
-        boolean liked = false;
-        if (sessionUid != null) {
-            liked = postService.getLikeStatus(postId, sessionUid);
+            boolean liked = false;
+            if (sessionUid != null) {
+                liked = postService.getLikeStatus(postId, sessionUid);
+            }
+            model.addAttribute("post", post);
+            model.addAttribute("commentList", commentList);
+            model.addAttribute("liked", liked);
+            model.addAttribute("suggestedTopics", listPostsSameTopic);
+            return "post";
         }
-        model.addAttribute("post", post);
-        model.addAttribute("replyList", replyList);
-        model.addAttribute("liked", liked);
-        model.addAttribute("suggestedTopics", listPostsSameTopic);
-        return "post";
+        return null;
     }
 
-    @RequestMapping(value="/search.do", method = RequestMethod.GET)
+    @RequestMapping(value="/searchPost.do", method = RequestMethod.GET)
     public String search(String searchTemp, Model model, HttpSession session) {
         PageBean<Post> pageBean = postService.searchByTitle(searchTemp);
         List<User> userList = userService.listUserByTime();

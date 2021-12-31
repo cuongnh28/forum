@@ -19,7 +19,7 @@
     </select>
 
     <select id="selectUserByUserId" resultType="com.fc.model.User">
-        select userId,username,description,position,school,job,head_url,follow_count,follower_count,like_count,post_count,scan_count,isAdmin
+        select userId,username,description,position,school,job,head_url,follow_count,follower_count,like_count,post_count,scan_count,isAdmin,cover
         from user
         where userId=#{userId}
     </select>

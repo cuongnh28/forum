@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+  <title>Quản lý bài đăng</title>
   <!-- Favicon -->
   <link rel="icon" href="admin/img/brand/favicon.png" type="image/png">
   <!-- Fonts -->
@@ -35,7 +35,7 @@
   <div class="scrollbar-inner">
     <!-- Brand -->
     <div class="sidenav-header  align-items-center">
-      <a class="navbar-brand" href="javascript:void(0)">
+      <a class="navbar-brand" href="http://localhost:8081/">
         <img src="admin/img/brand/blue.png" class="navbar-brand-img" alt="...">
       </a>
     </div>
@@ -405,8 +405,16 @@
                                   ${post.content}
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
-                                <button type="button" class="btn btn-danger">Reject</button>
+                                <form action="acceptPost.do" method="post">
+                                  <input type="hidden" name="postId" value="${post.postId}">
+                                  <button type="submit" class="btn btn-primary" data-dismiss="modal" >Accept</button>
+                                </form>
+                                <form action="rejectPost.do" method="post">
+                                  <input type="hidden" name="postId" value="${post.postId}">
+                                  <button type="submit" class="btn btn-danger" data-dismiss="modal" >Reject</button>
+                                </form>
+<%--                                <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>--%>
+<%--                                <button type="button" class="btn btn-danger">Reject</button>--%>
                               </div>
                             </div>
                           </div>

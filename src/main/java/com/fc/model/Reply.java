@@ -4,38 +4,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.util.Date;
-import java.util.List;
 
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class Reply {
 
     private Integer replyId;
+
     private String content;
-    private Post post;
+    private Comment comment;
     private User user;
+    private String isPublish = "N";
 
     private Date replyTime;
-    private String isPublish;
 
-    private List<Comment> commentList;
-
-    public Reply(Integer replyId) {
-        this.replyId = replyId;
-    }
-
-    @Override
-    public String toString() {
-        return "Reply{" +
-                "replyId=" + replyId +
-                ", content='" + content + '\'' +
-                ", post=" + post +
-                ", user=" + user +
-                ", replyTime='" + replyTime + '\'' +
-                ", commentList=" + commentList +
-                '}';
-    }
 }

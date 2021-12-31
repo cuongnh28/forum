@@ -13,4 +13,6 @@ public interface TopicMapper {
 
     void insertTopic(Topic Topic);
 
+    List<Topic> searchByTopicName(String name);
+
 }

@@ -1,6 +1,7 @@
 package com.fc.mapper;
 
 import com.fc.model.Post;
+import com.fc.model.PostVisit;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,14 +30,14 @@ public interface PostMapper {
     Post getPostByPostId(int postId);
 
     //    +1
-    void updateReplyCount(int postId);
+    void updateCommentCount(int postId);
 
     //    -1
-    void minusReplyCount(int postId);
+    void minusCommentCount(int postId);
 
     void updateScanCount(int postId);
 
-    void updateReplyTime(int postId);
+    void updateCommentTime(int postId);
 
     int getUserIdByPostId(int postId);
 
@@ -47,5 +48,9 @@ public interface PostMapper {
     List<Post> listPostsNotApprove();
 
     boolean acceptPost(int postId);
+
+    void insertPostVisit(int postId);
+
+    List<PostVisit> getPostVisitByPostId(int postId);
 
 }

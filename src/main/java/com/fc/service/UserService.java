@@ -79,6 +79,10 @@ public class UserService {
         userMapper.updateHeadUrl(userId, headUrl);
     }
 
+    public void updateCover(int userId, String headUrl) {
+        userMapper.updateCover(userId, headUrl);
+    }
+
     public void unfollow(int sessionUid, int userId) {
         Jedis jedis = jedisPool.getResource();
         Transaction tx = jedis.multi();
@@ -145,5 +149,6 @@ public class UserService {
     public User getUserById (int userId) {
         return userMapper.selectUserByUserId(userId);
     }
+
 }
 

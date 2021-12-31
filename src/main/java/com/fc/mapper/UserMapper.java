@@ -34,6 +34,8 @@ public interface UserMapper {
 
     void updateHeadUrl(@Param("userId") int userId, @Param("headUrl") String headUrl);
 
+    void updateCover(@Param("userId") int userId, @Param("cover") String cover);
+
     String selectHeadUrl(int userId);
 
     void updateScanCount(int userId);

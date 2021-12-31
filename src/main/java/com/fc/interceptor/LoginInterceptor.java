@@ -12,7 +12,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     private List<String> excludedUrls;
 
-
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {

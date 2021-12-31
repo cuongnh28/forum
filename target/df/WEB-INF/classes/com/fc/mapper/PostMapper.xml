@@ -20,8 +20,8 @@
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
         <result column="publish_time" property="publishTime"/>
-        <result column="reply_time" property="replyTime"/>
-        <result column="reply_count" property="replyCount"/>
+        <result column="comment_time" property="commentTime"/>
+        <result column="comment_count" property="commentCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
         <result column="isPublish" property="isPublish"/>
@@ -33,8 +33,8 @@
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
         <result column="publish_time" property="publishTime"/>
-        <result column="reply_time" property="replyTime"/>
-        <result column="reply_count" property="replyCount"/>
+        <result column="comment_time" property="commentTime"/>
+        <result column="comment_count" property="commentCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
         <result column="isPublish" property="isPublish"/>
@@ -46,8 +46,8 @@
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
         <result column="publish_time" property="publishTime"/>
-        <result column="reply_time" property="replyTime"/>
-        <result column="reply_count" property="replyCount"/>
+        <result column="comment_time" property="commentTime"/>
+        <result column="comment_count" property="commentCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
         <result column="isPublish" property="isPublish"/>
@@ -59,8 +59,8 @@
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
         <result column="publish_time" property="publishTime"/>
-        <result column="reply_time" property="replyTime"/>
-        <result column="reply_count" property="replyCount"/>
+        <result column="comment_time" property="commentTime"/>
+        <result column="comment_count" property="commentCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
         <result column="isPublish" property="isPublish"/>
@@ -72,8 +72,8 @@
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
         <result column="publish_time" property="publishTime"/>
-        <result column="reply_time" property="replyTime"/>
-        <result column="reply_count" property="replyCount"/>
+        <result column="comment_time" property="commentTime"/>
+        <result column="comment_count" property="commentCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
         <result column="isPublish" property="isPublish"/>
@@ -86,8 +86,8 @@
         <result column="title" property="title"/>
         <result column="content" property="content"/>
         <result column="publish_time" property="publishTime"/>
-        <result column="reply_time" property="replyTime"/>
-        <result column="reply_count" property="replyCount"/>
+        <result column="comment_time" property="commentTime"/>
+        <result column="comment_count" property="commentCount"/>
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
         <result column="isPublish" property="isPublish"/>
@@ -106,8 +106,8 @@
         <selectKey resultType="int" order="AFTER" keyProperty="postId">
             select last_insert_id() as postId
         </selectKey>
-        insert into post(title,content,publish_time,reply_time,reply_count,like_count,scan_count,userId,topicId)
-        values(#{title},#{content},#{publishTime},#{replyTime},#{replyCount},#{likeCount},#{scanCount},#{user.userId},#{topic.topicId})
+        insert into post(title,content,publish_time,comment_time,comment_count,like_count,scan_count,userId,topicId)
+        values(#{title},#{content},#{publishTime},#{commentTime},#{commentCount},#{likeCount},#{scanCount},#{user.userId},#{topic.topicId})
     </insert>
 
     <select id="listPostByNewestTime" resultMap="postMap">
@@ -121,8 +121,8 @@
                p.topicId,
                p.title,
                p.publish_time,
-               p.reply_time,
-               p.reply_count,
+               p.comment_time,
+               p.comment_count,
                p.like_count,
                p.scan_count,
                p.isPublish
@@ -130,7 +130,7 @@
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
         where p.isPublish = 'Y'
-        order by p.reply_time desc limit #{offset}, #{limit}
+        order by p.comment_time desc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostByLatestTime" resultMap="postLatestMap">
@@ -144,8 +144,8 @@
                p.topicId,
                p.title,
                p.publish_time,
-               p.reply_time,
-               p.reply_count,
+               p.comment_time,
+               p.comment_count,
                p.like_count,
                p.scan_count,
                p.isPublish
@@ -153,7 +153,7 @@
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
         where p.isPublish = 'Y'
-        order by p.reply_time asc limit #{offset}, #{limit}
+        order by p.comment_time asc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostByHottest" resultMap="postHottestMap">
@@ -167,8 +167,8 @@
                p.topicId,
                p.title,
                p.publish_time,
-               p.reply_time,
-               p.reply_count,
+               p.comment_time,
+               p.comment_count,
                p.like_count,
                p.scan_count,
                p.isPublish
@@ -190,16 +190,16 @@
                p.topicId,
                p.title,
                p.publish_time,
-               p.reply_time,
-               p.reply_count,
+               p.comment_time,
+               p.comment_count,
                p.like_count,
                p.scan_count,
                p.isPublish
         from post p
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
-        where p.topicId = #{topicId}
-        order by p.reply_time desc limit #{offset}, #{limit}
+        where p.topicId = #{topicId} and p.isPublish = 'Y'
+        order by p.comment_time desc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostsNotApprove" resultMap="post2Map">
@@ -213,14 +213,14 @@
                p.title,
                p.content,
                p.publish_time,
-               p.reply_time,
+               p.comment_time,
                p.scan_count,
                p.isPublish
         from post p
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
         where p.isPublish = 'N'
-        order by p.reply_time
+        order by p.comment_time
     </select>
 
     <select id="listPostByTopicId" resultType="com.fc.model.Post">
@@ -240,8 +240,8 @@
                p.topicId,
                p.title,
                p.publish_time,
-               p.reply_time,
-               p.reply_count,
+               p.comment_time,
+               p.comment_count,
                p.like_count,
                p.scan_count,
                p.isPublish
@@ -249,7 +249,7 @@
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
         where p.title like '%' #{title} '%' and p.isPublish = 'Y'
-        order by p.reply_time
+        order by p.comment_time
     </select>
 
     <select id="selectPostCount" resultType="int">
@@ -268,8 +268,8 @@
                p.title,
                p.content,
                p.publish_time,
-               p.reply_time,
-               p.reply_count,
+               p.comment_time,
+               p.comment_count,
                p.like_count,
                p.scan_count,
                p.isPublish
@@ -278,9 +278,9 @@
         where p.postId = #{postId} and p.isPublish = 'Y'
     </select>
 
-    <update id="updateReplyCount">
+    <update id="updateCommentCount">
         update post
-        set reply_count = reply_count + 1
+        set comment_count = comment_count + 1
         where postId = #{postId}
     </update>
 
@@ -290,9 +290,9 @@
         where postId = #{postId}
     </update>
 
-    <update id="updateReplyTime">
+    <update id="updateCommentTime">
         update post
-        set reply_time = date_format(now(), '%Y-%c-%d %H:%i:%s')
+        set comment_time = date_format(now(), '%Y-%c-%d %H:%i:%s')
         where postId = #{postId}
     </update>
 
@@ -313,9 +313,9 @@
         where postId = #{postId}
     </delete>
 
-    <update id="minusReplyCount">
+    <update id="minusCommentCount">
         update post
-        set reply_count = reply_count - 1
+        set comment_count = comment_count - 1
         where postId = #{postId}
     </update>
 
@@ -324,6 +324,17 @@
         set isPublish = 'Y'
         where postId = #{postId}
     </update>
+
+    <insert id="insertPostVisit">
+        insert into post_visit(postId)
+        values(#{postId})
+    </insert>
+
+    <select id="getPostVisitByPostId" resultType="com.fc.model.Post">
+        select *
+        from post_visit
+        where postId = #{postId}
+    </select>
 
 </mapper>
 

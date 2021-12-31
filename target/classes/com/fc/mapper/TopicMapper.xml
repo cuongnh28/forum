@@ -13,4 +13,8 @@
     <insert id="insertTopic">
         insert into topic(name,content,image) values(#{name},#{content},#{image})
     </insert>
+
+    <select id="searchByTopicName" resultType="com.fc.model.Topic">
+        select * from topic where name like '%' #{name} '%'
+    </select>
 </mapper>

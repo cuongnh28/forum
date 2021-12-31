@@ -68,7 +68,7 @@
                                 <div class="d-flex align-items-center ">
                                         <span class="mx-1" style="font-size: 15px">
                                             <i class="far fa-comment-alt"></i><sup><span
-                                                class="badge badge-pill badge-success">${post.replyCount}</span></sup>
+                                                class="badge badge-pill badge-success">${post.commentCount}</span></sup>
                                         </span>
                                     <span class="mx-1" style="font-size: 15px">
                                             <i class="far fa-thumbs-up"></i><sup><span
@@ -76,7 +76,7 @@
                                         </span>
                                     <span class="mx-1" style="font-size: 15px">
                                             <i class="far fa-eye"></i><sup><span
-                                            class="badge badge-pill badge-success">${post.scanCount}</span></sup>
+                                            class="badge badge-pill badge-success">${post.postVisitList.size()}</span></sup>
                                         </span>
                                 </div>
                             </div>

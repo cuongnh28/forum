@@ -22,12 +22,12 @@ public class LogTask implements Runnable {
     private int sessionUid;
     private int operation;
 
-    public LogTask(LogMapper logMapper, UserMapper userMapper, PostMapper postMapper, ReplyMapper replyMapper, CommentMapper commentMapper, Integer postId, Integer replyId, Integer commentId, int sessionUid, int operation) {
+    public LogTask(LogMapper logMapper, UserMapper userMapper, PostMapper postMapper, CommentMapper commentMapper, ReplyMapper replyMapper, Integer postId, Integer commentId, Integer replyId, int sessionUid, int operation) {
         this.logMapper = logMapper;
         this.userMapper = userMapper;
         this.postMapper = postMapper;
-        this.replyMapper = replyMapper;
         this.commentMapper = commentMapper;
+        this.replyMapper = replyMapper;
         this.postId = postId;
         this.replyId = replyId;
         this.commentId = commentId;
@@ -35,7 +35,7 @@ public class LogTask implements Runnable {
         this.operation = operation;
     }
 
-    public LogTask(LogMapper logMapper, UserMapper userMapper, PostMapper postMapper, ReplyMapper replyMapper, CommentMapper commentMapper, int sessionUid, int operation) {
+    public LogTask(LogMapper logMapper, UserMapper userMapper, PostMapper postMapper, CommentMapper commentMapper, ReplyMapper replyMapper, int sessionUid, int operation) {
         this.logMapper = logMapper;
         this.userMapper = userMapper;
         this.postMapper = postMapper;
@@ -62,10 +62,10 @@ public class LogTask implements Runnable {
             log.setOperation(" voted on ");
             log.setDisplayedContent(postMapper.getTitleByPostId(postId));
         } else if (operation == MyConstant.OPERATION_REPLY) {
-            log.setOperation(" commented on ");
+            log.setOperation(" replied on ");
             log.setDisplayedContent(postMapper.getTitleByPostId(postId));
         } else if (operation == MyConstant.OPERATION_COMMENT) {
-            log.setOperation(" replied on ");
+            log.setOperation(" commented on ");
             log.setDisplayedContent(postMapper.getTitleByPostId(postId));
         }
 

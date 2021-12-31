@@ -51,6 +51,8 @@
                         <value>/verify.do</value>
                         <value>/listImage.do</value>
                         <value>/toProfile.do</value>
+                        <value>/searchPost.do</value>
+                        <value>/searchTopic.do</value>
                     </list>
                 </property>
             </bean>

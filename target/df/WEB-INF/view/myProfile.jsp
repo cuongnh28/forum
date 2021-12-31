@@ -21,17 +21,19 @@
 
 <%--    wallpaper    --%>
     <div class="border position-relative d-flex justify-content-center align-items-center" style="height: 400px; background-color: #c1c1c1">
-        <p class="" style="font-size: 50px"> <b>This is wallpaper</b></p>
+        <form action="uploadImage.do" method="post" enctype="multipart/form-data">
+            <p class="" style="font-size: 50px"> <b>This is wallpaper</b></p>
+            <div class="w-100 h-100 position-absolute" style="top: 0 ; bottom: 0">
+                <img class="w-100 h-100" id="output" src="../../upload/images/${user.cover}" style="height: auto; object-fit: cover"/>
+                <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="loadFile(event)">
+                <input type="hidden" name="addTo" value="cover">
+            </div>
 
-        <div class="w-100 h-100 position-absolute" style="top: 0 ; bottom: 0">
-            <img class="w-100 h-100" id="output" style="height: auto; object-fit: cover"/>
-            <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="loadFile(event)">
-        </div>
-
-        <div class="position-absolute btn-group" role="group" aria-label="Basic example" style="bottom: 20px; right: 20px">
-            <label role="button" class="btn" for="photo" style=" font-size: 15px ; background-color: #fff"><i class="fas fa-camera"></i></label>
-            <button class="btn btn-secondary text-white" style="font-size: 15px;">Save</button>
-        </div>
+            <div class="position-absolute btn-group" role="group" aria-label="Basic example" style="bottom: 20px; right: 20px">
+                <label role="button" class="btn" for="photo" style=" font-size: 15px ; background-color: #fff"><i class="fas fa-camera"></i></label>
+                <button class="btn btn-secondary text-white" style="font-size: 15px;">Save</button>
+            </div>
+        </form>
     </div>
 
 <%--    left-content    --%>

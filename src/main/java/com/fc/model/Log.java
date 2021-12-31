@@ -10,11 +10,9 @@ import java.util.Date;
 public class Log {
 
     private Integer logId;
-
     private Integer userId;
-
-    private Integer replyId;
     private Integer commentId;
+    private Integer replyId;
     private String otherUsername;
     private String operation;
     private Integer postId;
@@ -22,18 +20,4 @@ public class Log {
 
     private Date MsgTime;
 
-    @Override
-    public String toString() {
-        return "Log{" +
-                "logId=" + logId +
-                ", userId=" + userId +
-                ", replyId=" + replyId +
-                ", commentId=" + commentId +
-                ", otherUsername='" + otherUsername + '\'' +
-                ", operation='" + operation + '\'' +
-                ", postId=" + postId +
-                ", displayedContent='" + displayedContent + '\'' +
-                ", MsgTime=" + MsgTime +
-                '}';
-    }
 }

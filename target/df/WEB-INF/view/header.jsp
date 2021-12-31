@@ -21,7 +21,7 @@
         <div class="nav">
 
             <%--             search         --%>
-            <form action="/search.do" method="get" class="row">
+            <form action="/searchPost.do" method="get" class="row">
                 <div class="form-group d-flex align-items-center m-0">
                     <input class="form-control col-8 mx-1" placeholder="title" type="text" style="font-size: 15px" name="searchTemp">
                     <button type="submit" class="btn btn-success col-4 mx-1" style="font-size: 15px">Search</button>

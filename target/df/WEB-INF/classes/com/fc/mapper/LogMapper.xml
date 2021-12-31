@@ -4,8 +4,8 @@
 
 
     <insert id="insertLog">
-        insert into log(userId,replyId,commentId,other_username,operation,postId,displayed_content)
-        values(#{userId},#{replyId},#{commentId},#{otherUsername},#{operation},#{postId},#{displayedContent})
+        insert into log(userId,commentId,replyId,other_username,operation,postId,displayed_content)
+        values(#{userId},#{commentId},#{replyId},#{otherUsername},#{operation},#{postId},#{displayedContent})
     </insert>
 
     <select id="listLogByUserId" resultType="com.fc.model.Log">

@@ -71,7 +71,7 @@
                 <p class="my-0 mx-2" style="font-size: 20px">${post.likeCount}</p>
             </div>
             <div class="d-flex align-items-center">
-                <p class="my-0 mx-3">${post.replyCount} comments</p>
+                <p class="my-0 mx-3">${post.commentCount} comments</p>
                 <p class="my-0">${post.scanCount} views </p>
             </div>
         </div>
@@ -98,34 +98,34 @@
 <%--            box chat--%>
             <c:choose>
                 <c:when test="${sessionScope.userId != null}">
-                    <div id="reply-area" class="post-reply-textarea">
-                            <form action="reply.do" method="post" enctype="multipart/form-data" style="overflow: auto">
+                    <div id="comment-area" class="post-comment-textarea">
+                            <form action="comment.do" method="post" enctype="multipart/form-data" style="overflow: auto">
                                 <input type="hidden" name="postId" value="${post.postId}"/>
-                                <textarea name="contentReply" style="height: 100px;max-height: 1000px;"></textarea>
-                                <button class="btn btn-primary float-right my-3">Reply</button>
+                                <textarea name="contentComment" style="height: 100px;max-height: 1000px;"></textarea>
+                                <button class="btn btn-primary float-right my-3">Comment</button>
                             </form>
                     </div>
                 </c:when>
             </c:choose>
 <%--            other comments--%>
             <div class="">
-                <c:forEach items="${replyList}" var="reply" varStatus="status">
+                <c:forEach items="${commentList}" var="comment" varStatus="status">
                     <div class="d-flex my-3">
-                        <div class="mr-3"><a href="toProfile.do?userId=${reply.user.userId}">
-                            <img src="../../upload/images/${reply.user.headUrl}" class="rounded-circle my-2 b-block" style="width: 40px; height: 40px"></a>
+                        <div class="mr-3"><a href="toProfile.do?userId=${comment.user.userId}">
+                            <img src="../../upload/images/${comment.user.headUrl}" class="rounded-circle my-2 b-block" style="width: 40px; height: 40px"></a>
                         </div>
 <%--                comment content --%>
                         <div class="" style="font-size: 15px">
                             <div class="d-flex justify-content-between">
-                                <div class="item-user-name mx-2"><a href="#">${reply.user.username}</a></div>
+                                <div class="item-user-name mx-2"><a href="#">${comment.user.username}</a></div>
 
                                     <%--                            dropdown-delete comment--%>
                                 <button class="btn dropdown-toggle p-0 mx-2" type="button" id="dropdownDelete" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h" ></i></button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownDelete">
                                     <c:choose>
-                                        <c:when test="${reply.user.userId==sessionScope.userId}">
-                                            <form action="/deleteReply.do" method="post" class="" style="padding: 2.5px 7.5px">
-                                                <input type="hidden" name="replyId" value="${reply.replyId}">
+                                        <c:when test="${comment.user.userId==sessionScope.userId}">
+                                            <form action="/deleteComment.do" method="post" class="" style="padding: 2.5px 7.5px">
+                                                <input type="hidden" name="commentId" value="${comment.commentId}">
                                                 <input type="hidden" name="postId" value="${post.postId}">
                                                 <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
                                             </form>
@@ -139,24 +139,24 @@
 
 
                             <div class="">
-                                <div class="border p-3" style=" background-color: #F2f2f2; border-radius: 8px">${reply.content}</div>
+                                <div class="border p-3" style=" background-color: #F2f2f2; border-radius: 8px">${comment.content}</div>
                                 <div class="d-flex justify-content-between" style="font-size: 12px">
-                                    <div class="format-date mx-3 mt-1">${reply.replyTime}</div>
+                                    <div class="format-date mx-3 mt-1">${comment.commentTime}</div>
                                     <c:choose>
                                         <c:when test="${sessionScope.userId != null}">
-                                            <a role="button" class="reply-button mx-3 mt-1">reply</a>
+                                            <a role="button" class="comment-button mx-3 mt-1">Reply</a>
                                         </c:when>
                                     </c:choose>
                                 </div>
                             </div>
 
-<%--                            reply comment--%>
+<%--                            comment comment--%>
                             <c:choose>
                                 <c:when test="${sessionScope.userId != null}">
-                                    <div class="reply-box pl-5 mt-3 d-none">
-                                        <form action="comment.do" method="post" class="d-flex align-items-center">
+                                    <div class="comment-box pl-5 mt-3 d-none">
+                                        <form action="reply.do" method="post" class="d-flex align-items-center">
                                             <input type="hidden" name="postId" value="${post.postId}"/>
-                                            <input type="hidden" name="replyId" value="${reply.replyId}"/>
+                                            <input type="hidden" name="commentId" value="${comment.commentId}"/>
                                             <textarea name="content" class="mx-2 col" style="border-radius: 8px"></textarea>
                                             <button type="submit" class="mx-2 btn btn-secondary">Sent</button>
                                         </form>
@@ -164,22 +164,22 @@
                                 </c:when>
                             </c:choose>
 
-                            <c:forEach items="${reply.commentList}" var="comment">
+                            <c:forEach items="${comment.replyList}" var="reply">
                                 <div class="pl-5 d-flex mt-3">
-                                    <div class="mr-3"><a href="toProfile.do?userId=${comment.user.userId}">
-                                        <img src="../../upload/images/${comment.user.headUrl}" class="rounded-circle my-2 b-block" style="width: 32px; height: 32px"></a>
+                                    <div class="mr-3"><a href="toProfile.do?userId=${reply.user.userId}">
+                                        <img src="../../upload/images/${reply.user.headUrl}" class="rounded-circle my-2 b-block" style="width: 32px; height: 32px"></a>
                                     </div>
                                     <div>
                                         <div class="d-flex justify-content-between">
-                                            <div class="item-user-name mx-2"><a href="toProfile.do?userId=${comment.user.userId}">${comment.user.username}</a></div>
+                                            <div class="item-user-name mx-2"><a href="toProfile.do?userId=${reply.user.userId}">${reply.user.username}</a></div>
 
-<%--                                        dropdown delete reply-comment--%>
+<%--                                        dropdown delete comment-comment--%>
                                             <button class="btn dropdown-toggle p-0 mx-2" type="button" id="dropdownDeleteReply" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h" ></i></button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownDeleteReply">
                                                 <c:choose>
-                                                    <c:when test="${comment.user.userId==sessionScope.userId}">
-                                                        <form action="/deleteComment.do" method="post" style="padding: 2.5px 7.5px">
-                                                            <input type="hidden" name="commentId" value="${comment.commentId}">
+                                                    <c:when test="${reply.user.userId==sessionScope.userId}">
+                                                        <form action="/deleteReply.do" method="post" style="padding: 2.5px 7.5px">
+                                                            <input type="hidden" name="replyId" value="${reply.replyId}">
                                                             <input type="hidden" name="postId" value="${post.postId}">
                                                             <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
                                                         </form>
@@ -191,10 +191,10 @@
                                             </div>
                                         </div>
                                         <div class="">
-<%--                                            content reply of comment--%>
-                                            <div class="border p-3" style=" background-color: #F2f2f2; border-radius: 8px">${comment.content}</div>
+<%--                                            content comment of comment--%>
+                                            <div class="border p-3" style=" background-color: #F2f2f2; border-radius: 8px">${reply.content}</div>
                                             <div class="d-flex justify-content-between" style="font-size: 12px">
-                                                <div class="format-date mx-3 mt-1">${comment.commentTime}</div>
+                                                <div class="format-date mx-3 mt-1">${reply.replyTime}</div>
                                             </div>
 
                                         </div>
@@ -267,11 +267,11 @@
         document.querySelectorAll('.format-date')[i].innerHTML = timeSince(new Date(document.querySelectorAll('.format-date')[i].innerHTML.split('ICT').join('')))
     }
 
-    //reply button
+    //comment button
 
-    for (let i = 0; i < document.querySelectorAll('.reply-button').length; i++) {
-        document.querySelectorAll('.reply-button')[i].addEventListener('click', () =>{
-            document.querySelectorAll('.reply-box')[i].classList.remove('d-none')
+    for (let i = 0; i < document.querySelectorAll('.comment-button').length; i++) {
+        document.querySelectorAll('.comment-button')[i].addEventListener('click', () =>{
+            document.querySelectorAll('.comment-box')[i].classList.remove('d-none')
         })
     }
 
@@ -282,7 +282,7 @@
     })
 
 
-    CKEDITOR.replace('contentReply');
+    CKEDITOR.replace('contentComment');
 
     var likeButton = $("#like-button");
     likeButton.click(function(){

@@ -1,12 +1,11 @@
 package com.fc.service;
 
 import com.fc.async.LogTask;
-import com.fc.mapper.CommentMapper;
 import com.fc.mapper.LogMapper;
 import com.fc.mapper.PostMapper;
+import com.fc.mapper.CommentMapper;
 import com.fc.mapper.ReplyMapper;
 import com.fc.mapper.UserMapper;
-import com.fc.model.Comment;
 import com.fc.model.PageBean;
 import com.fc.model.Post;
 import com.fc.util.MyConstant;
@@ -30,10 +29,10 @@ public class PostService {
     private UserMapper userMapper;
 
     @Autowired
-    private ReplyMapper replyMapper;
+    private CommentMapper commentMapper;
 
     @Autowired
-    private CommentMapper commentMapper;
+    private ReplyMapper replyMapper;
 
     @Autowired
     private LogMapper logMapper;
@@ -51,12 +50,11 @@ public class PostService {
     public int publishPost(Post post) {
 
         post.setPublishTime(new Date());
-        post.setReplyTime(new Date());
-        post.setReplyCount(0);
+        post.setCommentTime(null);
+        post.setCommentCount(0);
         post.setLikeCount(0);
         post.setScanCount(0);
         postMapper.insertPost(post);
-        System.out.println(post.getPostId());
         userMapper.updatePostCount(post.getUser().getUserId());
 
         return post.getPostId();
@@ -79,6 +77,7 @@ public class PostService {
         Jedis jedis = jedisPool.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+            post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
         }
 
         PageBean<Post> pageBean = new PageBean<>(allPage, curPage);
@@ -106,6 +105,7 @@ public class PostService {
         Jedis jedis = jedisPool.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+            post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
         }
 
         PageBean<Post> pageBean = new PageBean<>(allPage, curPage);
@@ -133,6 +133,7 @@ public class PostService {
         Jedis jedis = jedisPool.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+            post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
         }
 
         PageBean<Post> pageBean = new PageBean<>(allPage, curPage);
@@ -161,6 +162,7 @@ public class PostService {
         Jedis jedis = jedisPool.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+            post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
         }
 
         PageBean<Post> pageBean = new PageBean<>(allPage, topicId);
@@ -174,12 +176,18 @@ public class PostService {
 
     public List<Post> listPostByTopicId(int topicId, int postId) {
         List<Post> postList = postMapper.listPostByTopicId(topicId, postId);
+        Jedis jedis = jedisPool.getResource();
+        for (Post post : postList) {
+            post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+            post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
+        }
         return postList;
     }
 
     public Post getPostByPostId(int postId) {
         postMapper.updateScanCount(postId);
         Post post = postMapper.getPostByPostId(postId);
+        post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
         Jedis jedis = jedisPool.getResource();
         long likeCount = jedis.scard(postId + ":like");
         post.setLikeCount((int) likeCount);
@@ -195,6 +203,7 @@ public class PostService {
         Jedis jedis = jedisPool.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPostId() + ":like"));
+            post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
         }
         PageBean<Post> pageBean = new PageBean();
         pageBean.setList(postList);
@@ -206,7 +215,7 @@ public class PostService {
         jedis.sadd(postId + ":like", String.valueOf(sessionUid));
         jedis.hincrBy("vote", sessionUid + "", 1);
 
-        taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, replyMapper, commentMapper, postId, null, null, sessionUid, MyConstant.OPERATION_CLICK_LIKE));
+        taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, commentMapper, replyMapper, postId, null, null, sessionUid, MyConstant.OPERATION_CLICK_LIKE));
         String result = String.valueOf(jedis.scard(postId + ":like"));
 
         if (jedis != null) {
@@ -235,8 +244,8 @@ public class PostService {
         }
     }
 
-    public void updateReplyCount (int postId) {
-        postMapper.minusReplyCount(postId);
+    public void updateCommentCount (int postId) {
+        postMapper.minusCommentCount(postId);
     }
 
     public List<Post> listPostsNotApprove () {
@@ -249,6 +258,10 @@ public class PostService {
 
     public boolean rejectPost (int postId) {
         return postMapper.deletePost(postId);
+    }
+
+    public void insertPostVisit (int postId) {
+        postMapper.insertPostVisit(postId);
     }
 
 }

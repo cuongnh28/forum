@@ -72,7 +72,7 @@ Holders of an active subscription to the services or a commercial license have a
 Reporting issues
 -------
 
-Please use the [WSC Dialog plugin for CKEditor 4 GitHub issue page](https://github.com/WebSpellChecker/ckeditor-plugin-wsc/issues) to report bugs and feature requests. We will do our best to reply at our earliest convenience.
+Please use the [WSC Dialog plugin for CKEditor 4 GitHub issue page](https://github.com/WebSpellChecker/ckeditor-plugin-wsc/issues) to report bugs and feature requests. We will do our best to comment at our earliest convenience.
 
 License
 -------
