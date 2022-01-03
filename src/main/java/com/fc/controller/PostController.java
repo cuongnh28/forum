@@ -166,25 +166,27 @@ public class PostController {
     }
 
     @RequestMapping(value = "/ajaxClickLike.do", method = RequestMethod.GET)
-    public @ResponseBody
-    String ajaxClickLike(int postId, boolean liked, HttpSession session) {
+    public ResponseEntity<Boolean> ajaxClickLike(int postId, boolean liked, Model model, HttpSession session) {
         int sessionUid = (int) session.getAttribute("userId");
-        boolean isCheck = liked;
-        return postService.clickLike(postId, sessionUid);
+        postService.clickLike(postId, sessionUid, liked);
+        return new ResponseEntity<>(!liked, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getLikeCounts.do", method = RequestMethod.GET)
-    public ResponseEntity<Integer> getSampleData (int postId, HttpSession session, Model model) {
-//        int a = postId;
+    public ResponseEntity<Integer> getLikeCounts (int postId) {
         Post post = postService.getPostByPostId(postId);
         int likeCount = post.getLikeCount();
-        boolean liked = false;
+        return new ResponseEntity<>(likeCount, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getLikeStatus.do", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> getLikeStatus (int postId, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("userId");
+        boolean liked = false;
         if (sessionUid != null) {
             liked = postService.getLikeStatus(postId, sessionUid);
         }
-        model.addAttribute("liked", liked);
-        return new ResponseEntity<>(likeCount, HttpStatus.OK);
+        return new ResponseEntity<>(liked, HttpStatus.OK);
     }
 
 }

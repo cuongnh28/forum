@@ -53,6 +53,7 @@
                         <value>/toProfile.do</value>
                         <value>/searchPost.do</value>
                         <value>/searchTopic.do</value>
+                        <value>/getLikeCounts.do</value>
                     </list>
                 </property>
             </bean>

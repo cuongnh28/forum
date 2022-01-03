@@ -78,18 +78,15 @@
         </div>
 <%--    like & comment button--%>
         <div class="border-top d-flex" style="font-size: 15px; border-bottom: 1px solid rgb(222, 226, 230)">
-<%--            <c:choose>--%>
-<%--                <c:when test="${sessionScope.uid==null}">--%>
-<%--                    <span class="up-count"><a>赞 ${post.likeCount}</a></span>&nbsp;--%>
-<%--                </c:when>--%>
-<%--                <c:when test="${liked==true}">--%>
-<%--                    <span class="up-count"><a style="color:#2e6da4;">已赞 ${post.likeCount}</a></span>&nbsp;--%>
-<%--                </c:when>--%>
-<%--                <c:when test="${sessionScope.uid!=null}">--%>
-<%--                    <span class="up-count"><a href="#" id="like-button">赞 ${post.likeCount}</a></span>&nbsp;--%>
-<%--                </c:when>--%>
-<%--            </c:choose>--%>
-            <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> like</button>
+            <c:choose>
+                <c:when test="${sessionScope.userId!=null && liked==true}">
+                    <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> unlike</button>
+                </c:when>
+                <c:when test="${sessionScope.userId!=null && liked==false}">
+                    <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> like</button>
+                </c:when>
+            </c:choose>
+<%--            <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> like</button>--%>
             <button class="col py-3 btn" id="comment-button"><i class="far fa-comment-alt"></i> comment</button>
         </div>
 
@@ -286,21 +283,49 @@
     CKEDITOR.replace('contentComment');
 
     var likeButton = $("#like-button");
-    likeButton.click(function(){
-        alert("You have liked it.");
-    })
+    // likeButton.click(function(){
+    //     alert("You have liked it.");
+    // })
 // enum: 1 like, 0 unlike
+    let likedTest = null;
+    getStatusLikeCount();
+    function getStatusLikeCount() {
+        var t = $.ajax({
+            url: "/getLikeStatus.do",
+            type: "GET",
+            dataType: "json",
+            data: {postId:${post.postId}},
+            contentType: "application/json; charset=utf-8"
+        });
+
+        t.done(function (result) {
+            // hien thi so like.
+            likedTest = result;
+            console.log('result:', result)
+            console.log('likedTest:', likedTest)
+            // document.getElementById("like-count").innerText = result;
+        });
+    }
+    console.log(' liked test:', likedTest)
     likeButton.click(function () {
-        console.log('function')
         $.ajax(
             {
             type: "GET",
             url: "/ajaxClickLike.do",
-            data: {postId:${post.postId},liked:${!liked}},
+            data: {postId:${post.postId},liked:likedTest},
             success: function (response, status, xhr) {
-                likeButton.text("voted " + response);
-                likeButton.removeAttr("href");
-                updateLikeCount();
+                // likeButton.text("voted " + response);
+                // if()
+                // likeButton.removeAttr("href");
+                likedTest = response
+                if (response===true) {
+                    likeButton.text("Unlike");
+                }
+                else {
+                    likeButton.text("Like");
+                }
+                console.log('likeTest: ',likedTest )
+                updateLikeCount(); //update so like sau khi click
             }
         }
         );
@@ -316,12 +341,11 @@
         });
 
         t.done(function (result) {
-            console.log(result);
-            // $("#like-count").remove();
-            // $("#like-count");
+            // hien thi so like.
             document.getElementById("like-count").innerText = result;
         });
     }
+
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"

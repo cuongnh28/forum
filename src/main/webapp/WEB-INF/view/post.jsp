@@ -78,18 +78,15 @@
         </div>
 <%--    like & comment button--%>
         <div class="border-top d-flex" style="font-size: 15px; border-bottom: 1px solid rgb(222, 226, 230)">
-<%--            <c:choose>--%>
-<%--                <c:when test="${sessionScope.uid==null}">--%>
-<%--                    <span class="up-count"><a>赞 ${post.likeCount}</a></span>&nbsp;--%>
-<%--                </c:when>--%>
-<%--                <c:when test="${liked==true}">--%>
-<%--                    <span class="up-count"><a style="color:#2e6da4;">已赞 ${post.likeCount}</a></span>&nbsp;--%>
-<%--                </c:when>--%>
-<%--                <c:when test="${sessionScope.uid!=null}">--%>
-<%--                    <span class="up-count"><a href="#" id="like-button">赞 ${post.likeCount}</a></span>&nbsp;--%>
-<%--                </c:when>--%>
-<%--            </c:choose>--%>
-            <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> like</button>
+            <c:choose>
+                <c:when test="${sessionScope.userId!=null && liked==true}">
+                    <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> unlike</button>
+                </c:when>
+                <c:when test="${sessionScope.userId!=null && liked==false}">
+                    <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> like</button>
+                </c:when>
+            </c:choose>
+<%--            <button class="col py-3 btn" id="like-button"><i class="fas fa-thumbs-up"></i> like</button>--%>
             <button class="col py-3 btn" id="comment-button"><i class="far fa-comment-alt"></i> comment</button>
         </div>
 
@@ -285,26 +282,55 @@
 
     CKEDITOR.replace('contentComment');
 
+    //like button
     var likeButton = $("#like-button");
-    likeButton.click(function(){
-        alert("You have liked it.");
-    })
+    // likeButton.click(function(){
+    //     alert("You have liked it.");
+    // })
 // enum: 1 like, 0 unlike
+    let likedStatus = null;
+    getStatusLikeCount();
+    function getStatusLikeCount() {
+        var t = $.ajax({
+            url: "/getLikeStatus.do",
+            type: "GET",
+            dataType: "json",
+            data: {postId:${post.postId}},
+            contentType: "application/json; charset=utf-8"
+        });
+
+        t.done(function (result) {
+            // hien thi so like.
+            likedStatus = result;
+            // console.log('result:', result)
+            // console.log('likedStatus:', likedStatus)
+        });
+    }
+    // console.log('likedStatus:', likedStatus)
+
+    //su kien click like
     likeButton.click(function () {
-        console.log('function')
         $.ajax(
             {
             type: "GET",
             url: "/ajaxClickLike.do",
-            data: {postId:${post.postId},liked:${!liked}},
+            data: {postId:${post.postId},liked:likedStatus},
             success: function (response, status, xhr) {
-                likeButton.text("voted " + response);
-                likeButton.removeAttr("href");
-                updateLikeCount();
+                likedStatus = response
+                if (response===true) {
+                    likeButton.text("Unlike");
+                }
+                else {
+                    likeButton.text("Like");
+                }
+                console.log('likedStatus: ',likedStatus )
+                updateLikeCount(); //update so like sau khi click
             }
         }
         );
     });
+
+    // update like count sau khi nhan like va hien thi so like.
     updateLikeCount();
     function updateLikeCount() {
         var t = $.ajax({
@@ -316,13 +342,10 @@
         });
 
         t.done(function (result) {
-            console.log(result);
-            console.log('like: ', ${liked})
-            // $("#like-count").remove();
-            // $("#like-count");
             document.getElementById("like-count").innerText = result;
         });
     }
+
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"

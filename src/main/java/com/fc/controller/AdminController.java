@@ -102,13 +102,12 @@ public class AdminController {
     @RequestMapping(value = "/getSampleData.do", method = RequestMethod.GET)
     public ResponseEntity<List<Integer>> getSampleData () {
         List<Integer> data = new ArrayList<>();
-        data.add(28);
-        data.add(22);
-        data.add(12);
-        data.add(33);
-        data.add(44);
-        data.add(55);
-//        (28, 20, 30, 22, 17, 29);
+        data.add(3);
+        data.add(5);
+        data.add(7);
+        data.add(2);
+        data.add(9);
+        data.add(11);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 

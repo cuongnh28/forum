@@ -212,13 +212,17 @@ public class PostService {
         return pageBean;
     }
 
-    public String clickLike(int postId, int sessionUid) {
+    public String clickLike(int postId, int sessionUid, boolean liked) {
         Jedis jedis = jedisPool.getResource();
-        jedis.sadd(postId + ":like", String.valueOf(sessionUid));
-        jedis.hincrBy("vote", sessionUid + "", 1);
+        if (!liked) {
+            jedis.sadd(postId + ":like", String.valueOf(sessionUid));
+        }
+        else {
+            jedis.srem(postId + ":like", String.valueOf(sessionUid));
+        }
 
         taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, commentMapper, replyMapper, postId, null, null, sessionUid, MyConstant.OPERATION_CLICK_LIKE));
-        String result = String.valueOf(jedis.scard(postId + ":like"));
+        String result = String.valueOf(jedis.scard(postId + ":like")); // so like bai viet.
 
         if (jedis != null) {
             jedisPool.returnResource(jedis);

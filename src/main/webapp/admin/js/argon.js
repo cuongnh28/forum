@@ -860,22 +860,6 @@ var BarsChart = (function() {
 
 			// Save to jQuery object
 			$chart.data('chart', ordersChart);
-			// //Show list car SUV
-			// var carSuv = findCarByCategory("SUV", result);
-			// var suv = content(carSuv);
-			// $("#listSuv").append(suv);
-			// //Show List Da Dung
-			// var carDaDung = findCarByCategory("ĐA DỤNG", result);
-			// var daDung = content(carDaDung);
-			// $("#listDaDung").append(daDung);
-			// //Show List car Sedan
-			// var carSedan = findCarByCategory("SEDAN", result);
-			// var sedan = content(carSedan);
-			// $("#listSedan").append(sedan);
-			// //Show List Ban Tai
-			// var carBanTai = findCarByCategory("BÁN TẢI", result);
-			// var banTai = content(carBanTai);
-			// $("#listBanTai").append(banTai);
 		});
 
 
