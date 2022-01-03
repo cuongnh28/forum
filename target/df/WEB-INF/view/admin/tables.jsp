@@ -407,11 +407,11 @@
                               <div class="modal-footer">
                                 <form action="acceptPost.do" method="post">
                                   <input type="hidden" name="postId" value="${post.postId}">
-                                  <button type="submit" class="btn btn-primary" data-dismiss="modal" >Accept</button>
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
                                 </form>
                                 <form action="rejectPost.do" method="post">
                                   <input type="hidden" name="postId" value="${post.postId}">
-                                  <button type="submit" class="btn btn-danger" data-dismiss="modal" >Reject</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal" >Reject</button>
                                 </form>
 <%--                                <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>--%>
 <%--                                <button type="button" class="btn btn-danger">Reject</button>--%>

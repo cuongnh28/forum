@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -164,11 +165,26 @@ public class PostController {
         return "index";
     }
 
-    @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/ajaxClickLike.do", method = RequestMethod.GET)
     public @ResponseBody
-    String ajaxClickLike(int postId, HttpSession session) {
+    String ajaxClickLike(int postId, boolean liked, HttpSession session) {
         int sessionUid = (int) session.getAttribute("userId");
+        boolean isCheck = liked;
         return postService.clickLike(postId, sessionUid);
+    }
+
+    @RequestMapping(value = "/getLikeCounts.do", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getSampleData (int postId, HttpSession session, Model model) {
+//        int a = postId;
+        Post post = postService.getPostByPostId(postId);
+        int likeCount = post.getLikeCount();
+        boolean liked = false;
+        Integer sessionUid = (Integer) session.getAttribute("userId");
+        if (sessionUid != null) {
+            liked = postService.getLikeStatus(postId, sessionUid);
+        }
+        model.addAttribute("liked", liked);
+        return new ResponseEntity<>(likeCount, HttpStatus.OK);
     }
 
 }

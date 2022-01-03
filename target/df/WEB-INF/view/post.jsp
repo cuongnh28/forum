@@ -68,7 +68,8 @@
                 <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center" style="width: 25px; height: 25px;">
                     <i class="fas fa-thumbs-up"></i>
                 </div>
-                <p class="my-0 mx-2" style="font-size: 20px">${post.likeCount}</p>
+<%--                <p id="like-count" class="my-0 mx-2" style="font-size: 20px">${post.likeCount}</p>--%>
+                <p id="like-count" class="my-0 mx-2" style="font-size: 20px"></p>
             </div>
             <div class="d-flex align-items-center">
                 <p class="my-0 mx-3">${post.commentCount} comments</p>
@@ -286,22 +287,41 @@
 
     var likeButton = $("#like-button");
     likeButton.click(function(){
-        alert("The paragraph was clicked.");
+        alert("You have liked it.");
     })
+// enum: 1 like, 0 unlike
     likeButton.click(function () {
         console.log('function')
         $.ajax(
             {
             type: "GET",
             url: "/ajaxClickLike.do",
-            data: {postId:${post.postId}},
+            data: {postId:${post.postId},liked:${!liked}},
             success: function (response, status, xhr) {
                 likeButton.text("voted " + response);
                 likeButton.removeAttr("href");
+                updateLikeCount();
             }
         }
         );
     });
+    updateLikeCount();
+    function updateLikeCount() {
+        var t = $.ajax({
+            url: "/getLikeCounts.do",
+            type: "GET",
+            dataType: "json",
+            data: {postId:${post.postId}},
+            contentType: "application/json; charset=utf-8"
+        });
+
+        t.done(function (result) {
+            console.log(result);
+            // $("#like-count").remove();
+            // $("#like-count");
+            document.getElementById("like-count").innerText = result;
+        });
+    }
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"

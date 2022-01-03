@@ -12,6 +12,10 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Transaction;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -148,6 +152,12 @@ public class UserService {
 
     public User getUserById (int userId) {
         return userMapper.selectUserByUserId(userId);
+    }
+
+    public double getNoOfNewUsersInMonth(LocalDate date) {
+        LocalDate firstDayOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
+        return userMapper.selectNoOfUser(Date.valueOf(firstDayOfMonth), Date.valueOf(lastDayOfMonth));
     }
 
 }

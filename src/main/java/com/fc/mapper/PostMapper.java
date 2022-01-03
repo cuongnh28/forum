@@ -4,6 +4,7 @@ import com.fc.model.Post;
 import com.fc.model.PostVisit;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 
@@ -52,5 +53,7 @@ public interface PostMapper {
     void insertPostVisit(int postId);
 
     List<PostVisit> getPostVisitByPostId(int postId);
+
+    double selectNoOfPost(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
 }

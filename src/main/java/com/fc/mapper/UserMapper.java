@@ -4,6 +4,7 @@ import com.fc.model.Info;
 import com.fc.model.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface UserMapper {
@@ -50,5 +51,6 @@ public interface UserMapper {
 
     void updatePasswordByActivateCode(String code);
 
+    double selectNoOfUser(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
 }

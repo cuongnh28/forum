@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +75,12 @@ public class CommentService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public double getNoOfNewCommentsInMonth(LocalDate date) {
+        LocalDate firstDayOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
+        return commentMapper.selectNoOfComment(java.sql.Date.valueOf(firstDayOfMonth), java.sql.Date.valueOf(lastDayOfMonth));
     }
 }
 

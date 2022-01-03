@@ -89,6 +89,11 @@
     <update id="updatePasswordByActivateCode">
         update user set password=substring(#{code},1,8) where activate_code=#{code}
     </update>
+
+    <select id="selectNoOfUser" resultType="double">
+        select count(*) from user where join_time between #{fromDate} and #{toDate}
+    </select>
+
 </mapper>
 
 

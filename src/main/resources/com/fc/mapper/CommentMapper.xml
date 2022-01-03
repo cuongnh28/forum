@@ -52,4 +52,8 @@
         where commentId = #{commentId}
     </delete>
 
+    <select id="selectNoOfComment" resultType="double">
+        select count(*) from comment where comment_time between #{fromDate} and #{toDate}
+    </select>
+
 </mapper>

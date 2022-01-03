@@ -838,20 +838,49 @@ var BarsChart = (function() {
 	// Init chart
 	function initChart($chart) {
 
-		// Create chart
-		var ordersChart = new Chart($chart, {
-			type: 'bar',
-			data: {
-				labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-				datasets: [{
-					label: 'Sales',
-					data: [25, 20, 30, 22, 17, 29]
-				}]
-			}
+		var t = $.ajax({
+			url: "/getSampleData.do",
+			type: "GET",
+			dataType: "json",
+			contentType: "application/json; charset=utf-8"
 		});
 
-		// Save to jQuery object
-		$chart.data('chart', ordersChart);
+		t.done(function (result) {
+			console.log(result);
+			var ordersChart = new Chart($chart, {
+				type: 'bar',
+				data: {
+					labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					datasets: [{
+						label: 'Posts',
+						data: result
+					}]
+				}
+			});
+
+			// Save to jQuery object
+			$chart.data('chart', ordersChart);
+			// //Show list car SUV
+			// var carSuv = findCarByCategory("SUV", result);
+			// var suv = content(carSuv);
+			// $("#listSuv").append(suv);
+			// //Show List Da Dung
+			// var carDaDung = findCarByCategory("ĐA DỤNG", result);
+			// var daDung = content(carDaDung);
+			// $("#listDaDung").append(daDung);
+			// //Show List car Sedan
+			// var carSedan = findCarByCategory("SEDAN", result);
+			// var sedan = content(carSedan);
+			// $("#listSedan").append(sedan);
+			// //Show List Ban Tai
+			// var carBanTai = findCarByCategory("BÁN TẢI", result);
+			// var banTai = content(carBanTai);
+			// $("#listBanTai").append(banTai);
+		});
+
+
+		// Create chart
+
 	}
 
 
@@ -892,7 +921,7 @@ var SalesChart = (function() {
             ticks: {
               callback: function(value) {
                 if (!(value % 10)) {
-                  return '$' + value + 'k';
+                  return value + 'k';
                 }
               }
             }
@@ -919,7 +948,7 @@ var SalesChart = (function() {
         labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [{
           label: 'Performance',
-          data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
+          data: [0, 20, 40, 30, 15, 40, 20, 60, 60]
         }]
       }
     });

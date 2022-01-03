@@ -75,7 +75,6 @@ public class UserController {
         return "redirect:toMyProfile.do";
     }
 
-
     @RequestMapping("/updatePassword.do")
     public String updatePassword(String password, String newpassword, String repassword, HttpSession session, Model model) {
         int sessionUid = (int) session.getAttribute("userId");

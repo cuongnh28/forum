@@ -44,7 +44,7 @@
         <selectKey resultType="int" order="AFTER" keyProperty="replyId">
             select last_insert_id() as replyId
         </selectKey>
-        insert into reply(content,userId,commentId,comment_time) values(#{content},#{user.userId},#{comment.commentId},#{replyTime})
+        insert into reply(content,userId,commentId,reply_time) values(#{content},#{user.userId},#{comment.commentId},#{replyTime})
     </insert>
 
 </mapper>

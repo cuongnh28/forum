@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.List;
 
@@ -262,6 +264,12 @@ public class PostService {
 
     public void insertPostVisit (int postId) {
         postMapper.insertPostVisit(postId);
+    }
+
+    public double getNoOfNewPostsInMonth(LocalDate date) {
+        LocalDate firstDayOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
+        return postMapper.selectNoOfPost(java.sql.Date.valueOf(firstDayOfMonth), java.sql.Date.valueOf(lastDayOfMonth));
     }
 
 }

@@ -336,6 +336,14 @@
         where postId = #{postId}
     </select>
 
+    <select id="selectNoOfPost" resultType="double">
+        select count(*) from post where (publish_time between #{fromDate} and #{toDate}) and isPublish = 'Y'
+    </select>
+
+<!--    <select id="selectLikeCount" resultType="int">-->
+<!--        select like_count from post where-->
+<!--    </select>-->
+
 </mapper>
 
 
