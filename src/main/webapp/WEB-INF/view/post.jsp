@@ -73,7 +73,7 @@
             </div>
             <div class="d-flex align-items-center">
                 <p class="my-0 mx-3">${post.commentCount} comments</p>
-                <p class="my-0">${post.scanCount} views </p>
+                <p class="my-0">${post.postVisitList.size()} views </p>
             </div>
         </div>
 <%--    like & comment button--%>

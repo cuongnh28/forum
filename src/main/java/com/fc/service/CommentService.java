@@ -48,7 +48,7 @@ public class CommentService {
         comment.setContent(content);
         comment.setCommentTime(new Date());
         commentMapper.insertComment(comment);
-        postMapper.updateCommentCount(postId);
+        postMapper.updateCommentCount(1, postId);
         postMapper.updateCommentTime(postId);
         taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, commentMapper, replyMapper, postId, comment.getCommentId(), null, sessionUid, MyConstant.OPERATION_COMMENT));
     }

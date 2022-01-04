@@ -34,7 +34,7 @@ public class CommentController {
 
         if (sessionUid == comment.getUser().getUserId()) {
             if (commentService.deleteComment(commentId)) {
-                postService.updateCommentCount(postId);
+                postService.updateCommentCount(-1, postId);
                 return "redirect:toPost.do?postId=" + postId;
             }
         }

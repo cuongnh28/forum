@@ -35,7 +35,7 @@
   <div class="scrollbar-inner">
     <!-- Brand -->
     <div class="sidenav-header  align-items-center">
-      <a class="navbar-brand" href="http://localhost:8081/">
+      <a class="navbar-brand" href="/admin.do">
         <img src="admin/img/brand/blue.png" class="navbar-brand-img" alt="...">
       </a>
     </div>
@@ -45,51 +45,15 @@
         <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.html">
+            <a class="nav-link" href="/admin.do">
               <i class="ni ni-tv-2 text-primary"></i>
               <span class="nav-link-text">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="icons.html">
-              <i class="ni ni-planet text-orange"></i>
-              <span class="nav-link-text">Icons</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="map.html">
-              <i class="ni ni-pin-3 text-primary"></i>
-              <span class="nav-link-text">Google</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="profile.html">
-              <i class="ni ni-single-02 text-yellow"></i>
-              <span class="nav-link-text">Profile</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="tables.html">
               <i class="ni ni-bullet-list-67 text-default"></i>
               <span class="nav-link-text">Tables</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.html">
-              <i class="ni ni-key-25 text-info"></i>
-              <span class="nav-link-text">Login</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="register.html">
-              <i class="ni ni-circle-08 text-pink"></i>
-              <span class="nav-link-text">Register</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="upgrade.html">
-              <i class="ni ni-send text-dark"></i>
-              <span class="nav-link-text">Upgrade</span>
             </a>
           </li>
         </ul>
@@ -104,19 +68,19 @@
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Search form -->
-        <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative input-group-merge">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-          <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </form>
+<%--        <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">--%>
+<%--          <div class="form-group mb-0">--%>
+<%--            <div class="input-group input-group-alternative input-group-merge">--%>
+<%--              <div class="input-group-prepend">--%>
+<%--                <span class="input-group-text"><i class="fas fa-search"></i></span>--%>
+<%--              </div>--%>
+<%--              <input class="form-control" placeholder="Search" type="text">--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--          <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">--%>
+<%--            <span aria-hidden="true">×</span>--%>
+<%--          </button>--%>
+<%--        </form>--%>
         <!-- Navbar links -->
         <ul class="navbar-nav align-items-center  ml-md-auto ">
           <li class="nav-item d-xl-none">
@@ -350,10 +314,6 @@
               </ol>
             </nav>
           </div>
-          <div class="col-lg-6 col-5 text-right">
-            <a href="#" class="btn btn-sm btn-neutral">New</a>
-            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-          </div>
         </div>
       </div>
     </div>
@@ -502,7 +462,7 @@
       <div class="row align-items-center justify-content-lg-between">
         <div class="col-lg-6">
           <div class="copyright text-center  text-lg-left  text-muted">
-            &copy; 2021 <a href="https://github.com/cuongnh28" class="font-weight-bold ml-1" target="_blank">Vito</a>
+            &copy; 2022 <a href="https://facebook.com/cuongnh28" class="font-weight-bold ml-1" target="_blank">Vito</a>
           </div>
         </div>
         <div class="col-lg-6">

@@ -129,7 +129,7 @@
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
         where p.isPublish = 'Y'
-        order by p.comment_time desc limit #{offset}, #{limit}
+        order by p.publish_time desc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostByLatestTime" resultMap="postLatestMap">
@@ -152,7 +152,7 @@
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
         where p.isPublish = 'Y'
-        order by p.comment_time asc limit #{offset}, #{limit}
+        order by p.publish_time asc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostByHottest" resultMap="postHottestMap">
@@ -175,7 +175,7 @@
                  join user u on p.userId = u.userId
                  join topic t on p.topicId = t.topicId
         where p.isPublish = 'Y'
-        order by p.scan_count desc limit #{offset}, #{limit}
+        order by p.like_count desc limit #{offset}, #{limit}
     </select>
 
     <select id="listPostByTopic" resultMap="postTopicMap">
@@ -279,13 +279,19 @@
 
     <update id="updateCommentCount">
         update post
-        set comment_count = comment_count + 1
+        set comment_count = comment_count + #{val}
         where postId = #{postId}
     </update>
 
     <update id="updateScanCount">
         update post
         set scan_count = scan_count + 1
+        where postId = #{postId}
+    </update>
+
+    <update id="updateLikeCount">
+        update post
+        set like_count = #{val}
         where postId = #{postId}
     </update>
 
@@ -311,12 +317,6 @@
         delete from post
         where postId = #{postId}
     </delete>
-
-    <update id="minusCommentCount">
-        update post
-        set comment_count = comment_count - 1
-        where postId = #{postId}
-    </update>
 
     <update id="acceptPost">
         update post

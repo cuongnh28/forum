@@ -30,11 +30,7 @@ public interface PostMapper {
 
     Post getPostByPostId(int postId);
 
-    //    +1
-    void updateCommentCount(int postId);
-
-    //    -1
-    void minusCommentCount(int postId);
+    void updateCommentCount(@Param("val") int val, @Param("postId") int postId);
 
     void updateScanCount(int postId);
 
@@ -55,5 +51,7 @@ public interface PostMapper {
     List<PostVisit> getPostVisitByPostId(int postId);
 
     double selectNoOfPost(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
+
+    void updateLikeCount(@Param("val") long val, @Param("postId") int postId);
 
 }

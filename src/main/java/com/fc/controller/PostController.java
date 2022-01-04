@@ -108,6 +108,7 @@ public class PostController {
         Post post = postService.getPostByPostId(postId);
         if (post != null) {
             postService.insertPostVisit(post.getPostId());
+            post.setPostVisitList(postService.getPostVisitByPostId(post.getPostId()));
             List<Comment> commentList = commentService.listComment(postId);
             List<Post> listPostsSameTopic = postService.listPostByTopicId(post.getTopic().getTopicId(), postId);
 

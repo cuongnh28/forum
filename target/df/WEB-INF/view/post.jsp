@@ -73,7 +73,7 @@
             </div>
             <div class="d-flex align-items-center">
                 <p class="my-0 mx-3">${post.commentCount} comments</p>
-                <p class="my-0">${post.scanCount} views </p>
+                <p class="my-0">${post.postVisitList.size()} views </p>
             </div>
         </div>
 <%--    like & comment button--%>
@@ -282,12 +282,13 @@
 
     CKEDITOR.replace('contentComment');
 
+    //like button
     var likeButton = $("#like-button");
     // likeButton.click(function(){
     //     alert("You have liked it.");
     // })
 // enum: 1 like, 0 unlike
-    let likedTest = null;
+    let likedStatus = null;
     getStatusLikeCount();
     function getStatusLikeCount() {
         var t = $.ajax({
@@ -300,36 +301,36 @@
 
         t.done(function (result) {
             // hien thi so like.
-            likedTest = result;
-            console.log('result:', result)
-            console.log('likedTest:', likedTest)
-            // document.getElementById("like-count").innerText = result;
+            likedStatus = result;
+            // console.log('result:', result)
+            // console.log('likedStatus:', likedStatus)
         });
     }
-    console.log(' liked test:', likedTest)
+    // console.log('likedStatus:', likedStatus)
+
+    //su kien click like
     likeButton.click(function () {
         $.ajax(
             {
             type: "GET",
             url: "/ajaxClickLike.do",
-            data: {postId:${post.postId},liked:likedTest},
+            data: {postId:${post.postId},liked:likedStatus},
             success: function (response, status, xhr) {
-                // likeButton.text("voted " + response);
-                // if()
-                // likeButton.removeAttr("href");
-                likedTest = response
+                likedStatus = response
                 if (response===true) {
                     likeButton.text("Unlike");
                 }
                 else {
                     likeButton.text("Like");
                 }
-                console.log('likeTest: ',likedTest )
+                console.log('likedStatus: ',likedStatus )
                 updateLikeCount(); //update so like sau khi click
             }
         }
         );
     });
+
+    // update like count sau khi nhan like va hien thi so like.
     updateLikeCount();
     function updateLikeCount() {
         var t = $.ajax({
@@ -341,7 +342,6 @@
         });
 
         t.done(function (result) {
-            // hien thi so like.
             document.getElementById("like-count").innerText = result;
         });
     }

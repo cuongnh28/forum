@@ -8,6 +8,7 @@ import com.fc.mapper.ReplyMapper;
 import com.fc.mapper.UserMapper;
 import com.fc.model.PageBean;
 import com.fc.model.Post;
+import com.fc.model.PostVisit;
 import com.fc.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
@@ -17,6 +18,8 @@ import redis.clients.jedis.JedisPool;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -189,7 +192,6 @@ public class PostService {
     public Post getPostByPostId(int postId) {
         postMapper.updateScanCount(postId);
         Post post = postMapper.getPostByPostId(postId);
-        post.setPostVisitList(postMapper.getPostVisitByPostId(post.getPostId()));
         Jedis jedis = jedisPool.getResource();
         long likeCount = jedis.scard(postId + ":like");
         post.setLikeCount((int) likeCount);
@@ -221,8 +223,11 @@ public class PostService {
             jedis.srem(postId + ":like", String.valueOf(sessionUid));
         }
 
+        postMapper.updateLikeCount(jedis.scard(postId + ":like"), postId);
+
+
         taskExecutor.execute(new LogTask(logMapper, userMapper, postMapper, commentMapper, replyMapper, postId, null, null, sessionUid, MyConstant.OPERATION_CLICK_LIKE));
-        String result = String.valueOf(jedis.scard(postId + ":like")); // so like bai viet.
+        String result = String.valueOf(jedis.scard(postId + ":like"));
 
         if (jedis != null) {
             jedisPool.returnResource(jedis);
@@ -250,8 +255,8 @@ public class PostService {
         }
     }
 
-    public void updateCommentCount (int postId) {
-        postMapper.minusCommentCount(postId);
+    public void updateCommentCount (int val, int postId) {
+        postMapper.updateCommentCount(val, postId);
     }
 
     public List<Post> listPostsNotApprove () {
@@ -274,6 +279,10 @@ public class PostService {
         LocalDate firstDayOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDate lastDayOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
         return postMapper.selectNoOfPost(java.sql.Date.valueOf(firstDayOfMonth), java.sql.Date.valueOf(lastDayOfMonth));
+    }
+
+    public List<PostVisit> getPostVisitByPostId (int postId) {
+        return postMapper.getPostVisitByPostId(postId);
     }
 
 }
