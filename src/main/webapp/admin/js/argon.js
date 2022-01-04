@@ -839,7 +839,7 @@ var BarsChart = (function() {
 	function initChart($chart) {
 
 		var t = $.ajax({
-			url: "/getSampleData.do",
+			url: "/getTotalPostsRecently.do",
 			type: "GET",
 			dataType: "json",
 			contentType: "application/json; charset=utf-8"
@@ -850,7 +850,7 @@ var BarsChart = (function() {
 			var ordersChart = new Chart($chart, {
 				type: 'bar',
 				data: {
-					labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
 					datasets: [{
 						label: 'Posts',
 						data: result

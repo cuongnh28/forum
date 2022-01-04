@@ -87,7 +87,7 @@
                 </div>
                 <%--                tab 2--%>
                 <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <h3 class="mt-4 pb-2 mb-4 border-bottom">Total Post: <span class="text-success">${user.postCount}</span></h3>
+                    <h3 class="mt-4 pb-2 mb-4 border-bottom">Total Post: <span class="text-success">${postList.size()}</span></h3>
 
                     <%--                    list of posts--%>
                     <ul class="user-post-list">
@@ -98,7 +98,7 @@
                                     <a href="toPost.do?postId=${post.postId}"> ${post.title}</a>
                                 </div>
 
-                                <p class="col text-right">${post.publishTime}</p>
+                                <p class="format-date" >${post.publishTime}</p>
                             </li>
                         </c:forEach>
                     </ul>
@@ -125,6 +125,41 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+    function timeSince(date) {
+
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " years ago";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months ago";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days ago";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours ago";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minutes ago";
+        }
+        return Math.floor(seconds) + " seconds ago";
+    }
+
+    for (let i = 0; i < document.querySelectorAll('.format-date').length; i++) {
+        document.querySelectorAll('.format-date')[i].innerHTML = timeSince(new Date(document.querySelectorAll('.format-date')[i].innerHTML.split('ICT').join('')))
+    }
+
+</script>
 </body>
 </html>
 

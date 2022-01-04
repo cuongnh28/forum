@@ -99,16 +99,22 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/getSampleData.do", method = RequestMethod.GET)
-    public ResponseEntity<List<Integer>> getSampleData () {
-        List<Integer> data = new ArrayList<>();
-        data.add(3);
-        data.add(5);
-        data.add(7);
-        data.add(2);
-        data.add(9);
-        data.add(11);
-        return new ResponseEntity<>(data, HttpStatus.OK);
+    @RequestMapping(value = "/getTotalPostsRecently.do", method = RequestMethod.GET)
+    public ResponseEntity<List<Integer>> getTotalPostsRecently () {
+        List<Integer> listTotalPostsRecently = new ArrayList<>();
+        double totalPostsOfAug = postService.getNoOfNewPostsInMonth(LocalDate.now().minusMonths(5));
+        double totalPostsOfSep = postService.getNoOfNewPostsInMonth(LocalDate.now().minusMonths(4));
+        double totalPostsOfOct = postService.getNoOfNewPostsInMonth(LocalDate.now().minusMonths(3));
+        double totalPostsOfNow = postService.getNoOfNewPostsInMonth(LocalDate.now().minusMonths(2));
+        double totalPostsOfDec = postService.getNoOfNewPostsInMonth(LocalDate.now().minusMonths(1));
+        double totalPostsOfJan = postService.getNoOfNewPostsInMonth(LocalDate.now());
+        listTotalPostsRecently.add((int) totalPostsOfAug);
+        listTotalPostsRecently.add((int) totalPostsOfSep);
+        listTotalPostsRecently.add((int) totalPostsOfOct);
+        listTotalPostsRecently.add((int) totalPostsOfNow);
+        listTotalPostsRecently.add((int) totalPostsOfDec);
+        listTotalPostsRecently.add((int) totalPostsOfJan);
+        return new ResponseEntity<>(listTotalPostsRecently, HttpStatus.OK);
     }
 
 }

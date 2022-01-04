@@ -1,9 +1,9 @@
 package com.fc.controller;
 
-import com.fc.model.PageBean;
 import com.fc.model.Post;
 import com.fc.model.Topic;
 import com.fc.model.User;
+import com.fc.service.PostService;
 import com.fc.service.TopicService;
 import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,23 @@ public class TopicController {
     private TopicService topicService;
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
     private UserService userService;
 
     @RequestMapping("/listTopic.do")
     public String listTopic(Model model) {
         List<Topic> topicList = topicService.listTopic();
+        int tmpTotalViews;
+        for (Topic topic:topicList) {
+            tmpTotalViews = 0;
+            topic.setListPost(postService.listPostByTopicId(topic.getTopicId(), 0));
+            for (Post post:topic.getListPost()) {
+                tmpTotalViews += post.getPostVisitList().size();
+            }
+            topic.setTotalViews(tmpTotalViews);
+        }
         List<User> hotUserList = userService.listUserByHot();
         model.addAttribute("topicList", topicList);
         model.addAttribute("hotUserList", hotUserList);

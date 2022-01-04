@@ -65,10 +65,10 @@
                 <thead>
                 <tr>
                     <th scope="col">Topic</th>
-                    <th scope="col">Likes</th>
-                    <th scope="col">Comments</th>
+                    <th scope="col">Posts</th>
+<%--                    <th scope="col">Comments</th>--%>
                     <th scope="col">Views</th>
-                    <th scope="col">Activity</th>
+<%--                    <th scope="col">Activity</th>--%>
                 </tr>
                 </thead>
                 <tbody>
@@ -83,10 +83,10 @@
 <%--                                            ${topic.content}--%>
 <%--                                    </a>--%>
                             </td>
-                            <td class="" style="vertical-align: center">5</td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td>10 hour ago</td>
+                            <td class="" style="vertical-align: center">${topic.listPost.size()}</td>
+<%--                            <td>5</td>--%>
+                            <td>${topic.totalViews}</td>
+<%--                            <td>10 hour ago</td>--%>
                         </tr>
                     </c:forEach>
                 </tbody>
