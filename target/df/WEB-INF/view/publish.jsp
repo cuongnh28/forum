@@ -82,7 +82,7 @@
 				return;
 			}
 			if (this.status !== 200) {
-				alert("Vui lòng chọn Topic hoặc xem lại nội dung bài đăng.");
+				alert("Error! Can't publish post!");
 			} else {
 				window.location = "/toIndex.do";
 			}

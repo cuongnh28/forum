@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,12 +52,13 @@ public class PostController {
     @RequestMapping("/listPostByNewestTime.do")
     public String listPostByNewestTime(int curPage, Model model) {
         PageBean<Post> pageBean = postService.listPostByNewestTime(curPage);
-        List<User> userList = userService.listUserByTime();
+        List<User> newUserList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         String sortBy = "newestTime";
         model.addAttribute("pageBean", pageBean);
-        model.addAttribute("userList", userList);
         model.addAttribute("hotUserList", hotUserList);
+        model.addAttribute("newUserList", newUserList);
+
         model.addAttribute("sortBy", sortBy);
         return "index";
     }
@@ -66,12 +66,12 @@ public class PostController {
     @RequestMapping("/listPostByLatestTime.do")
     public String listPostByLatestTime(int curPage, Model model) {
         PageBean<Post> pageBean = postService.listPostByLatestTime(curPage);
-        List<User> userList = userService.listUserByTime();
+        List<User> newUserList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         String sortBy = "latestTime";
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
-        model.addAttribute("userList", userList);
+        model.addAttribute("newUserList", newUserList);
         model.addAttribute("hotUserList", hotUserList);
         return "index";
     }
@@ -79,12 +79,12 @@ public class PostController {
     @RequestMapping("/listPostByHottest.do")
     public String listPostByHottest(int curPage, Model model) {
         PageBean<Post> pageBean = postService.listPostByHottest(curPage);
-        List<User> userList = userService.listUserByTime();
+        List<User> newUserList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         String sortBy = "hottest";
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
-        model.addAttribute("userList", userList);
+        model.addAttribute("newUserList", newUserList);
         model.addAttribute("hotUserList", hotUserList);
         return "index";
     }
@@ -92,12 +92,12 @@ public class PostController {
     @RequestMapping("/listPostByTopic.do")
     public String listPostByTopic(int topicId, Model model) {
         PageBean<Post> pageBean = postService.listPostByTopic(topicId);
-        List<User> userList = userService.listUserByTime();
+        List<User> newUserList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         String sortBy = "topic";
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
-        model.addAttribute("userList", userList);
+        model.addAttribute("newUserList", newUserList);
         model.addAttribute("hotUserList", hotUserList);
         return "index";
     }
