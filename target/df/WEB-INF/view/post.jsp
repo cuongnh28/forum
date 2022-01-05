@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>${post.title}</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
@@ -35,7 +35,7 @@
     <div class="border p-3" style="width: 690px;border-radius: 8px ;">
 <%--        first line of post--%>
         <div class="d-flex justify-content-between align-items-center mx-0">
-            <p style="font-style: italic">In <a href="#">name of topic</a></p>
+            <p style="font-style: italic">In <a href="/listPostByTopic.do?topicId=${post.topic.topicId}">${post.topic.name}</a></p>
             <button class="btn dropdown-toggle p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h fa-2x" ></i></button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <c:choose>

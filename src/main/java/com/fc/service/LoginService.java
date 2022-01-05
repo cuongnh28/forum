@@ -10,6 +10,9 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,25 +31,28 @@ public class LoginService {
 
     public String register(User user, String repassword) {
 
-        Pattern p = Pattern.compile("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
-        Matcher m = p.matcher(user.getEmail());
-        if (!m.matches()) {
-            return "Email is not right.";
-        }
-
-        p = Pattern.compile("^\\w{6,20}$");
-        m = p.matcher(user.getPassword());
-        if (!m.matches()) {
-            return "Please enter password again";
-        }
+//        validate input.
+//        Pattern p = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+//        Matcher m = p.matcher(user.getEmail());
+//        if (!m.matches()) {
+//            return "Email is not right.";
+//        }
+//
+//        p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+//        m = p.matcher(user.getPassword());
+//
+//        if (!m.matches()) {
+//            return "Password must contain at least eight characters, at least one number and letter.";
+//        }
 
         if (!user.getPassword().equals(repassword)) {
-            return "Password is not matching with confirm password";
+            return "Password and Confirm password are not matching. Please try again.";
         }
 
         int emailCount = userMapper.selectEmailCount(user.getEmail());
+
         if (emailCount > 0) {
-            return "This email has been set before.";
+            return "This email has been set before, please check your email.";
         }
 
         user.setActived(0);
@@ -55,8 +61,18 @@ public class LoginService {
         user.setJoinTime(new Date());
         int index = user.getEmail().indexOf('@');
         String username  = user.getEmail().substring(0,index);
+
         user.setUsername(username);
-        user.setHeadUrl(MyConstant.QINIU_IMAGE_URL + "head.jpg");
+//        hash password
+//        try {
+//            MessageDigest md = MessageDigest.getInstance("MD5");
+//            byte[] hashedData = md.digest(user.getPassword().getBytes());
+//            user.setPassword(convertByteToHex(hashedData));
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        user.setHeadUrl("team-1.jpg");
 
         taskExecutor.execute(new MailTask(activateCode, user.getEmail(), javaMailSender, 1));
 
@@ -66,6 +82,14 @@ public class LoginService {
     }
 
     public Map<String, Object> login(User user) {
+//  hash password
+//        try {
+//            MessageDigest md = MessageDigest.getInstance("MD5");
+//            byte[] hashedData = md.digest(user.getPassword().getBytes());
+//            user.setPassword(convertByteToHex(hashedData));
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        }
 
         Map<String, Object> map = new HashMap<>();
         Integer userId = userMapper.selectUserIdByEmailAndPassword(user);
@@ -95,5 +119,15 @@ public class LoginService {
 
     public void activate(String activateCode) {
         userMapper.updateActived(activateCode);
+    }
+
+    public static String convertByteToHex(byte[] data) {
+        BigInteger number = new BigInteger(1, data);
+        String hashtext = number.toString(16);
+        // Now we need to zero pad it if you actually want the full 32 chars.
+        while (hashtext.length() < 32) {
+            hashtext = "0" + hashtext;
+        }
+        return hashtext;
     }
 }

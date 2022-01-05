@@ -38,12 +38,12 @@ public class IndexController {
         userService.record(request.getRequestURL(), request.getContextPath(), request.getRemoteAddr());
         PageBean<Post> pageBean;
         pageBean = postService.listPostByNewestTime(1);
-        List<User> userList = userService.listUserByTime();
+        List<User> newUserList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         String sortBy = "newestTime";
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("pageBean", pageBean);
-        model.addAttribute("userList", userList);
+        model.addAttribute("newUserList", newUserList);
         model.addAttribute("hotUserList", hotUserList);
         return "index";
     }

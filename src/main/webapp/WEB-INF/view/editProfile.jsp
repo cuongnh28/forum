@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Chỉnh sửa trang cá nhân</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
@@ -18,7 +18,7 @@
     <div class="edit-header"><i class="fas fa-user" style="color: #00B091"></i>&nbsp;&nbsp;Update Profile</div>
     <form action="uploadImage.do" method="post" enctype="multipart/form-data">
         <div class="row mx-5 align-items-center position-relative">
-            <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="picField(this);">
+            <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*"  onchange="picField(this);">
             <input type="hidden" name="addTo" value="avatar">
 <%--            <img src="../../upload/images/${user.headUrl}">--%>
             <div class="border rounded-circle" style="width: fit-content">
@@ -118,13 +118,15 @@
 
 <%@ include file="footer.jsp" %>
 <script>
-    // var loadFile = function(event) {
-    //     var output = document.getElementById('output');
-    //     output.src = URL.createObjectURL(event.target.files[0]);
-    //     output.onload = function() {
-    //         URL.revokeObjectURL(output.src) // free memory
-    //     }
-    // };
+
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
     document.getElementById('photo').onchange = function (evt) {
         var tgt = evt.target || window.event.srcElement,
             files = tgt.files;

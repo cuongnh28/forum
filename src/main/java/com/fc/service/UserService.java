@@ -140,7 +140,6 @@ public class UserService {
 
     public void forgetPassword(String email) {
         String verifyCode = userMapper.selectVerifyCode(email);
-        System.out.println("verifyCode:" + verifyCode);
         taskExecutor.execute(new MailTask(verifyCode, email, javaMailSender, 2));
     }
 

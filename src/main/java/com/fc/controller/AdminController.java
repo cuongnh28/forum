@@ -39,7 +39,7 @@ public class AdminController {
         double noOfNewUsersThisMonth = userService.getNoOfNewUsersInMonth(LocalDate.now());
         double noOfNewUsersLastMonth = userService.getNoOfNewUsersInMonth(LocalDate.now().minusMonths(1));
         double noOfNewPostsThisMonth = postService.getNoOfNewPostsInMonth(LocalDate.now());
-        double noOfNewPostsLastMonth = userService.getNoOfNewUsersInMonth(LocalDate.now().minusMonths(1));
+        double noOfNewPostsLastMonth = postService.getNoOfNewPostsInMonth(LocalDate.now().minusMonths(1));
         double noOfNewCommentsThisMonth = commentService.getNoOfNewCommentsInMonth(LocalDate.now());
         double noOfNewCommentsLastMonth = commentService.getNoOfNewCommentsInMonth(LocalDate.now().minusMonths(1));
         String incrementUser = String.format("%.2f",((noOfNewUsersThisMonth - noOfNewUsersLastMonth) / noOfNewUsersLastMonth * 100));

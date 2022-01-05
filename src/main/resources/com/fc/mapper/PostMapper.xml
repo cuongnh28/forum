@@ -271,9 +271,12 @@
                p.comment_count,
                p.like_count,
                p.scan_count,
-               p.isPublish
+               p.isPublish,
+               t.topicId,
+               t.name
         from post p
                  join user u on p.userId = u.userId
+                 join topic t on p.topicId = t.topicId
         where p.postId = #{postId} and p.isPublish = 'Y'
     </select>
 
@@ -338,6 +341,12 @@
     <select id="selectNoOfPost" resultType="double">
         select count(*) from post where (publish_time between #{fromDate} and #{toDate}) and isPublish = 'Y'
     </select>
+
+    <update id="rejectPost">
+        update post
+        set isPublish = 'P'
+        where postId = #{postId}
+    </update>
 
 <!--    <select id="selectLikeCount" resultType="int">-->
 <!--        select like_count from post where-->

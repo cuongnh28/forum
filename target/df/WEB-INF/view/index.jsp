@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Trang chủ</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -264,7 +264,7 @@
                 <div class="hot-user-title"><i class="fas fa-user text-info"></i>&nbsp;&nbsp;New Users</div>
             </div>
             <ul class="hot-user-list">
-                <c:forEach items="${userList}" var="user">
+                <c:forEach items="${newUserList}" var="user">
                     <li class="clearfix">
                         <a href="toProfile.do?userId=${user.userId}" class="hot-user-image"><img
                                 src="../../upload/images/${user.headUrl}" style="object-fit: cover; border: 2px solid #1e88e5"></a>

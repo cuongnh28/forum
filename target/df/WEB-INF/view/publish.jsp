@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Đăng bài viết</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
@@ -82,7 +82,7 @@
 				return;
 			}
 			if (this.status !== 200) {
-				alert("Error! Can't publish post!");
+				alert("Vui lòng chọn Topic hoặc xem lại nội dung bài đăng.");
 			} else {
 				window.location = "/toIndex.do";
 			}

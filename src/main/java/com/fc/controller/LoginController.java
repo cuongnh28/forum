@@ -1,6 +1,5 @@
 package com.fc.controller;
 
-
 import com.fc.model.User;
 import com.fc.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

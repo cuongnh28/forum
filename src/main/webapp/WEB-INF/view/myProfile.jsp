@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Trang cá nhân</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
@@ -47,12 +47,12 @@
             <div class="row mt-3 w-100 text-center" style="font-size: 15px">
                 <p class="col my-0"><b>Follows</b></p>
                 <p class="col my-0"><b>Followers</b></p>
-                <p class="col my-0"><b>Likes</b></p>
+                <p class="col my-0"><b>Posts</b></p>
             </div>
             <div class="row mt-3 w-100 text-center text-success" style="font-size: 15px">
                 <p class="col my-0"><b>${user.followCount}</b></p>
                 <p class="col my-0"><b>${user.followerCount}</b></p>
-                <p class="col my-0"><b>${user.likeCount}</b></p>
+                <p class="col my-0"><b>${postList.size()}</b></p>
             </div>
         </div>
 
@@ -78,7 +78,7 @@
                 </div>
 <%--                tab 2--%>
                 <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <h3 class="mt-4 pb-2 mb-4 border-bottom">Total Post: <span class="text-success">${user.postCount}</span></h3>
+                    <h3 class="mt-4 pb-2 mb-4 border-bottom">Total Post: <span class="text-success">${postList.size()}</span></h3>
 
 <%--                    list of posts--%>
                     <ul class="user-post-list">

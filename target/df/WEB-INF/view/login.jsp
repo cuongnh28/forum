@@ -36,7 +36,7 @@
 						Member Login
 					</span>
 
-                <div id="error" class="error-message text-center p-0 mb-4">${error}</div>
+                <div id="error" style="color: red" class="error-message text-center p-0 mb-4">${error}</div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
                     <input id="login-email" class="input100" type="text" name="email" value="${email}" placeholder="Email" />
@@ -132,8 +132,6 @@
     $('.js-tilt').tilt({
         scale: 1.1
     })
-
-    console.log('hello')
 
     function moveToRegister(e){
         e.preventDefault();

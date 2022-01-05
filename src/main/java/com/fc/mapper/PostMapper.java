@@ -42,6 +42,8 @@ public interface PostMapper {
 
     boolean deletePost(int postId);
 
+    boolean rejectPost(int postId);
+
     List<Post> listPostsNotApprove();
 
     boolean acceptPost(int postId);

@@ -3048,10 +3048,6 @@
                 E[value] = emptyFn;
             } else {
                 E[value] = function (info) {
-                    // 通过配置来控制打印输出
-                    if (E.config && E.config.printLog) {
-                        console[value]('wangEditor提示: ' + info);
-                    }
                 };
             }
         });
@@ -8487,7 +8483,6 @@
         });
 
     });
-// 版权提示
     _e(function (E, $) {
         E.info('本页面富文本编辑器由 wangEditor 提供 http://wangeditor.github.io/ ');
     });

@@ -268,7 +268,7 @@ public class PostService {
     }
 
     public boolean rejectPost (int postId) {
-        return postMapper.deletePost(postId);
+        return postMapper.rejectPost(postId);
     }
 
     public void insertPostVisit (int postId) {

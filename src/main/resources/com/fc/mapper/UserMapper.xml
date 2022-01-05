@@ -62,6 +62,10 @@
         update user set head_url=#{headUrl} where userId=#{userId}
     </update>
 
+    <update id="updateCover">
+        update user set cover=#{cover} where userId=#{userId}
+    </update>
+
     <select id="selectHeadUrl" resultType="String">
         select head_url from user where userId=#{userId}
     </select>
