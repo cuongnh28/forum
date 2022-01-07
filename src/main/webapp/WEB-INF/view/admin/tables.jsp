@@ -208,18 +208,16 @@
                               <div class="modal-body">
                                   ${post.content}
                               </div>
-<%--                              <div class="modal-footer">--%>
-<%--                                <form action="acceptPost.do" method="post">--%>
-<%--                                  <input type="hidden" name="postId" value="${post.postId}">--%>
-<%--                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>--%>
-<%--                                </form>--%>
-<%--                                <form action="rejectPost.do" method="post">--%>
-<%--                                  <input type="hidden" name="postId" value="${post.postId}">--%>
-<%--                                  <button type="button" class="btn btn-danger" data-dismiss="modal" >Reject</button>--%>
-<%--                                </form>--%>
-<%--&lt;%&ndash;                                <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <button type="button" class="btn btn-danger">Reject</button>&ndash;%&gt;--%>
-<%--                              </div>--%>
+                              <div class="modal-footer">
+                                <form id="acceptPost" action="acceptPost.do" method="post">
+                                  <input type="hidden" name="postId" value="${post.postId}">
+                                  <button type="button" onclick="accept_post()" class="btn btn-primary" data-dismiss="modal">Accept</button>
+                                </form>
+                                <form id="rejectPost" action="rejectPost.do" method="post">
+                                  <input type="hidden" name="postId" value="${post.postId}">
+                                  <button type="button" onclick="reject_post()" class="btn btn-danger" data-dismiss="modal" >Reject</button>
+                                </form>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -339,6 +337,18 @@
 <!-- Argon JS -->
 <script src="admin/js/argon.js?v=1.2.0"></script>
 <script type="text/javascript">
+
+  function accept_post() {
+    if (confirm('Are you sure?')) {
+      document.getElementById("acceptPost").submit();
+    }
+  }
+
+  function reject_post() {
+    if (confirm('Are you sure?')) {
+      document.getElementById("rejectPost").submit();
+    }
+  }
 
   <%--    change time format--%>
 
