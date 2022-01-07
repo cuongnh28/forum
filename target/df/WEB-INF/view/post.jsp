@@ -44,7 +44,7 @@
                             <input type="hidden" name="postId" value="${post.postId}">
                             <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
                         </form>
-                        <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>
+<%--                        <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>--%>
                     </c:when>
                 </c:choose>
                 <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Report</a>
@@ -127,7 +127,7 @@
                                                 <input type="hidden" name="postId" value="${post.postId}">
                                                 <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
                                             </form>
-                                            <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>
+<%--                                            <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>--%>
                                         </c:when>
                                     </c:choose>
                                     <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Report</a>
@@ -181,7 +181,7 @@
                                                             <input type="hidden" name="postId" value="${post.postId}">
                                                             <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
                                                         </form>
-                                                        <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>
+<%--                                                        <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Edit</a>--%>
                                                     </c:when>
                                                 </c:choose>
                                                 <a class="dropdown-item" href="#" style="padding: 6.25px 15px">Report</a>

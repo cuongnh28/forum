@@ -38,19 +38,7 @@ public class TopicController {
     @RequestMapping("/listTopic.do")
     public String listTopic(Model model) {
         List<Topic> topicList = topicService.listTopic();
-        int tmpTotalViews;
-        for (Topic topic:topicList) {
-            tmpTotalViews = 0;
-            topic.setListPost(postService.listPostByTopicId(topic.getTopicId(), 0));
-            for (Post post:topic.getListPost()) {
-                tmpTotalViews += post.getPostVisitList().size();
-            }
-            topic.setTotalViews(tmpTotalViews);
-        }
-        List<User> hotUserList = userService.listUserByHot();
-        model.addAttribute("topicList", topicList);
-        model.addAttribute("hotUserList", hotUserList);
-        return "topic";
+        return getTopicViewsAndPosts(model, topicList);
     }
 
     @RequestMapping("/listImage.do")
@@ -107,6 +95,19 @@ public class TopicController {
     @RequestMapping(value="/searchTopic.do", method = RequestMethod.GET)
     public String searchTopic(String searchTemp, Model model) {
         List<Topic> topicList = topicService.searchByTopicName(searchTemp);
+        return getTopicViewsAndPosts(model, topicList);
+    }
+
+    private String getTopicViewsAndPosts(Model model, List<Topic> topicList) {
+        int tmpTotalViews;
+        for (Topic topic:topicList) {
+            tmpTotalViews = 0;
+            topic.setListPost(postService.listPostByTopicId(topic.getTopicId(), 0));
+            for (Post post:topic.getListPost()) {
+                tmpTotalViews += post.getPostVisitList().size();
+            }
+            topic.setTotalViews(tmpTotalViews);
+        }
         List<User> hotUserList = userService.listUserByHot();
         model.addAttribute("topicList", topicList);
         model.addAttribute("hotUserList", hotUserList);
