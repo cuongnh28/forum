@@ -8,12 +8,12 @@
          style="font-size: 16px; z-index: 10">
         <%--        left        --%>
         <ul class="nav py-3 row align-items-center">
-            <li class="nav-item"><a href="toIndex.do" class="text-white" style="font-size: 20px"><b>Home</b></a></li>
-            <li class="nav-item"><a href="listTopic.do" class="text-white">Topics</a></li>
-            <li class="nav-item"><a href="toLog.do" class="text-white">Activity Log</a></li>
+            <li class="nav-item rounded"><a href="toIndex.do" class="text-white" style="font-size: 20px"><b>Home</b></a></li>
+            <li class="nav-item rounded"><a href="listTopic.do" class="text-white">Topics</a></li>
+            <li class="nav-item rounded"><a href="toLog.do" class="text-white">Activity Log</a></li>
             <c:choose>
                 <c:when test="${sessionScope.user != null and sessionScope.user.isAdmin.equalsIgnoreCase('Y')}">
-                    <li class="nav-item"><a href="admin.do" class="text-white">Admin</a></li>
+                    <li class="nav-item rounded"><a href="admin.do" class="text-white">Admin</a></li>
                 </c:when>
             </c:choose>
         </ul>

@@ -23,8 +23,8 @@
     <div class="border position-relative d-flex justify-content-center align-items-center" style="height: 400px; background-color: #c1c1c1">
         <form action="uploadImage.do" method="post" enctype="multipart/form-data">
             <p class="" style="font-size: 50px"> <b>This is wallpaper</b></p>
-            <div class="w-100 h-100 position-absolute" style="top: 0 ; bottom: 0">
-                <img class="w-100 h-100" id="output" src="../../upload/images/${user.cover}" style="height: auto; object-fit: cover"/>
+            <div class="w-100 h-100 position-absolute" style="top: 0 ; bottom: 0; left: 0; right: 0">
+                <img class="w-100 h-100" id="output" src="../../upload/images/${user.cover}" style="width: 100%; height: auto; object-fit: cover"/>
                 <input type="file" class="hidden" name="myFileName" id="photo" accept="image/*" onchange="loadFile(event)">
                 <input type="hidden" name="addTo" value="cover">
             </div>
@@ -57,7 +57,7 @@
         </div>
 
 <%--        right-bottom-content   --%>
-        <div class="col border " style=" margin: 15px 30px 15px 45px ; border-radius: 6px; font-size: 15px; height: 330px">
+        <div class="col border " style=" margin: 15px 30px 15px 45px ; border-radius: 6px; font-size: 15px; min-height: 400px ; height: fit-content">
             <nav>
                 <div class="nav nav-tabs pt-2" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>

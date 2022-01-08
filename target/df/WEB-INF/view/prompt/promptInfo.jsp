@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
 	<link rel="stylesheet" type="text/css" href="css/base.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 	<style type="text/css">
 		.main div{
             margin: 200px auto;
@@ -20,7 +22,7 @@
 <%@ include file="../header.jsp" %>
 
 
-	<div class="main w clearfix">
+	<div class="main w d-flex justify-content-center align-items-center" style="height: 828px">
 		<div>
 			${info}
 		</div>

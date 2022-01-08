@@ -139,9 +139,10 @@ public class PostController {
     @RequestMapping("/deletePost.do")
     public String deletePost(int postId, Model model, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("userId");
+        User sessionUser = (User) session.getAttribute("user");
         Post post = postService.getPostByPostId(postId);
 
-        if (sessionUid == post.getUser().getUserId()) {
+        if (sessionUid == post.getUser().getUserId() || sessionUser.checkIsAdmin()) {
             if (postService.deletePost(postId)) {
                 PageBean<Post> pageBean = postService.listPostByNewestTime(1);
                 List<User> userList = userService.listUserByTime();

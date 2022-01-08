@@ -1,6 +1,7 @@
 package com.fc.controller;
 
 import com.fc.model.Reply;
+import com.fc.model.User;
 import com.fc.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,10 @@ public class ReplyController {
     @RequestMapping(value = "/deleteReply.do", method = RequestMethod.POST)
     public String deleteReply(int replyId, int postId, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("userId");
+        User sessionUser = (User) session.getAttribute("user");
         Reply reply = replyService.getReplyById(replyId);
 
-        if (sessionUid == reply.getUser().getUserId()) {
+        if (sessionUid == reply.getUser().getUserId() || sessionUser.checkIsAdmin()) {
             if (replyService.deleteReply(replyId)) {
                 return "redirect:toPost.do?postId=" + postId;
             }

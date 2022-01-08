@@ -57,17 +57,17 @@
             <div class="row mt-3 w-100 text-center" style="font-size: 15px">
                 <p class="col my-0"><b>Follows</b></p>
                 <p class="col my-0"><b>Followers</b></p>
-                <p class="col my-0"><b>Likes</b></p>
+                <p class="col my-0"><b>Posts</b></p>
             </div>
             <div class="row mt-3 w-100 text-center text-success" style="font-size: 15px">
                 <p class="col my-0"><b>${user.followCount}</b></p>
                 <p class="col my-0"><b>${user.followerCount}</b></p>
-                <p class="col my-0"><b>${user.likeCount}</b></p>
+                <p class="col my-0"><b>${postList.size()}</b></p>
             </div>
         </div>
 
         <%--        right-bottom-content   --%>
-        <div class="col border " style=" margin: 15px 30px 15px 45px ; border-radius: 6px; font-size: 15px; height: 330px">
+        <div class="col border " style=" margin: 15px 30px 15px 45px ; border-radius: 6px; font-size: 15px; min-height: 400px ; height: fit-content">
             <nav>
                 <div class="nav nav-tabs pt-2" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>

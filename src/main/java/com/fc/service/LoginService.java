@@ -72,7 +72,7 @@ public class LoginService {
 //            throw new RuntimeException(e);
 //        }
 
-        user.setHeadUrl("team-1.jpg");
+//        user.setHeadUrl("team-1.jpg");
 
         taskExecutor.execute(new MailTask(activateCode, user.getEmail(), javaMailSender, 1));
 

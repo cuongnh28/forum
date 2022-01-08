@@ -28,14 +28,15 @@
                     </c:when>
                 </c:choose>
             </div>
-            <form action="/searchTopic.do" method="get">
-                <div>
-                    <input class="form-control" name='searchTemp' type="text" placeholder="Select of your topic" />
-                    <button type="button" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
+            <div style="width: 80%; margin: 0 auto">
+                <form class="d-flex" action="/searchTopic.do" method="get">
+                        <input class="form-control" name='searchTemp' style="margin-right: 10px" type="text" placeholder="Select of your topic" />
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+
+                </form>
+            </div>
             <h2 class="my-3">Topic Type</h2>
             <div class="row text-center my-3 justify-content-around">
                 <div class="col-2 border mx-1 border py-4" style="border-radius: 8px ">

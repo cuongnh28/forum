@@ -28,6 +28,16 @@
         <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
     </resultMap>
 
+    <resultMap type="com.fc.model.Post" id="postByTopicMap">
+        <id column="postId" property="postId"/>
+        <result column="title" property="title"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="isPublish" property="isPublish"/>
+        <association property="user" javaType="com.fc.model.User" resultMap="userMap"/>
+        <association property="topic" javaType="com.fc.model.Topic" resultMap="topicMap"/>
+    </resultMap>
+
+
     <resultMap type="com.fc.model.Post" id="searchByTitleMap">
         <id column="postId" property="postId"/>
         <result column="title" property="title"/>
@@ -222,10 +232,10 @@
         order by p.comment_time
     </select>
 
-    <select id="listPostByTopicId" resultType="com.fc.model.Post">
-        select userId, topicId, postId, title, publish_time
-        from post
-        where topicId = #{topicId} and postId != #{postId} and isPublish = 'Y'
+    <select id="listPostByTopicId" resultMap="postByTopicMap">
+        select u.userId, u.head_url, u.username, p.topicId, p.postId, p.title, p.publish_time
+        from post p join user u on p.userId = u.userId
+        where p.topicId = #{topicId} and p.postId != #{postId} and p.isPublish = 'Y'
     </select>
 
     <select id="searchByTitle" resultMap="searchByTitleMap">

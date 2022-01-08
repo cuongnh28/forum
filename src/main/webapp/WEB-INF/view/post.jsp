@@ -39,7 +39,7 @@
             <button class="btn dropdown-toggle p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h fa-2x" ></i></button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <c:choose>
-                    <c:when test="${post.user.userId==sessionScope.userId}">
+                    <c:when test="${post.user.userId==sessionScope.userId || sessionScope.user.checkIsAdmin()}">
                         <form action="/deletePost.do" method="post" class="" style="padding: 2.5px 7.5px">
                             <input type="hidden" name="postId" value="${post.postId}">
                             <button class="btn mx-auto" type="submit" onClick="return confirm('Are you sure?')">Delete</button>
@@ -121,7 +121,7 @@
                                 <button class="btn dropdown-toggle p-0 mx-2" type="button" id="dropdownDelete" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h" ></i></button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownDelete">
                                     <c:choose>
-                                        <c:when test="${comment.user.userId==sessionScope.userId}">
+                                        <c:when test="${comment.user.userId==sessionScope.userId || sessionScope.user.checkIsAdmin()}">
                                             <form action="/deleteComment.do" method="post" class="" style="padding: 2.5px 7.5px">
                                                 <input type="hidden" name="commentId" value="${comment.commentId}">
                                                 <input type="hidden" name="postId" value="${post.postId}">
@@ -175,7 +175,7 @@
                                             <button class="btn dropdown-toggle p-0 mx-2" type="button" id="dropdownDeleteReply" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h" ></i></button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownDeleteReply">
                                                 <c:choose>
-                                                    <c:when test="${reply.user.userId==sessionScope.userId}">
+                                                    <c:when test="${reply.user.userId==sessionScope.userId || sessionScope.user.checkIsAdmin()}">
                                                         <form action="/deleteReply.do" method="post" style="padding: 2.5px 7.5px">
                                                             <input type="hidden" name="replyId" value="${reply.replyId}">
                                                             <input type="hidden" name="postId" value="${post.postId}">
@@ -206,16 +206,27 @@
         </div>
     </div>
 
-    <div class="col border ml-3 p-3" style="height: fit-content; min-height: 250px; border-radius: 8px; font-size: 15px">
+<%--    suggest topic--%>
+    <div class="col border ml-3 px-3 pt-3" style="height: fit-content; min-height: 250px; border-radius: 8px; font-size: 15px">
         <div class="hot-user">
             <div class="">
                 <div class="hot-user-title mb-3"><span></span><b>Suggested Topics</b></div>
             </div>
             <ul class="hot-user-list">
                 <c:forEach items="${suggestedTopics}" var="post">
-                    <li class="d-flex justify-content-between">
-                        <a href="toPost.do?postId=${post.postId}"><span class="glyphicon glyphicon-file"></span> ${post.title}</a>
-                        <span class="format-date user-post-time"> ${post.publishTime}</span>
+                    <li class="d-flex align-items-center border-top py-2">
+                        <a href="toProfile.do?userId=${post.user.userId}">
+                            <img src="../../upload/images/${post.user.headUrl}" class="rounded-circle"
+                                 style="width: 40px; height: 40px; object-fit: cover; border: 2px solid #761c19"/> </a>
+<%--                        <div class="bg-danger rounded-circle" style="width: 40px; height: 40px"></div>--%>
+                        <div class="col">
+                            <a href="toPost.do?postId=${post.postId}" style="font-size: 13px; font-weight: bold">${post.title}</a>
+                            <div class="d-flex align-items-center">
+                                <p class="my-0" style="font-size: 11px"><b>${post.user.username}</b></p>
+                                <p class="my-0">&nbsp;-&nbsp;</p>
+                                <p class="format-date user-post-time my-0" style="font-size: 11px">${post.publishTime}</p>
+                            </div>
+                        </div>
                     </li>
                 </c:forEach>
             </ul>

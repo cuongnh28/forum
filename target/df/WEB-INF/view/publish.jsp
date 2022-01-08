@@ -19,9 +19,9 @@
 		<form action="publishPost.do" method="post" id="new-post-form">
             <input type="hidden" name="userId" value="${sessionScope.userId}">
 
-			<div class="pub-header"><span></span>&nbsp;Text here (Not translate)</div>
+			<div class="pub-header"><span></span>&nbsp;Đăng bài viết</div>
 			<div class="pub-title">
-				<input type="text" name="title" placeholder="Input here text">
+				<input type="text" name="title" placeholder="Tên bài viết">
 			</div>
 			<div class="pub-topic">
 				<span>Topic：</span>
@@ -82,7 +82,7 @@
 				return;
 			}
 			if (this.status !== 200) {
-				alert("Error! Can't publish post!");
+				alert("Vui lòng chọn Topic hoặc xem lại nội dung bài viết.");
 			} else {
 				window.location = "/toIndex.do";
 			}

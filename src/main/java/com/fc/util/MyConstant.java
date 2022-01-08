@@ -9,7 +9,7 @@ public class MyConstant {
 
     public static final String MAIL_FROM = "cuongcualo1998@gmail.com";
 
-    public static final String DOMAIN_NAME = "http://localhost:8081/";
+    public static final String DOMAIN_NAME = "http://localhost:8080/";
 
     public static final int OPERATION_CLICK_LIKE = 1;
     public static final int OPERATION_REPLY = 2;

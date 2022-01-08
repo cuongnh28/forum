@@ -208,16 +208,16 @@
                               <div class="modal-body">
                                   ${post.content}
                               </div>
-                              <div class="modal-footer">
-                                <form id="acceptPost" action="acceptPost.do" method="post">
-                                  <input type="hidden" name="postId" value="${post.postId}">
-                                  <button type="button" onclick="accept_post()" class="btn btn-primary" data-dismiss="modal">Accept</button>
-                                </form>
-                                <form id="rejectPost" action="rejectPost.do" method="post">
-                                  <input type="hidden" name="postId" value="${post.postId}">
-                                  <button type="button" onclick="reject_post()" class="btn btn-danger" data-dismiss="modal" >Reject</button>
-                                </form>
-                              </div>
+<%--                              <div class="modal-footer">--%>
+<%--                                <form id="acceptPost" action="acceptPost.do" method="post">--%>
+<%--                                  <input type="hidden" name="postId" value="${post.postId}">--%>
+<%--                                  <button type="button" onclick="accept_post()" class="btn btn-primary" data-dismiss="modal">Accept</button>--%>
+<%--                                </form>--%>
+<%--                                <form id="rejectPost" action="rejectPost.do" method="post">--%>
+<%--                                  <input type="hidden" name="postId" value="${post.postId}">--%>
+<%--                                  <button type="button" onclick="reject_post()" class="btn btn-danger" data-dismiss="modal" >Reject</button>--%>
+<%--                                </form>--%>
+<%--                              </div>--%>
                             </div>
                           </div>
                         </div>
