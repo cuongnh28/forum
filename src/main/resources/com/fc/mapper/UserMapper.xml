@@ -55,7 +55,7 @@
     </select>
 
     <select id="listUserByHot" resultType="com.fc.model.User">
-        select userId,username,head_url from user order by post_count desc limit 6
+        select userId,username,head_url from user order by follower_count desc limit 6
     </select>
 
     <update id="updateHeadUrl">
@@ -97,6 +97,14 @@
     <select id="selectNoOfUser" resultType="double">
         select count(*) from user where join_time between #{fromDate} and #{toDate}
     </select>
+
+    <update id="updateFollowerCount">
+        update user set follower_count = #{follower_count} where userId=#{userId}
+    </update>
+
+    <update id="updateFollowCount">
+        update user set follow_count = #{follow_count} where userId=#{userId}
+    </update>
 
 </mapper>
 

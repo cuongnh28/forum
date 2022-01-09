@@ -42,12 +42,12 @@ public class UserService {
         Jedis jedis = jedisPool.getResource();
         user.setFollowCount((int) (long) jedis.scard(userId + ":follow"));
         user.setFollowerCount((int) (long) jedis.scard(userId + ":fans"));
-        String likeCount = jedis.hget("vote", userId + "");
-        if (likeCount == null) {
-            user.setLikeCount(0);
-        } else {
-            user.setLikeCount(Integer.valueOf(likeCount));
-        }
+//        String likeCount = jedis.hget("vote", userId + "");
+//        if (likeCount == null) {
+//            user.setLikeCount(0);
+//        } else {
+//            user.setLikeCount(Integer.valueOf(likeCount));
+//        }
 
         if (jedis != null) {
             jedisPool.returnResource(jedis);
@@ -94,6 +94,9 @@ public class UserService {
         tx.srem(userId + ":fans", String.valueOf(sessionUid));
         tx.exec();
 
+        userMapper.updateFollowCount(jedis.scard(sessionUid + ":follow"), sessionUid);
+        userMapper.updateFollowerCount(jedis.scard(userId + ":fans"), userId);
+
         if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
@@ -105,6 +108,10 @@ public class UserService {
         tx.sadd(sessionUid + ":follow", String.valueOf(userId));
         tx.sadd(userId + ":fans", String.valueOf(sessionUid));
         tx.exec();
+
+        userMapper.updateFollowCount(jedis.scard(sessionUid + ":follow"), sessionUid);
+        userMapper.updateFollowerCount(jedis.scard(userId + ":fans"), userId);
+
         if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
@@ -117,25 +124,6 @@ public class UserService {
             jedisPool.returnResource(jedis);
         }
         return following;
-    }
-
-    public String updatePassword(String password, String newpassword, String repassword, int sessionUid) {
-
-        String oldPassword = userMapper.selectPasswordByUserId(sessionUid);
-        if (!oldPassword.equals(password)) {
-            return "You are entering wrong password";
-        }
-
-        if (newpassword.length() < 6 || newpassword.length() > 20) {
-            return "Length is < 6 or > 20";
-        }
-
-        if (!newpassword.equals(repassword)) {
-            return "Re password are not matching with new password";
-        }
-
-        userMapper.updatePassword(newpassword, sessionUid);
-        return "ok";
     }
 
     public void forgetPassword(String email) {

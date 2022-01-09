@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Trang cá nhân</title>
+    <title>${user.username}</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">

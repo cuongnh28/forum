@@ -53,4 +53,8 @@ public interface UserMapper {
 
     double selectNoOfUser(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
+    void updateFollowerCount(@Param("follower_count") long follower_count, @Param("userId") int userId);
+
+    void updateFollowCount( @Param("follow_count") long follow_count, @Param("userId") int userId);
+
 }

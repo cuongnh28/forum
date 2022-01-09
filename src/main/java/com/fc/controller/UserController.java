@@ -2,6 +2,7 @@ package com.fc.controller;
 
 import com.fc.model.Post;
 import com.fc.model.User;
+import com.fc.service.LoginService;
 import com.fc.service.PostService;
 import com.fc.service.QiniuService;
 import com.fc.service.UserService;
@@ -28,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LoginService loginService;
 
     @Autowired
     private PostService postService;
@@ -78,7 +82,7 @@ public class UserController {
     @RequestMapping("/updatePassword.do")
     public String updatePassword(String password, String newpassword, String repassword, HttpSession session, Model model) {
         int sessionUid = (int) session.getAttribute("userId");
-        String status = userService.updatePassword(password, newpassword, repassword, sessionUid);
+        String status = loginService.updatePassword(password, newpassword, repassword, sessionUid);
         if (status.equals("ok")) {
             return "redirect:logout.do";
         } else {

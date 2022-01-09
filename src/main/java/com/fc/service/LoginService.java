@@ -32,18 +32,18 @@ public class LoginService {
     public String register(User user, String repassword) {
 
 //        validate input.
-//        Pattern p = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-//        Matcher m = p.matcher(user.getEmail());
-//        if (!m.matches()) {
-//            return "Email is not right.";
-//        }
-//
-//        p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
-//        m = p.matcher(user.getPassword());
-//
-//        if (!m.matches()) {
-//            return "Password must contain at least eight characters, at least one number and letter.";
-//        }
+        Pattern p = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+        Matcher m = p.matcher(user.getEmail());
+        if (!m.matches()) {
+            return "Email is not right.";
+        }
+
+        p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$");
+        m = p.matcher(user.getPassword());
+
+        if (!m.matches()) {
+            return "Password must contains minimum eight characters, at least one letter, one number and one special character.";
+        }
 
         if (!user.getPassword().equals(repassword)) {
             return "Password and Confirm password are not matching. Please try again.";
@@ -63,16 +63,7 @@ public class LoginService {
         String username  = user.getEmail().substring(0,index);
 
         user.setUsername(username);
-//        hash password
-//        try {
-//            MessageDigest md = MessageDigest.getInstance("MD5");
-//            byte[] hashedData = md.digest(user.getPassword().getBytes());
-//            user.setPassword(convertByteToHex(hashedData));
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException(e);
-//        }
-
-//        user.setHeadUrl("team-1.jpg");
+        user.setPassword(hashPassword(repassword));
 
         taskExecutor.execute(new MailTask(activateCode, user.getEmail(), javaMailSender, 1));
 
@@ -82,16 +73,9 @@ public class LoginService {
     }
 
     public Map<String, Object> login(User user) {
-//  hash password
-//        try {
-//            MessageDigest md = MessageDigest.getInstance("MD5");
-//            byte[] hashedData = md.digest(user.getPassword().getBytes());
-//            user.setPassword(convertByteToHex(hashedData));
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException(e);
-//        }
 
         Map<String, Object> map = new HashMap<>();
+        user.setPassword(hashPassword(user.getPassword()));
         Integer userId = userMapper.selectUserIdByEmailAndPassword(user);
         if (userId == null) {
             map.put("status", "no");
@@ -117,12 +101,44 @@ public class LoginService {
         return map;
     }
 
+    public String updatePassword(String password, String newpassword, String repassword, int sessionUid) {
+
+        String oldPassword = userMapper.selectPasswordByUserId(sessionUid);
+
+        if (!oldPassword.equals(hashPassword(password))) {
+            return "You are entering wrong password";
+        }
+
+        if (!newpassword.equals(repassword)) {
+            return "Re password are not matching with new password";
+        }
+
+        Pattern p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$");
+        Matcher m = p.matcher(newpassword);
+
+        if (!m.matches()) {
+            return "Password must contains minimum eight characters, at least one letter, one number and one special character";
+        }
+
+        userMapper.updatePassword(hashPassword(newpassword), sessionUid);
+
+        return "ok";
+    }
+
     public void activate(String activateCode) {
         userMapper.updateActived(activateCode);
     }
 
-    public static String convertByteToHex(byte[] data) {
-        BigInteger number = new BigInteger(1, data);
+    public static String hashPassword(String password) {
+        byte[] hashedData;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            hashedData = md.digest(password.getBytes());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+        BigInteger number = new BigInteger(1, hashedData);
         String hashtext = number.toString(16);
         // Now we need to zero pad it if you actually want the full 32 chars.
         while (hashtext.length() < 32) {
