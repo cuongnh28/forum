@@ -72,7 +72,7 @@
                 <p id="like-count" class="my-0 mx-2" style="font-size: 20px"></p>
             </div>
             <div class="d-flex align-items-center">
-                <p class="my-0 mx-3">${post.commentCount} comments</p>
+                <p class="my-0 mx-3">${commentList.size()} comments</p>
                 <p class="my-0">${post.postVisitList.size()} views </p>
             </div>
         </div>

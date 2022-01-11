@@ -3,7 +3,6 @@ package com.fc.service;
 import com.fc.async.MailTask;
 import com.fc.mapper.UserMapper;
 import com.fc.model.User;
-import com.fc.util.MyConstant;
 import com.fc.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
