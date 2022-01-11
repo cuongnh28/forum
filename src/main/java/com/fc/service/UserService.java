@@ -2,7 +2,6 @@ package com.fc.service;
 
 import com.fc.async.MailTask;
 import com.fc.mapper.UserMapper;
-import com.fc.model.Info;
 import com.fc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
@@ -15,7 +14,6 @@ import redis.clients.jedis.Transaction;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -63,13 +61,13 @@ public class UserService {
         userMapper.updateUser(user);
     }
 
-    public void record(StringBuffer requestURL, String contextPath, String remoteAddr) {
-        Info info = new Info();
-        info.setRequestUrl(requestURL.toString());
-        info.setContextPath(contextPath);
-        info.setRemoteAddr(remoteAddr);
-        userMapper.insertInfo(info);
-    }
+//    public void record(StringBuffer requestURL, String contextPath, String remoteAddr) {
+//        Info info = new Info();
+//        info.setRequestUrl(requestURL.toString());
+//        info.setContextPath(contextPath);
+//        info.setRemoteAddr(remoteAddr);
+//        userMapper.insertInfo(info);
+//    }
 
     public List<User> listUserByTime() {
         return userMapper.listUserByTime();

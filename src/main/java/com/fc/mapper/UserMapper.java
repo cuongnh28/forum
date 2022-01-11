@@ -1,6 +1,5 @@
 package com.fc.mapper;
 
-import com.fc.model.Info;
 import com.fc.model.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,8 +25,6 @@ public interface UserMapper {
     void updatePostCount(Integer userId);
 
     void updateActived(String activateCode);
-
-    void insertInfo(Info info);
 
     List<User> listUserByTime();
 

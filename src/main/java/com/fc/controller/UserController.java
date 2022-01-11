@@ -4,9 +4,7 @@ import com.fc.model.Post;
 import com.fc.model.User;
 import com.fc.service.LoginService;
 import com.fc.service.PostService;
-import com.fc.service.QiniuService;
 import com.fc.service.UserService;
-import com.fc.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/")
@@ -35,9 +32,6 @@ public class UserController {
 
     @Autowired
     private PostService postService;
-
-    @Autowired
-    private QiniuService qiniuService;
 
     @RequestMapping("/toMyProfile.do")
     public String toMyProfile(HttpSession session, Model model, HttpServletRequest request) {
@@ -97,35 +91,34 @@ public class UserController {
         return "forgetPassword";
     }
 
-
     @RequestMapping("/afterForgetPassword.do")
     public String afterForgetPassword(Model model) {
 //        User user = userService.getEditInfo(session)
         return "prompt/afterForgetPassword";
     }
 
-    @RequestMapping("/updateHeadUrl.do")
-    public String updateHeadUrl(MultipartFile myFileName, Model model, HttpSession session) throws IOException {
-        String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
-        boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
-        if (!allowed) {
-            model.addAttribute("error3", "We just only accept format: bmp，jpg，png，gif. Please try to upload again.");
-            return "editProfile";
-        }
-        if (myFileName.getSize() > 3 * 1024 * 1024) {
-            model.addAttribute("error3", "Size of the picture are too large. Please try again.");
-            return "editProfile";
-        }
-        String fi = myFileName.getOriginalFilename();
-        String fileNameExtension = fi.substring(fi.indexOf("."), fi.length());
-        String remoteFileName = UUID.randomUUID().toString() + fileNameExtension;
-        qiniuService.upload(myFileName.getBytes(), remoteFileName);
-
-        int userId = (int) session.getAttribute("userId");
-        userService.updateHeadUrl(userId, MyConstant.QINIU_IMAGE_URL + remoteFileName);
-
-        return "redirect:toMyProfile.do";
-    }
+//    @RequestMapping("/updateHeadUrl.do")
+//    public String updateHeadUrl(MultipartFile myFileName, Model model, HttpSession session) throws IOException {
+//        String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
+//        boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
+//        if (!allowed) {
+//            model.addAttribute("error3", "We just only accept format: bmp，jpg，png，gif. Please try to upload again.");
+//            return "editProfile";
+//        }
+//        if (myFileName.getSize() > 3 * 1024 * 1024) {
+//            model.addAttribute("error3", "Size of the picture are too large. Please try again.");
+//            return "editProfile";
+//        }
+//        String fi = myFileName.getOriginalFilename();
+//        String fileNameExtension = fi.substring(fi.indexOf("."), fi.length());
+//        String remoteFileName = UUID.randomUUID().toString() + fileNameExtension;
+//        qiniuService.upload(myFileName.getBytes(), remoteFileName);
+//
+//        int userId = (int) session.getAttribute("userId");
+//        userService.updateHeadUrl(userId, MyConstant.QINIU_IMAGE_URL + remoteFileName);
+//
+//        return "redirect:toMyProfile.do";
+//    }
 
     @RequestMapping("/uploadImage.do")
     public String uploadImage (MultipartFile myFileName, String addTo, Model model, HttpSession session, HttpServletRequest request) {

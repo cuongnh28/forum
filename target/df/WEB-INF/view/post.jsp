@@ -298,7 +298,6 @@
     // likeButton.click(function(){
     //     alert("You have liked it.");
     // })
-// enum: 1 like, 0 unlike
     let likedStatus = null;
     getStatusLikeCount();
     function getStatusLikeCount() {

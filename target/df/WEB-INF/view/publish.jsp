@@ -71,7 +71,6 @@
 		};
 	};
 
-	// larry
 	function addNewPost(post, url) {
 		let req = new XMLHttpRequest();
 		req.open("POST", url, true);
@@ -94,35 +93,8 @@
 		topicElement.classList.add("selectedTopic");
 	}
 
-
-
 	CKEDITOR.replace('content');
     $(function(){
-        // var editor = new wangEditor('textarea');
-		//
-        // editor.config.menus = [
-        //     'source',
-        //     '|',
-        //     'bold',
-        //     'underline',
-        //     'italic',
-        //     'strikethrough',
-        //     'eraser',
-        //     'fontsize',
-        //     '|',
-        //     'link',
-        //     'table',
-        //     'emotion',
-        //     '|',
-        //     'img',
-        //     'insertcode',
-        //     '|',
-        //     'undo',
-        // ];
-		//
-        // editor.config.uploadImgUrl = 'upload.do';
-        // editor.config.uploadImgFileName = 'myFileName';
-        // editor.create();
 
         var topics = $(".topics");
         var topicId = $("#topicId");

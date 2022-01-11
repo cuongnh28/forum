@@ -128,10 +128,10 @@ public class PostController {
     @RequestMapping(value="/searchPost.do", method = RequestMethod.GET)
     public String search(String searchTemp, Model model, HttpSession session) {
         PageBean<Post> pageBean = postService.searchByTitle(searchTemp);
-        List<User> userList = userService.listUserByTime();
+        List<User> newUserList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         model.addAttribute("pageBean", pageBean);
-        model.addAttribute("userList", userList);
+        model.addAttribute("newUserList", newUserList);
         model.addAttribute("hotUserList", hotUserList);
         return "index";
     }
@@ -145,12 +145,12 @@ public class PostController {
         if (sessionUid == post.getUser().getUserId() || sessionUser.checkIsAdmin()) {
             if (postService.deletePost(postId)) {
                 PageBean<Post> pageBean = postService.listPostByNewestTime(1);
-                List<User> userList = userService.listUserByTime();
+                List<User> newUserList = userService.listUserByTime();
                 List<User> hotUserList = userService.listUserByHot();
                 String sortBy = "newestTime";
                 model.addAttribute("sortBy", sortBy);
                 model.addAttribute("pageBean", pageBean);
-                model.addAttribute("userList", userList);
+                model.addAttribute("newUserList", newUserList);
                 model.addAttribute("hotUserList", hotUserList);
                 return "index";
             }

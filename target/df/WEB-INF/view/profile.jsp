@@ -24,7 +24,7 @@
         <p class="" style="font-size: 50px"> <b>This is wallpaper</b></p>
 
         <div class="w-100 h-100 position-absolute" style="top: 0 ; bottom: 0">
-            <img class="w-100 h-100" id="output" style="height: auto; object-fit: cover"/>
+            <img class="w-100 h-100" id="output" src="../../upload/images/${user.cover}" style="width: 100%; height: auto; object-fit: cover"/>
         </div>
 
         <div class="position-absolute btn-group" role="group" aria-label="Basic example" style="bottom: 20px; right: 20px">

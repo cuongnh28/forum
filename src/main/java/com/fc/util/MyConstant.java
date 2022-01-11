@@ -1,6 +1,5 @@
 package com.fc.util;
 
-
 public class MyConstant {
     public static final String QINIU_IMAGE_URL = "http://od6v5lenq.bkt.clouddn.com/";
     public static final String QINIU_ACCESS_KEY = "OO_3P93p4-feCji_Vd3SQPA4FtrUpjw8bL1jXhF8";

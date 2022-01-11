@@ -89,7 +89,7 @@ public class TopicController {
             System.out.println("File upload false");
         }
 
-        return "topic";
+        return "redirect:listTopic.do";
     }
 
     @RequestMapping(value="/searchTopic.do", method = RequestMethod.GET)

@@ -929,7 +929,7 @@ var SalesChart = (function() {
         }
       },
       data: {
-        labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
         datasets: [{
           label: 'Performance',
           data: [0, 20, 40, 30, 15, 40, 20, 60, 60]
